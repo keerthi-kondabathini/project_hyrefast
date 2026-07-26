@@ -1,0 +1,26 @@
+{
+  "_readme": "RBAC test configuration. All email addresses are generated at runtime — nothing here is hardcoded.",
+
+  "roles": {
+    "owner":    { "label": "Owner",       "canPublishJD": true,  "canAssignJD": true,  "menuItems": ["Personal profile","Reset password","Communication preferences","Workspace settings","Billing"], "noMenuItems": [] },
+    "admin":    { "label": "Admin",       "canPublishJD": true,  "canAssignJD": true,  "menuItems": ["Personal profile","Reset password","Communication preferences","Workspace settings"],          "noMenuItems": ["Billing"] },
+    "teamLead": { "label": "Team Lead",   "canPublishJD": true,  "canAssignJD": true,  "menuItems": ["Personal profile","Reset password","Communication preferences"],          "noMenuItems": ["Workspace settings","Billing"] },
+    "member":   { "label": "Team Member", "canPublishJD": false, "canAssignJD": false, "menuItems": ["Personal profile","Reset password","Communication preferences"],                               "noMenuItems": ["Workspace settings","Billing"] }
+  },
+
+  "jdAssignTabs": {
+    "ownerAdmin": ["Overview","Interview Links","Access Settings","Advanced Proctoring"],
+    "teamLead":   ["Overview","Interview Links","Access Settings"],
+    "member":     ["Overview","Interview Links"]
+  },
+
+  "jobTitle": ".net developer",
+
+  "invitePassword": "Test@1234",
+
+  "teamMemberships": {
+    "Leads":           "teamLead",
+    "Owners & Admins": "admin",
+    "Members":         "member"
+  }
+}

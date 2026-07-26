@@ -1,0 +1,361 @@
+{
+  "users": {
+    "admin": {
+      "emailEnvKey": "USER_EMAIL",
+      "passwordEnvKey": "USER_PASSWORD",
+      "fullNameEnvKey": "USER_FULL_NAME",
+      "role": "admin"
+    }
+  },
+  "jdCreation": {
+    "scenarios": [
+      {
+        "id": "tc_jd_001",
+        "description": "Create and publish a .NET developer JD",
+        "jobTitle": ".net developer",
+        "workspaceEnvKey": "WORKSPACE_NAME",
+        "employmentType": "Part-time",
+        "workMode": "Hybrid",
+        "locationQuery": "banglore",
+        "locationOption": "Karnataka, India",
+        "publishAction": "Published",
+        "closingDateOffsetDays": 30,
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "label": "LinkedIn"
+          },
+          {
+            "name": "Naukri",
+            "label": "naukri"
+          }
+        ],
+        "extraSkill": {
+          "type": "Good to Have",
+          "name": "TypeScript",
+          "proficiency": "L3 \u2014 Intermediate",
+          "aliases": "ts, typescript",
+          "rationale": "Helpful for modern .NET frontend integrations"
+        }
+      },
+      {
+        "id": "tc_jd_002",
+        "description": "Create and save-as-draft a React developer JD",
+        "jobTitle": "react developer",
+        "workspaceEnvKey": "WORKSPACE_NAME",
+        "employmentType": "Full-time",
+        "workMode": "Remote",
+        "locationQuery": "mumbai",
+        "locationOption": "Mumbai Maharashtra, India",
+        "publishAction": "Save as Draft",
+        "closingDateOffsetDays": 45,
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "label": "LinkedIn"
+          }
+        ],
+        "extraSkill": {
+          "type": "Must Have",
+          "name": "React",
+          "proficiency": "L4 \u2014 Advanced",
+          "aliases": "reactjs, react.js",
+          "rationale": "Core technology for the role"
+        }
+      },
+      {
+        "id": "tc_jd_003",
+        "description": "Create and set status to Hiring In Progress a Python developer JD",
+        "jobTitle": "python developer",
+        "workspaceEnvKey": "WORKSPACE_NAME",
+        "employmentType": "Full-time",
+        "workMode": "Hybrid",
+        "locationQuery": "pune",
+        "locationOption": "Pune Maharashtra, India",
+        "publishAction": "Hiring In Progress",
+        "closingDateOffsetDays": 30,
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "label": "LinkedIn"
+          },
+          {
+            "name": "Naukri",
+            "label": "naukri"
+          }
+        ],
+        "extraSkill": {
+          "type": "Good to Have",
+          "name": "Docker",
+          "proficiency": "L3 \u2014 Intermediate",
+          "aliases": "docker, containerization",
+          "rationale": "Useful for deployment and devops workflows"
+        }
+      },
+      {
+        "id": "tc_jd_004",
+        "description": "Create and set status to Closed a Java developer JD",
+        "jobTitle": "java developer",
+        "workspaceEnvKey": "WORKSPACE_NAME",
+        "employmentType": "Contract",
+        "workMode": "On-site",
+        "locationQuery": "chennai",
+        "locationOption": "Chennai Tamil Nadu, India",
+        "publishAction": "Closed",
+        "closingDateOffsetDays": 15,
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "label": "LinkedIn"
+          }
+        ],
+        "extraSkill": {
+          "type": "Must Have",
+          "name": "Spring Boot",
+          "proficiency": "L4 \u2014 Advanced",
+          "aliases": "spring, springboot",
+          "rationale": "Core framework for Java microservices"
+        }
+      },
+      {
+        "id": "tc_jd_005",
+        "description": "Create JD from role title only",
+        "jobTitle": "developer",
+        "generateFromRoleTitle": true,
+        "workspaceEnvKey": "WORKSPACE_NAME",
+        "employmentType": "Contract",
+        "workMode": "Hybrid",
+        "locationQuery": "hyd",
+        "locationOption": "Hyderabad Telangana, India",
+        "publishAction": "Published",
+        "closingDateOffsetDays": 30,
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "label": "LinkedIn"
+          },
+          {
+            "name": "Naukri",
+            "label": "naukri"
+          }
+        ],
+        "extraSkill": {
+          "type": "Good to Have",
+          "name": "TypeScript",
+          "proficiency": "L3 \u2014 Intermediate",
+          "aliases": "ts, typescript",
+          "rationale": "Helpful for modern .NET frontend integrations"
+        }
+      }
+    ]
+  },
+  "jdDeletion": {
+    "scenarios": [
+      {
+        "id": "tc_jd_del_001",
+        "description": "Delete a .NET developer JD",
+        "jobTitle": ".net developer"
+      },
+      {
+        "id": "tc_jd_del_002",
+        "description": "Delete a React developer JD",
+        "jobTitle": "react developer"
+      }
+    ]
+  },
+  "candidates": {
+    "jobTitle": ".net developer",
+    "resumeFile": "/Users/techpranee/Downloads/resume_var_1.pdf",
+    "resumeFileName": "resume_var_1.pdf",
+    "resumeYopUsername": ""
+  },
+  "settings": {
+    "workspaceName": "Gimolov",
+    "memberRole": "Team Lead",
+    "memberTeam": "kisan",
+    "newMemberPassword": "password",
+    "teamMembers": [
+      "pranav",
+      "pravallika"
+    ],
+    "profileUpdate": {
+      "fullName": "prathammu",
+      "email": "pratham@yopmail.com",
+      "phone": "9876543210"
+    },
+    "company": {
+      "name": "hexaware",
+      "legalName": "hexaware.com",
+      "website": "https://mypethealhd.com",
+      "websiteDisplay": "mypethealhd.com",
+      "locationQuery": "hydergu",
+      "locationOption": "Hyderguda Telangana, India",
+      "locationDisplay": "Hyderguda, Telangana, India",
+      "description": "we are a mnc",
+      "logoFile": "/Users/techpranee/Downloads/download (3).jpeg"
+    }
+  },
+  "interview": {
+    "jobTitle": ".net developer",
+    "companyName": "Gimolov",
+    "directInterviewUrl": "",
+    "skills": {
+      "mustHaveSnippet": "Must Have7Core skills that directly impact role success",
+      "goodToHaveSnippet": "Good to Have2Complementary strengths that improve fit",
+      "bonusSnippet": "Bonus2Differentiators that can set top candidates apart"
+    },
+    "resumeScenarios": [
+      {
+        "id": "002",
+        "label": "High Skill Match",
+        "file": "/Users/techpranee/Downloads/resume3.docx"
+      },
+      {
+        "id": "003",
+        "label": "Medium Skill Match",
+        "file": "/Users/techpranee/Downloads/resume_var_4.docx"
+      },
+      {
+        "id": "004",
+        "label": "Low Skill Match",
+        "file": "/Users/techpranee/Downloads/resume_var_1.pdf"
+      }
+    ],
+    "feedbackRatings": [
+      {
+        "rowHeading": "Clarity",
+        "label": "Good"
+      },
+      {
+        "rowHeading": "Relevance",
+        "label": "Good"
+      }
+    ]
+  },
+  "aiValidation": {
+    "thresholds": {
+      "minSkillRecall": 0.8,
+      "maxHallucinationRate": 0.2,
+      "minSkillPrecision": 0.75,
+      "minCategoryAccuracy": 0.75,
+      "minTopicCoverage": 0.85,
+      "minQuestionRelevance": 0.75,
+      "fuzzyMatchScore": 0.72,
+      "keywordOverlap": 0.5
+    },
+    "scenarios": [
+      {
+        "id": "ai_val_001",
+        "goldenKey": "dotnet_developer",
+        "jdScenarioId": "tc_jd_001",
+        "description": "Full pipeline validation for .NET developer"
+      },
+      {
+        "id": "ai_val_002",
+        "goldenKey": "react_developer",
+        "jdScenarioId": "tc_jd_002",
+        "description": "Full pipeline validation for React developer"
+      }
+    ]
+  },
+  "timeouts": {
+    "jdGeneration": 15000,
+    "skillGeneration": 90000,
+    "interviewTopicGeneration": 15000,
+    "questionGeneration": 30000,
+    "aiCoverSkills": 30000,
+    "pageNavigation": 60000,
+    "emailDelivery": 15000,
+    "resumeScreeningPoll": 15000,
+    "resumeScreeningMax": 120000,
+    "activationEmail": 15000,
+    "assessmentPollingMs": 30000,
+    "assessmentMaxWaitMs": 300000,
+    "rejectionEmailWaitMs": 8000
+  },
+  "greetings": {
+    "morning": "Good Morning",
+    "afternoon": "Good Afternoon",
+    "evening": "Good Evening"
+  },
+  "resumeScreening": {
+    "jobTitle": ".net developer",
+    "companyName": "Gimolov",
+    "resumeFileEnvKey": "RESUME_FILE_PATH",
+    "resumeFileNameEnvKey": "RESUME_FILE_NAME",
+    "candidateNameEnvKey": "CANDIDATE_NAME",
+    "candidateEmailEnvKey": "CANDIDATE_EMAIL",
+    "explorerEmailEnvKey": "EXPLORER_EMAIL",
+    "expectedStatus": "Screening Finished",
+    "datePart": "May 2026",
+    "screeningPollIntervalMs": 15000,
+    "screeningMaxWaitMs": 250000
+  },
+  "signup": {
+    "expectedCredits": 25,
+    "password": "password",
+    "recruitingMode": {
+      "id": "tc_signup_001",
+      "description": "Sign up and choose Recruiting mode workspace"
+    },
+    "agencyMode": {
+      "id": "tc_signup_002",
+      "description": "Sign up and choose Agency mode workspace"
+    },
+    "agencyModeViaSwitch": {
+      "id": "tc_signup_003",
+      "description": "Sign up in Recruiting mode then switch to Agency via toggle"
+    }
+  },
+  "pipeline": {
+    "jobTitle": ".net developer",
+    "companyName": "Gimolov",
+    "applicationsUrl": "https://staging.hyrefast.ai/job/69f596299175626e9cccb1e4/applications/",
+    "candidates": {
+      "emailOnly": {
+        "id": "tc_pipe_001",
+        "email": "test001@yopmail.com",
+        "yopUsername": "test001",
+        "name": "Test001 Candidate"
+      },
+      "fullFlow": {
+        "id": "tc_pipe_002",
+        "email": "test002@yopmail.com",
+        "yopUsername": "test002",
+        "name": "Mulki Srujana",
+        "resumeFile": "/Users/techpranee/Downloads/senior_resume4.docx"
+      }
+    },
+    "rounds": [
+      {
+        "alias": "round1",
+        "roundNumber": 1,
+        "noShowDay": 19
+      },
+      {
+        "alias": "test round2",
+        "roundNumber": 2,
+        "startDay": 20,
+        "passDay": 19
+      }
+    ],
+    "offerDay": 19,
+    "joinedDay": 20,
+    "continuedDay": 20,
+    "explorerStatusMap": {
+      "awaitingInterview": "Awaiting Candidate Interview",
+      "assessmentInProgress": "Assessment In Progress",
+      "decisionPending": "Decision Pending",
+      "shortlisted": "Shortlisted",
+      "candidateShared": "Candidate Shared",
+      "roundInProgress": "Next Round",
+      "offerMade": "Offer Made",
+      "offerAccepted": "Offer Accepted",
+      "candidateJoined": "Candidate Joined",
+      "candidateContinued": "Candidate Continued",
+      "notInterested": "Not Interested",
+      "rejected": "Rejected",
+      "dropped": "Candidate Dropped"
+    }
+  }
+}

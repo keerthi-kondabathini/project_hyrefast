@@ -1,0 +1,47 @@
+{
+  "name": "hyrefast-automation",
+  "version": "1.0.0",
+  "description": "HyreFast.ai — Playwright E2E Automation Framework",
+  "scripts": {
+    "test:staging":                   "TEST_ENV=staging npx playwright test",
+    "test:production":                "TEST_ENV=production npx playwright test",
+
+"test:test":             "TEST_ENV=test npx playwright test",
+"test:test:auth":        "TEST_ENV=test npx playwright test tests/auth/",
+"test:test:jd":          "TEST_ENV=test npx playwright test tests/jd/",
+"test:test:candidates":  "TEST_ENV=test npx playwright test tests/candidates/",
+"test:test:settings":    "TEST_ENV=test npx playwright test tests/settings/",
+"test:test:interview":   "TEST_ENV=test npx playwright test tests/interview/ --project=chromium-interview",
+
+
+    "test:staging:auth":              "TEST_ENV=staging npx playwright test tests/auth/ --project=chromium",
+    "test:staging:jd":                "TEST_ENV=staging npx playwright test tests/jd/ --project=chromium",
+    "test:staging:candidates":        "TEST_ENV=staging npx playwright test tests/candidates/ --project=chromium",
+    "test:staging:settings":          "TEST_ENV=staging npx playwright test tests/settings/ --project=chromium",
+    "test:staging:interview":         "TEST_ENV=staging npx playwright test tests/interview/ --project=chromium-interview",
+    "test:staging:interview:high":    "TEST_ENV=staging npx playwright test tests/interview/ --project=chromium-interview -g 'High Skill Match'",
+    "test:staging:interview:medium":  "TEST_ENV=staging npx playwright test tests/interview/ --project=chromium-interview -g 'Medium Skill Match'",
+    "test:staging:interview:low":     "TEST_ENV=staging npx playwright test tests/interview/ --project=chromium-interview -g 'Low Skill Match'",
+    "test:staging:audio":             "TEST_ENV=staging npx playwright test tests/interview/ --project=chromium-interview -g 'Audio Validation'",
+
+    "test:production:auth":           "TEST_ENV=production npx playwright test tests/auth/ --project=chromium",
+    "test:production:jd":             "TEST_ENV=production npx playwright test tests/jd/ --project=chromium",
+    "test:production:settings":       "TEST_ENV=production npx playwright test tests/settings/ --project=chromium",
+    "test:production:interview":      "TEST_ENV=production npx playwright test tests/interview/ --project=chromium-interview",
+
+    "test:headed":                    "TEST_ENV=staging HEADLESS=false npx playwright test --project=chromium",
+    "test:headed:interview":          "TEST_ENV=staging HEADLESS=false npx playwright test tests/interview/ --project=chromium-interview",
+    "test:debug":                     "TEST_ENV=staging npx playwright test --debug",
+    "report":                         "npx playwright show-report reports/html",
+
+    "gen:audio":                      "node scripts/generateAudioFixtures.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@playwright/test": "^1.59.1",
+    "dotenv": "^17.4.2"
+  }
+}

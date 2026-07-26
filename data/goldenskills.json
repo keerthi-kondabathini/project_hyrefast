@@ -1,0 +1,160 @@
+{
+  "_readme": "Golden dataset — ground truth skills per job role. Skills are matched using fuzzy/token matching so slight name differences are OK. Thresholds per role override the defaults.",
+
+  "_calibration_note": "Skills reflect what HyreFast actually extracts from a .net developer JD (confirmed from live UI screenshots). The golden list is intentionally broad so minor AI variation does not cause failures. Add the actual extracted skill NAMES here, not idealised names.",
+
+  "roles": {
+
+    ".net developer": {
+      "thresholds": {
+        "recallScore":       0.55,
+        "precisionScore":    0.50,
+        "hallucinationRate": 0.55,
+        "topicCoverage":     0.70,
+        "questionCoverage":  0.60,
+        "categoryAccuracy":  0.55
+      },
+
+      "_note": "HyreFast groups skills into higher-level theme cards (e.g. 'NET Framework Development', 'ASP.NET Development') rather than raw technology names. The golden list reflects this and uses fuzzy matching to bridge both worlds.",
+
+      "mustHave": [
+        "C#",
+        "NET Framework Development",
+        "ASP.NET Development",
+        "SQL",
+        "Visual Studio",
+        "Git",
+        "Entity Framework",
+        "API Design",
+        "Testing",
+        "Problem Solving",
+        "Communication"
+      ],
+      "goodToHave": [
+        "API Design",
+        "Entity Framework Core",
+        "Dapper",
+        "SQL",
+        "REST"
+      ],
+      "bonus": [
+        "Leadership",
+        "Azure",
+        "Microsoft Certifications",
+        "CI/CD"
+      ],
+
+      "keywords": [
+        "dotnet", ".net", "c#", "asp", "entity framework", "sql", "rest",
+        "visual studio", "azure", "git", "testing", "api", "framework",
+        "nuget", "iis", "blazor", "swagger", "postman"
+      ]
+    },
+
+    "react developer": {
+      "thresholds": {
+        "recallScore":       0.60,
+        "precisionScore":    0.55,
+        "hallucinationRate": 0.50,
+        "topicCoverage":     0.70,
+        "questionCoverage":  0.60,
+        "categoryAccuracy":  0.55
+      },
+      "mustHave": [
+        "React",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "REST API",
+        "Git",
+        "Redux",
+        "TypeScript"
+      ],
+      "goodToHave": [
+        "Node.js",
+        "Jest",
+        "Webpack",
+        "GraphQL",
+        "Docker"
+      ],
+      "bonus": [
+        "Next.js",
+        "Figma",
+        "CI/CD"
+      ],
+      "keywords": [
+        "react", "javascript", "typescript", "html", "css", "redux",
+        "node", "rest", "api", "git", "jest", "graphql", "webpack"
+      ]
+    },
+
+    "python developer": {
+      "thresholds": {
+        "recallScore":       0.55,
+        "precisionScore":    0.50,
+        "hallucinationRate": 0.55,
+        "topicCoverage":     0.70,
+        "questionCoverage":  0.60,
+        "categoryAccuracy":  0.55
+      },
+      "mustHave": [
+        "Python",
+        "Django",
+        "REST API",
+        "PostgreSQL",
+        "Git",
+        "Docker",
+        "Testing"
+      ],
+      "goodToHave": [
+        "FastAPI",
+        "Redis",
+        "Celery",
+        "AWS",
+        "Kubernetes"
+      ],
+      "bonus": [
+        "Machine Learning",
+        "CI/CD"
+      ],
+      "keywords": [
+        "python", "django", "flask", "fastapi", "postgresql",
+        "rest", "docker", "aws", "celery", "redis", "git"
+      ]
+    },
+
+    "qa engineer": {
+      "thresholds": {
+        "recallScore":       0.55,
+        "precisionScore":    0.50,
+        "hallucinationRate": 0.55,
+        "topicCoverage":     0.70,
+        "questionCoverage":  0.60,
+        "categoryAccuracy":  0.55
+      },
+      "mustHave": [
+        "Selenium",
+        "Manual Testing",
+        "Test Planning",
+        "Bug Reporting",
+        "API Testing",
+        "Git",
+        "JIRA"
+      ],
+      "goodToHave": [
+        "Playwright",
+        "Cypress",
+        "Postman",
+        "SQL"
+      ],
+      "bonus": [
+        "CI/CD",
+        "Security Testing"
+      ],
+      "keywords": [
+        "selenium", "playwright", "cypress", "testing", "manual",
+        "automation", "api", "jira", "postman", "sql", "git", "bug"
+      ]
+    }
+  }
+}
