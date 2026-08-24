@@ -1,0 +1,7 @@
+[  -54587ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://staging.hyrefast.ai/job/6a3d39531e8e4c8fc831c63e/applications/:0
+[  -54453ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://analytics.techpranee.com/api/track:0
+[  -54126ms] [WARNING] Notification permission has been denied @ https://staging.hyrefast.ai/assets/index-COD-lVkU.js:3418
+[  -54089ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://analytics.techpranee.com/api/track:0
+[  -54083ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://analytics.techpranee.com/api/track:0
+[  -54056ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://chatwoot.techpranee.com/widget?website_token=7R6o8pxxZcugYR1WbEv8MsUf:0
+[  -52034ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://analytics.techpranee.com/api/track:0

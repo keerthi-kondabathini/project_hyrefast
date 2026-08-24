@@ -1,5 +1,6 @@
 // pages/JDCreationPage.js
 const { expect } = require('@playwright/test');
+const path = require('path');
 const { BasePage } = require('./BasePage');
 
 /**
@@ -15,16 +16,22 @@ class JDCreationPage extends BasePage {
     super(page);
 
     // ── Step 1: JD & Details ─────────────────────────────────
-    this.jobTitleInput       = page.getByRole('textbox', { name: 'Type a role title or paste a' });
-    this.roleTitleInput      = page.getByRole('textbox', { name: 'e.g. Senior Frontend Engineer' });
-    this.workspaceCombo      = page.getByRole('combobox');
-    this.generateButton      = page.getByRole('button', { name: 'Generate' });
-    this.generateAndCreateBtn = page.getByRole('button', { name: 'Generate JD & Create Job' });
-    this.noJDRoleTitleBtn    = page.getByRole('button', { name: 'I do not have a JD (Generate via Role Title)' });
-    this.locationInput       = page.getByPlaceholder(/Search city/);
-    this.continueToJDButton  = page.getByRole('button', { name: 'Continue to JD generation' });
-    this.proceedToSkillsBtn  = page.getByRole('button', { name: 'Proceed to Skill Requirements' });
-    this.jdDetailsHeading    = page.getByText('JD & DetailsJob title, JD');
+    this.jobTitleInput             = page.getByRole('textbox', { name: 'Type a role title or paste a' });
+    this.roleTitleInput            = page.getByRole('textbox', { name: 'e.g. Senior Frontend Engineer' });
+    this.uploadWorkspaceCombo      = page.getByRole('combobox').first();
+    this.generateButton            = page.getByRole('button', { name: 'Generate' });
+    this.generateAndCreateBtn      = page.getByRole('button', { name: 'Generate JD & Create Job' });
+    this.noJDRoleTitleBtn          = page.getByRole('button', { name: 'I do not have a JD (Generate via Role Title)' });
+    this.uploadHeading             = page.getByRole('heading', { name: 'Upload your Job Description' });
+    this.uploadDropzone            = page.getByText(/Drag and drop your job description file here, or click to browse\./i);
+    this.uploadFileInput           = page.locator('input[type="file"]').first();
+    this.locationInput             = page.getByPlaceholder(/Search city|Search city, state or country/i);
+    this.continueToJDButton        = page.getByRole('button', { name: 'Continue to JD generation' });
+    this.proceedToSkillsBtn        = page.getByRole('button', { name: 'Proceed to Skill Requirements' });
+    this.jdDetailsHeading          = page.getByText('JD & Details');
+    this.roleDetailsHeading        = page.getByRole('heading', { name: 'Complete the role details' });
+    this.workTypeCombo             = page.getByRole('combobox', { name: /Work Type/i }).first();
+    this.workModeCombo             = page.getByRole('combobox', { name: /Work Mode/i }).first();
 
     // ── Step 2: Skills ────────────────────────────────────────
     this.addSkillButton      = page.getByRole('button', { name: 'Add Skill' });
@@ -60,47 +67,62 @@ class JDCreationPage extends BasePage {
   // ═══════════════════════════════════════════════════════════
   //  Step 1 — JD & Details
   // ═══════════════════════════════════════════════════════════
-  async fillJobDetails({ jobTitle, workspaceName, employmentType, workMode, locationQuery, locationOption, generateFromRoleTitle = false }) {
-    await this.assertVisible(this.jdDetailsHeading, 'JD creation wizard should be open');
-    
-    // If generateFromRoleTitle is true, click the "I do not have a JD" button first
-    if (generateFromRoleTitle) {
-      await this.assertVisible(this.noJDRoleTitleBtn, 'Generate via Role Title button should be visible');
-      await this.noJDRoleTitleBtn.click();
-      // Wait for the role title input to appear and fill it
-      await this.assertVisible(this.roleTitleInput, 'Role title input should be visible');
-      await this.fillInput(this.roleTitleInput, jobTitle);
-    } else {
-      // For existing flow, use the role title input (the main input field)
-      await this.assertVisible(this.roleTitleInput, 'Role title input should be visible');
-      await this.fillInput(this.roleTitleInput, jobTitle);
+  async fillJobDetails({
+    jobTitle,
+    workspaceName,
+    employmentType,
+    workMode,
+    locationQuery,
+    locationOption,
+    generateFromRoleTitle = false,
+    jobDescriptionFilePath = null,
+  }) {
+    await this.assertVisible(this.uploadHeading, 'JD creation wizard should be open');
+
+    const defaultJDFilePath = path.resolve(__dirname, '../fixtures/resumes/Advanced_DotNet_Resume_7.docx');
+    const uploadPath = jobDescriptionFilePath || defaultJDFilePath;
+
+    // Upload-first flow takes precedence unless the scenario explicitly uses role-title generation.
+    if (!generateFromRoleTitle) {
+      await this.assertVisible(this.uploadDropzone, 'JD upload dropzone should be visible');
+      await this.uploadDropzone.click();
+      await this.uploadFileInput.setInputFiles(uploadPath);
+
+      if (await this.uploadWorkspaceCombo.isVisible().catch(() => false)) {
+        await this.uploadWorkspaceCombo.click();
+        await this.page.getByRole('option', { name: workspaceName }).click();
+      }
+
+      if (await this.generateAndCreateBtn.isVisible().catch(() => false)) {
+        await this.generateAndCreateBtn.click();
+      } else {
+        await this.assertVisible(this.continueToJDButton, 'Continue to JD generation button should be visible after upload');
+        await this.continueToJDButton.click();
+      }
+
+      return;
     }
 
-    // Workspace selection
-    await this.workspaceCombo.first().click();
+    await this.assertVisible(this.noJDRoleTitleBtn, 'Generate via Role Title button should be visible');
+    await this.noJDRoleTitleBtn.click();
+    await this.assertVisible(this.roleTitleInput, 'Role title input should be visible');
+    await this.fillInput(this.roleTitleInput, jobTitle);
+
+    // Workspace selection for role-title flow
+    await this.uploadWorkspaceCombo.click();
     await this.page.getByRole('option', { name: workspaceName }).click();
 
-    // Wait for Generate button to be visible and clickable
-    await this.assertVisible(this.generateButton, 'Generate button should be visible after workspace selection');
-    await this.generateButton.click();
-
-    // Employment type
-    await this.page
-      .getByRole('combobox')
-      .filter({ hasText: 'Full-time' })
-      .click();
+    await this.workTypeCombo.click();
     await this.page.getByRole('option', { name: employmentType }).click();
 
-    // Work mode
-    await this.page
-      .getByRole('combobox')
-      .filter({ hasText: 'On-site' })
-      .click();
-    await this.page.getByText(workMode, { exact: true }).click();
+    await this.workModeCombo.click();
+    await this.page.getByRole('option', { name: workMode }).click();
 
-    // Location
     await this.fillInput(this.locationInput, locationQuery);
-    await this.page.getByRole('button', { name: locationOption }).first().click();
+    const normalizedLocation = new RegExp(locationOption.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+    const locationButton = this.page.getByRole('button').filter({ hasText: normalizedLocation }).first();
+    await expect(locationButton).toBeVisible({ timeout: 15_000 });
+    await locationButton.click();
 
     // Salary sliders — click first range thumb
     await this.page.locator('.relative.h-1\\.5').first().click();
@@ -110,8 +132,8 @@ class JDCreationPage extends BasePage {
   }
 
   async waitForJDGeneration(timeoutMs = 50_000) {
-    // await this.waitForToast();
-    await this.page.waitForTimeout(timeoutMs);
+    await expect(this.page.getByRole('heading', { name: 'JD & Details' })).toBeVisible({ timeout: timeoutMs });
+    await expect(this.proceedToSkillsBtn).toBeEnabled({ timeout: timeoutMs });
   }
 
   async assertJDGenerated(jobTitle) {

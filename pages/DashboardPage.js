@@ -12,7 +12,7 @@ class DashboardPage extends BasePage {
         name: new RegExp(`Good (Morning|Afternoon|Evening), ${userName}`, 'i')
       });
 this.logoutLink = page.getByRole('menuitem', { name: /log out/i });
-    this.hyrefastHeading = page.getByRole('heading', { name: 'Hyrefast' });
+    this.hyrefastHeading = page.getByRole('heading', { name: 'Hyrefast', exact: true });
 
     // ── User menu ─────────────────────────────────────────
 this.companyLogoButton = page
@@ -79,7 +79,8 @@ this.companyLogoButton = page
 
   async assertJobNotFound(jobTitle) {
     await this.searchJob(jobTitle);
-    await expect(this.page.getByRole('heading', { name: 'No matching jobs found' })).toBeVisible({ timeout: 15_000 });
+    const noResultsText = this.page.getByText(/No matching jobs found|No jobs found|No results found/i);
+    await expect(noResultsText).toBeVisible({ timeout: 15_000 });
   }
 }
 

@@ -36,9 +36,10 @@ class ResumeScreeningPage extends BasePage {
     this.sendInterviewLinkText     = page.getByText("Use the send interview link action to email these candidates when you're ready.", { exact: true });
 
     // ── Candidate filter controls ─────────────────────────
-    this.filterByNameCombo   = page.getByRole('combobox').filter({ hasText: 'Name' });
-    this.filterByEmailOption = page.getByText('Email', { exact: true });
-    this.filterEmailInput    = page.getByRole('textbox', { name: 'Filter by email' });
+    this.filterByNameCombo      = page.getByRole('combobox').filter({ hasText: /Name|Filter|Search/i }).first();
+    this.filterByEmailOption    = page.getByRole('option').filter({ hasText: /Email/i }).first();
+    this.filterEmailInput       = page.locator('input[placeholder*="email"], input[placeholder*="Email"], input[type="search"], input[role="searchbox"], [aria-label*="email"], [aria-label*="Email"]').first();
+    this.filterNameSearchInput  = page.getByRole('textbox', { name: /Search name/i }).first();
 
     // ── Candidate row assertions ──────────────────────────
     this.statusTimelineText       = page.getByText('Status & Timeline');
@@ -113,14 +114,28 @@ class ResumeScreeningPage extends BasePage {
    * @param {string} email
    */
   async filterByEmail(email) {
-    // Only switch dropdown if it currently shows Name
-    const isName = await this.filterByNameCombo.isVisible().catch(() => false);
-    if (isName) {
-      await this.filterByNameCombo.click();
-      await this.filterByEmailOption.click();
+    // If the page only has a name search box, use that input and filter by email text.
+    if (await this.filterNameSearchInput.count() > 0 && await this.filterNameSearchInput.isVisible().catch(() => false)) {
+      await this.filterNameSearchInput.fill(email);
+      await this.page.waitForTimeout(1500);
+      return;
     }
-    
-    await this.filterEmailInput.fill(email);
+
+    // Otherwise switch the filter dropdown to Email if it is present.
+    if (await this.filterByNameCombo.count() > 0 && await this.filterByNameCombo.isVisible().catch(() => false)) {
+      await this.filterByNameCombo.click();
+      if (await this.filterByEmailOption.count() > 0) {
+        await this.filterByEmailOption.click();
+      }
+    }
+
+    const emailInput = this.filterEmailInput;
+    if (await emailInput.count() === 0) {
+      throw new Error('Unable to locate the email search input for resume screening filters');
+    }
+
+    await emailInput.waitFor({ state: 'visible', timeout: 15_000 });
+    await emailInput.fill(email);
     await this.page.waitForTimeout(1500); // debounce
   }
 

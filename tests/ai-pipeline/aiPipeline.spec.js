@@ -95,7 +95,6 @@ test.describe('TC_AIP_000 — Pipeline Setup (runs wizard once)', () => {
         locationOption: SCENARIO.locationOption,
       });
 
-      // Wait for JD generation to complete and extract the generated text.
       shared.jdContent = await skillsPage.extractJDContent()
 
       console.log(`JD content length: ${shared.jdContent.length} chars`);
@@ -104,7 +103,6 @@ test.describe('TC_AIP_000 — Pipeline Setup (runs wizard once)', () => {
 
     // ── Proceed to Skills ────────────────────────────────
     await test.step('Step 1 → Step 2 — Proceed to Skills', async () => {
-      // Screenshot 4 shows the button is "Proceed to Skill Requirements"
       await page.getByRole('button', { name: /Proceed to Skill Requirements/i }).click();
       await skillsPage.waitForSkillsReady();
     });
@@ -152,7 +150,6 @@ test.describe('TC_AIP_000 — Pipeline Setup (runs wizard once)', () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Helper: skip if pipeline setup did not complete
 // ─────────────────────────────────────────────────────────────────────────────
 function requirePipeline() {
   if (!shared.pipelineReady) {
@@ -180,7 +177,7 @@ test.describe('TC_AIP_001 — JD Generation Quality', () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  TC_AIP_002 — Skills Extraction: UI recall
+//  TC_AIP_002 — Skills Extraction:
 // ─────────────────────────────────────────────────────────────────────────────
 test.describe('TC_AIP_002 — Skills Extraction (UI Recall)', () => {
   test('Extracted skills meet recall and hallucination thresholds', async () => {

@@ -1,0 +1,53 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e3]:
+    - button [ref=e4] [cursor=pointer]:
+      - img
+    - generic [ref=e5]:
+      - generic [ref=e8]:
+        - link "HyreFast Logo Welcome to HyreFast Streamline your hiring process with our powerful recruitment platform." [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img "HyreFast Logo" [ref=e10]
+          - generic [ref=e11]:
+            - heading "Welcome to HyreFast" [level=1] [ref=e12]
+            - paragraph [ref=e13]: Streamline your hiring process with our powerful recruitment platform.
+        - generic [ref=e14]:
+          - generic [ref=e17]: Fast candidate screening
+          - generic [ref=e20]: Intelligent matching algorithms
+          - generic [ref=e23]: Collaborative hiring tools
+      - generic [ref=e28]:
+        - tablist [ref=e29]:
+          - tab "Sign Up" [ref=e30] [cursor=pointer]
+          - tab "Sign In" [selected] [ref=e31] [cursor=pointer]
+        - tabpanel "Sign In" [ref=e32]:
+          - generic [ref=e33]:
+            - generic [ref=e34]:
+              - heading "Welcome Back" [level=1] [ref=e35]
+              - paragraph [ref=e36]: Sign in to your HyreFast account
+            - generic [ref=e37]:
+              - button "Continue with Google" [ref=e38] [cursor=pointer]:
+                - img
+                - text: Continue with Google
+              - generic [ref=e42]: Or continue with email
+            - generic [ref=e43]:
+              - generic [ref=e44]:
+                - text: Email Address
+                - generic [ref=e45]:
+                  - img [ref=e46]
+                  - textbox "Email Address" [ref=e49]:
+                    - /placeholder: your.email@company.com
+              - generic [ref=e50]:
+                - text: Password
+                - generic [ref=e51]:
+                  - img [ref=e52]
+                  - textbox "Password" [ref=e55]:
+                    - /placeholder: Enter your password
+                  - button [ref=e56] [cursor=pointer]:
+                    - img
+              - button "Sign In" [disabled]:
+                - text: Sign In
+                - img
+              - button "Forgot your password?" [ref=e58] [cursor=pointer]

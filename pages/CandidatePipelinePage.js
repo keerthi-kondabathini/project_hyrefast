@@ -34,7 +34,7 @@ class CandidatePipelinePage extends BasePage {
     // ── Search / Filter ───────────────────────────────────
     this.filterByNameCombo   = page.getByRole('combobox').filter({ hasText: 'Name' });
     this.filterByEmailCombo  = page.getByRole('combobox').filter({ hasText: 'Email' });
-    this.filterEmailInput    = page.getByRole('textbox', { name: 'Filter by email' });
+    this.filterEmailInput    = page.getByRole('textbox', { name: 'Search email' });
     this.clearFilterBtn      = page.getByRole('button', { name: 'Clear filter' });
 
     // ── Status text locators (for assertions) ─────────────

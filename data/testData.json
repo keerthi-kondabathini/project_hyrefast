@@ -165,14 +165,14 @@
   },
   "candidates": {
     "jobTitle": ".net developer",
-    "resumeFile": "/Users/techpranee/Downloads/resume_var_1.pdf",
-    "resumeFileName": "resume_var_1.pdf",
+    "resumeFile": "fixtures/resumes/Advanced_DotNet_Resume_7.docx",
+    "resumeFileName": "Advanced_DotNet_Resume_7.docx",
     "resumeYopUsername": ""
   },
   "settings": {
     "workspaceName": "Gimolov",
     "memberRole": "Team Lead",
-    "memberTeam": "kisan",
+    "memberTeam": "001",
     "newMemberPassword": "password",
     "teamMembers": [
       "pranav",
@@ -208,17 +208,17 @@
       {
         "id": "002",
         "label": "High Skill Match",
-        "file": "/Users/techpranee/Downloads/resume3.docx"
+        "file": "fixtures/resumes/Advanced_DotNet_Resume_7.docx"
       },
       {
         "id": "003",
         "label": "Medium Skill Match",
-        "file": "/Users/techpranee/Downloads/resume_var_4.docx"
+        "file": "fixtures/resumes/Advanced_DotNet_Resume_7.docx"
       },
       {
         "id": "004",
         "label": "Low Skill Match",
-        "file": "/Users/techpranee/Downloads/resume_var_1.pdf"
+        "file": "fixtures/resumes/Advanced_DotNet_Resume_7.docx"
       }
     ],
     "feedbackRatings": [
@@ -323,7 +323,7 @@
         "email": "test002@yopmail.com",
         "yopUsername": "test002",
         "name": "Mulki Srujana",
-        "resumeFile": "/Users/techpranee/Downloads/senior_resume4.docx"
+        "resumeFile": "fixtures/resumes/Advanced_DotNet_Resume_7.docx"
       }
     },
     "rounds": [

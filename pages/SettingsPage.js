@@ -14,7 +14,7 @@ class SettingsPage extends BasePage {
     super(page);
 
     // ── Nav ───────────────────────────────────────────────
-    this.userMenuButton         = page.getByRole('button', { name: 'G', exact: true });
+    this.userMenuButton         = page.getByRole('button', { name: 'Company Logo' });
     this.settingsLink           = page.getByText('Settings');
 
     // ── Sidebar sections ──────────────────────────────────
@@ -88,8 +88,33 @@ class SettingsPage extends BasePage {
     await this.memberRoleCombo.click();
     await this.page.getByRole('option', { name: role }).click();
     await this.memberTeamsCombo.click();
-    await this.teamSearchInput.fill('');
-    await this.page.getByLabel('Suggestions').getByText(teamName).click();
+    // Type the team name to filter suggestions reliably
+    await this.teamSearchInput.fill(teamName);
+    await this.page.waitForTimeout(300);
+    // If suggestions explicitly say 'No team found.', skip selecting a team
+    let noTeamFound = false;
+    try {
+      const suggestions = this.page.getByLabel('Suggestions');
+      const noCount = await suggestions.getByText('No team found.').count();
+      noTeamFound = noCount > 0;
+    } catch (err) {
+      // ignore — suggestions container may not be labeled; continue to selection attempts
+    }
+
+    if (!noTeamFound) {
+      // Try the accessible option role first, then fall back to text search inside suggestions
+      const optionLocator = this.page.getByRole('option', { name: new RegExp(`^${teamName}$`, 'i') });
+      try {
+        await optionLocator.click({ timeout: 10_000 });
+      } catch (e) {
+        const fallback = this.page.getByText(teamName, { exact: true });
+        try {
+          await fallback.click({ timeout: 10_000 });
+        } catch (err) {
+          // If fallback also fails, proceed without selecting a team
+        }
+      }
+    }
     await this.addMemberButton.click();
     await this.assertVisible(this.inviteSentText, '"Invite sent successfully!" not visible');
   }

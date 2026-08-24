@@ -88,17 +88,60 @@ class CandidatesPage extends BasePage {
    * Reads the "NApplied" text pattern, e.g. "3Applied" → 3
    */
   async getCandidateCount() {
-    // Try "NApplied" format first
+    const parseTotalFromText = (text) => {
+      if (!text) return null;
+      const match = text.match(/(?:\d+\s*-\s*\d+\s*of\s*|of\s*)(\d+)/i);
+      return match ? parseInt(match[1], 10) : null;
+    };
+
+    const paginationPatterns = [
+      this.page.locator('text=/\\d+\\s*-\\s*\\d+\\s*of\\s*\\d+/i').first(),
+      this.page.locator('p').filter({ hasText: /of\s*\d+/i }).first(),
+      this.page.locator('div').filter({ hasText: /of\s*\d+/i }).first(),
+      this.page.getByText(/of\s*\d+/i).first(),
+    ];
+
+    for (const locator of paginationPatterns) {
+      if (await locator.count() > 0) {
+        await locator.waitFor({ state: 'visible', timeout: 10_000 }).catch(() => null);
+        const paginationText = await locator.innerText().catch(() => null);
+        const total = parseTotalFromText(paginationText);
+        if (typeof total === 'number' && total > 0) {
+          return total;
+        }
+      }
+    }
+
+    // Ensure the candidate rows have loaded before counting.
+    const rowLocator = this.page.locator('table tbody tr, [role="row"]');
+    await rowLocator.first().waitFor({ state: 'visible', timeout: 15_000 }).catch(() => null);
+
+    const tableRows = this.page.locator('table tbody tr');
+    if (await tableRows.count() > 0) {
+      return await tableRows.count();
+    }
+
+    const gridRows = this.page.locator('[role="row"]');
+    if (await gridRows.count() > 1) {
+      const firstRowText = await gridRows.first().innerText().catch(() => '');
+      const hasHeader = /name|email|status|application|actions/i.test(firstRowText);
+      return hasHeader ? await gridRows.count() - 1 : await gridRows.count();
+    }
+
+    // Legacy badge fallback if still present.
     const text = await this.page.locator('text=/\\d+Applied/').first().innerText().catch(() => null);
     if (text) {
       const match = text.match(/(\d+)/);
       return match ? parseInt(match[1], 10) : 0;
     }
+
     return 0;
   }
 
   async assertCandidateCount(expected) {
-    await expect(this.appliedCountText(expected)).toBeVisible({ timeout: 15_000 });
+    await expect.poll(async () => {
+      return await this.getCandidateCount();
+    }, { timeout: 30_000, message: `Expected candidate count to be ${expected}` }).toBe(expected);
   }
 
   // ═══════════════════════════════════════════════════════

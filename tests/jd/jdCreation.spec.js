@@ -1,5 +1,6 @@
 // tests/jd/jdCreation.spec.js
 const { test, expect } = require('../../utils/authFixture');
+const path = require('path');
 const { JDCreationPage } = require('../../pages/JDCreationPage');
 const { futureDateString, getEnv } = require('../../utils/helpers');
 const testData = require('../../data/testData.json');
@@ -34,7 +35,7 @@ for (const scenario of testData.jdCreation.scenarios) {
       // ── 2. Open JD creation wizard ──────────────────────────
       await test.step('Open Create Job wizard', async () => {
         await loggedInPage.clickCreateJob();
-        await expect(page.getByText('JD & DetailsJob title, JD')).toBeVisible({ timeout: 15_000 });
+        await expect(page.getByRole('heading', { name: 'Upload your Job Description' })).toBeVisible({ timeout: 15_000 });
       });
 
       // ── 3. Fill Step 1 — JD Details ─────────────────────────
@@ -47,6 +48,7 @@ for (const scenario of testData.jdCreation.scenarios) {
           locationQuery:  scenario.locationQuery,
           locationOption: scenario.locationOption,
           generateFromRoleTitle: scenario.generateFromRoleTitle || false,
+          jobDescriptionFilePath: scenario.generateFromRoleTitle ? null : path.resolve(__dirname, '../../fixtures/resumes/Advanced_DotNet_Resume_7.docx'),
         });
       });
 
@@ -140,7 +142,8 @@ test.describe('JD Creation — Wizard smoke test', () => {
     });
 
     await test.step('Verify JD wizard heading is visible', async () => {
-      await expect(page.getByText('JD & DetailsJob title, JD')).toBeVisible({ timeout: 15_000 });
+      await expect(page.getByRole('heading', { name: 'Upload your Job Description' })).toBeVisible({ timeout: 15_000 });
+      await expect(page.getByRole('button', { name: 'I do not have a JD (Generate via Role Title)' })).toBeVisible();
     });
   });
 

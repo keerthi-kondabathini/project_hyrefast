@@ -15,8 +15,8 @@ const path      = require('path');
 const RS = testData.resumeScreening;
 
 // Resolve env-driven resume / candidate values at runtime
-const resumeFile     = getEnv(RS.resumeFileEnvKey);
-const resumeFileName = getEnv(RS.resumeFileNameEnvKey);
+const resumeFile     = getEnv(RS.resumeFileEnvKey) || testData.candidates.resumeFile;
+const resumeFileName = getEnv(RS.resumeFileNameEnvKey) || path.basename(resumeFile);
 const candidateName  = getEnv(RS.candidateNameEnvKey);
 const candidateEmail = getEnv(RS.candidateEmailEnvKey);
 const explorerEmail  = getEnv(RS.explorerEmailEnvKey);

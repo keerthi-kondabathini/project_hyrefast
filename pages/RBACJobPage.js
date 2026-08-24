@@ -61,7 +61,7 @@ class RBACJobPage extends BasePage {
    */
   async createJDToPublishStep(jobTitle, workspaceName) {
     await this.createJobBtn.click();
-    await expect(this.page.getByText('JD & DetailsJob title, JD')).toBeVisible({ timeout: 15_000 });
+    await expect(this.page.getByRole('heading', { name: 'Upload your Job Description' })).toBeVisible({ timeout: 15_000 });
 
     // Use JDCreationPage for the JD creation flow
     await this.jdCreation.fillJobDetails({
@@ -170,6 +170,26 @@ class RBACJobPage extends BasePage {
   }
 
   async getCandidateCount() {
+    const paginationText = await this.page.getByText(/of\s*\d+/i).first().innerText().catch(() => null);
+    if (paginationText) {
+      const match = paginationText.match(/of\s*(\d+)/i);
+      if (match) {
+        return parseInt(match[1], 10);
+      }
+    }
+
+    const tableRows = this.page.locator('table tbody tr');
+    if (await tableRows.count() > 0) {
+      return await tableRows.count();
+    }
+
+    const gridRows = this.page.locator('[role="row"]');
+    if (await gridRows.count() > 1) {
+      const firstRowText = await gridRows.first().innerText().catch(() => '');
+      const hasHeader = /name|email|status|application|actions/i.test(firstRowText);
+      return hasHeader ? await gridRows.count() - 1 : await gridRows.count();
+    }
+
     const text = await this.page.locator('text=/\\d+Applied/').first().innerText().catch(() => '0Applied');
     const match = text.match(/(\d+)/);
     return match ? parseInt(match[1], 10) : 0;

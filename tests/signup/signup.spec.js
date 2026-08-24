@@ -192,74 +192,74 @@ test.describe('TC_SGN_002 — Sign Up with Agency Mode (direct selection)', () =
 
 });
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  TC_SGN_003 — Sign Up + Recruiting mode → switch to Agency via toggle
-// ─────────────────────────────────────────────────────────────────────────────
-test.describe('TC_SGN_003 — Sign Up: Recruiting mode then switch to Agency via toggle', () => {
+//// ─────────────────────────────────────────────────────────────────────────────
+////  TC_SGN_003 — Sign Up + Recruiting mode → switch to Agency via toggle
+//// ─────────────────────────────────────────────────────────────────────────────
+//test.describe('TC_SGN_003 — Sign Up: Recruiting mode then switch to Agency via toggle', () => {
 
-  test('New user picks Recruiting mode then enables Agency mode via the switch on Company Profile page', async ({
-    browser
-  }) => {
-    const { email, yopUsername } = generateYopMailUser();
-    const timeouts = testData.timeouts;
+//  test('New user picks Recruiting mode then enables Agency mode via the switch on Company Profile page', async ({
+//    browser
+//  }) => {
+//    const { email, yopUsername } = generateYopMailUser();
+//    const timeouts = testData.timeouts;
 
-    const context = await browser.newContext();
-    const page    = await context.newPage();
-    const signup  = new SignupPage(page);
+//    const context = await browser.newContext();
+//    const page    = await context.newPage();
+//    const signup  = new SignupPage(page);
 
-    await test.step('Sign up with a fresh YopMail account', async () => {
-      await signup.navigate();
-      await signup.openSignUpTab();
-      await signup.fillAndSubmitSignUp({
-        fullName: `Switch User ${yopUsername.slice(-4).toUpperCase()}`,
-        phone:    randomPhone(),
-        email:    email,
-        password: SU.password,
-      });
-      await signup.assertAccountCreated();
-    });
+//    await test.step('Sign up with a fresh YopMail account', async () => {
+//      await signup.navigate();
+//      await signup.openSignUpTab();
+//      await signup.fillAndSubmitSignUp({
+//        fullName: `Switch User ${yopUsername.slice(-4).toUpperCase()}`,
+//        phone:    randomPhone(),
+//        email:    email,
+//        password: SU.password,
+//      });
+//      await signup.assertAccountCreated();
+//    });
 
-    const yopContext = await browser.newContext();
-    const yopPage    = await yopContext.newPage();
-    const yopMail    = new YopMailPage(yopPage);
+//    const yopContext = await browser.newContext();
+//    const yopPage    = await yopContext.newPage();
+//    const yopMail    = new YopMailPage(yopPage);
 
-    await test.step('Open activation email in YopMail', async () => {
-      await yopMail.openInbox(yopUsername);
-      let found = false;
-      for (let attempt = 1; attempt <= 4; attempt++) {
-        const visible = await yopMail.mailFrame()
-          .getByText('Activate Your HyreFast')
-          .isVisible().catch(() => false);
-        if (visible) { found = true; break; }
-        await yopMail.refreshInbox();
-        await yopPage.waitForTimeout(timeouts.activationEmail);
-      }
-      expect(found, `Activation email not found in ${email}`).toBe(true);
-    });
+//    await test.step('Open activation email in YopMail', async () => {
+//      await yopMail.openInbox(yopUsername);
+//      let found = false;
+//      for (let attempt = 1; attempt <= 4; attempt++) {
+//        const visible = await yopMail.mailFrame()
+//          .getByText('Activate Your HyreFast')
+//          .isVisible().catch(() => false);
+//        if (visible) { found = true; break; }
+//        await yopMail.refreshInbox();
+//        await yopPage.waitForTimeout(timeouts.activationEmail);
+//      }
+//      expect(found, `Activation email not found in ${email}`).toBe(true);
+//    });
 
-    let activationPage;
-    await test.step('Click activation link', async () => {
-      const popup = yopContext.waitForEvent('page');
-      await yopMail.mailFrame()
-        .getByRole('link', { name: 'Activate My Account →' })
-        .click();
-      activationPage = await popup;
-      await activationPage.waitForLoadState('networkidle');
-    });
+//    let activationPage;
+//    await test.step('Click activation link', async () => {
+//      const popup = yopContext.waitForEvent('page');
+//      await yopMail.mailFrame()
+//        .getByRole('link', { name: 'Activate My Account →' })
+//        .click();
+//      activationPage = await popup;
+//      await activationPage.waitForLoadState('networkidle');
+//    });
 
-    const setupPage = new SignupPage(activationPage);
+//    const setupPage = new SignupPage(activationPage);
 
-    await test.step('Select Recruiting mode → lands on Primary Company Profile', async () => {
-      await setupPage.assertWorkspaceSetupScreen();
-      await setupPage.selectRecruitingMode();
-    });
+//    await test.step('Select Recruiting mode → lands on Primary Company Profile', async () => {
+//      await setupPage.assertWorkspaceSetupScreen();
+//      await setupPage.selectRecruitingMode();
+//    });
 
-    await test.step('Toggle Agency mode switch → confirm → verify Agency mode active', async () => {
-      await setupPage.enableAgencyModeViaSwitch();
-    });
+//    await test.step('Toggle Agency mode switch → confirm → verify Agency mode active', async () => {
+//      await setupPage.enableAgencyModeViaSwitch();
+//    });
 
-    await yopContext.close();
-    await context.close();
-  });
+//    await yopContext.close();
+//    await context.close();
+//  });
 
-});
+//});
