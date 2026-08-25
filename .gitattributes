@@ -1,0 +1,23 @@
+# GitHub Language Statistics Configuration
+# This file helps GitHub accurately detect the primary languages in this repository
+
+# Exclude build and generated files from language statistics
+dist/** linguist-generated=true
+build/** linguist-generated=true
+playwright-report/** linguist-generated=true
+test-results/** linguist-generated=true
+node_modules/** linguist-generated=true
+coverage/** linguist-generated=true
+
+# Treat minified files as generated
+*.min.js linguist-generated=true
+*.min.css linguist-generated=true
+
+# Ensure JavaScript is properly detected
+*.js linguist-language=JavaScript
+*.jsx linguist-language=JavaScript
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
+
+# Mark HTML documentation/templates appropriately
+*.html linguist-detectable=true
