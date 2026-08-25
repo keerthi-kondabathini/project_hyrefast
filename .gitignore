@@ -29,6 +29,9 @@ logs/
 # Coverage
 coverage/
 
+# Reports
+reports/
+
 # OS files
 .DS_Store
 Thumbs.db
