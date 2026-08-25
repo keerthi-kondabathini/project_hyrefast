@@ -1,17 +1,38 @@
+# Environment / credentials
+.env
+.env.*
+!.env.example
+
+# Credential files
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# Dependencies
 node_modules/
-reports/
-test-results/
-playwright-report/
-.env.staging
-.env.production
-*.env
 
 # Playwright
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+playwright/.auth/
 
-.env.staging.save
-.env.test
+# Logs
+*.log
+logs/
 
+# Coverage
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,395 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\playwright.config.js",
+    "rootDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/tests",
+        "testIgnore": [
+          "**/interview/**"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 600000
+      },
+      {
+        "outputDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-interview",
+        "name": "chromium-interview",
+        "testDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/interview/**"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "reports/html",
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "clients\\spoc.spec.js",
+      "file": "clients/spoc.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC_CLI_001 — Add Point of Contact",
+          "file": "clients/spoc.spec.js",
+          "line": 24,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Add SPOC to a client company and verify it appears",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 40797,
+                      "error": {
+                        "message": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Clients Client companies,' })\u001b[22m\n",
+                        "stack": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Clients Client companies,' })\u001b[22m\n\n    at SettingsPage.goToClients (C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\pages\\SettingsPage.js:80:31)\n    at C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js:34:22\n    at C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js:32:5",
+                        "location": {
+                          "file": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\pages\\SettingsPage.js",
+                          "column": 31,
+                          "line": 80
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\pages\\SettingsPage.js",
+                            "column": 31,
+                            "line": 80
+                          },
+                          "message": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Clients Client companies,' })\u001b[22m\n\n\u001b[2m    at SettingsPage.goToClients (C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\pages\\SettingsPage.js:80:31)\u001b[22m\n\u001b[2m    at C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js:34:22\u001b[22m\n\u001b[2m    at C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js:32:5\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Open Settings → Clients",
+                          "duration": 33243,
+                          "error": {
+                            "message": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Clients Client companies,' })\u001b[22m\n",
+                            "stack": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Clients Client companies,' })\u001b[22m\n\n    at SettingsPage.goToClients (C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\pages\\SettingsPage.js:80:31)\n    at C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js:34:22\n    at C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js:32:5",
+                            "location": {
+                              "file": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\pages\\SettingsPage.js",
+                              "column": 31,
+                              "line": 80
+                            }
+                          }
+                        }
+                      ],
+                      "startTime": "2026-08-24T10:01:43.451Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\test-results\\clients-spoc-TC-CLI-001-—--92428-mpany-and-verify-it-appears-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\test-results\\clients-spoc-TC-CLI-001-—--92428-mpany-and-verify-it-appears-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\test-results\\clients-spoc-TC-CLI-001-—--92428-mpany-and-verify-it-appears-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\pages\\SettingsPage.js",
+                        "column": 31,
+                        "line": 80
+                      }
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-08-24T10:02:26.159Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "8b842cd32078c1857739-f4eb3172113f25da5545",
+              "file": "clients/spoc.spec.js",
+              "line": 26,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "TC_CLI_002 — Edit Point of Contact",
+          "file": "clients/spoc.spec.js",
+          "line": 55,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Edit the first point of contact and verify changes",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "failed",
+                      "duration": 0,
+                      "error": {
+                        "message": "Error: Cannot find module 'C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js'\nRequire stack:\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\transform\\transform.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\configLoader.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\worker\\workerMain.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\process.js",
+                        "stack": "Error: Cannot find module 'C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js'\nRequire stack:\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\transform\\transform.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\configLoader.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\worker\\workerMain.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\process.js"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: Cannot find module 'C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js'\nRequire stack:\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\transform\\transform.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\configLoader.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\worker\\workerMain.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\process.js"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-24T10:02:26.129Z",
+                      "annotations": [],
+                      "attachments": []
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "failed",
+                      "duration": 0,
+                      "error": {
+                        "message": "Error: Cannot find module 'C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js'\nRequire stack:\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\transform\\transform.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\configLoader.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\worker\\workerMain.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\process.js",
+                        "stack": "Error: Cannot find module 'C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js'\nRequire stack:\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\transform\\transform.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\configLoader.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\worker\\workerMain.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\process.js"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: Cannot find module 'C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\clients\\spoc.spec.js'\nRequire stack:\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\transform\\transform.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\configLoader.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\worker\\workerMain.js\n- C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\node_modules\\playwright\\lib\\common\\process.js"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-08-24T10:02:27.064Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "8b842cd32078c1857739-8da8a50d4effc7b1952d",
+              "file": "clients/spoc.spec.js",
+              "line": 57,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "TC_CLI_003 — Delete Point of Contact",
+          "file": "clients/spoc.spec.js",
+          "line": 83,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Delete the first point of contact and verify removal",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-24T10:02:26.138Z",
+                      "annotations": [],
+                      "attachments": []
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-08-24T10:02:27.075Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "8b842cd32078c1857739-cce505eb918c6d98fb16",
+              "file": "clients/spoc.spec.js",
+              "line": 85,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "TC_CLI_004 — SPOC appears in Job SPOC dropdown",
+          "file": "clients/spoc.spec.js",
+          "line": 107,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Create SPOC, then verify it is selectable on a job edit page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-24T10:02:26.150Z",
+                      "annotations": [],
+                      "attachments": []
+                    },
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-08-24T10:02:27.083Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "8b842cd32078c1857739-4bda9173f3ec92c4329d",
+              "file": "clients/spoc.spec.js",
+              "line": 109,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-24T10:01:41.876Z",
+    "duration": 45244.625,
+    "expected": 0,
+    "skipped": 2,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}
