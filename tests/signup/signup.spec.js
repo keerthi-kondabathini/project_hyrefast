@@ -12,7 +12,7 @@
 const { test, expect }  = require('../../utils/authFixture');
 const { SignupPage }    = require('../../pages/SignupPage');
 const { YopMailPage }   = require('../../pages/YopMailPage');
-const { generateYopMailUser, faker } = require('../../utils/helpers');
+const { generateYopMailUser, faker, getEnv } = require('../../utils/helpers');
 const testData = require('../../data/testData.json');
 
 const SU = testData.signup;
@@ -54,7 +54,7 @@ test.describe('TC_SGN_001 — Sign Up with Recruiting Mode', () => {
         fullName: `Test User ${yopUsername.slice(-4).toUpperCase()}`,
         phone:    randomPhone(),
         email:    email,
-        password: SU.password,
+        password: getEnv(SU.passwordEnvKey, 'password'),
       });
     });
 

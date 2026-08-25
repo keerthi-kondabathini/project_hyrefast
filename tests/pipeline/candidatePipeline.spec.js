@@ -25,12 +25,13 @@ const { CandidatePipelinePage }  = require('../../pages/CandidatePipelinePage');
 const { YopMailPage }            = require('../../pages/YopMailPage');
 const { CandidateInterviewPage } = require('../../pages/CandidateInterviewPage');
 const { InterviewPage }            = require('../../pages/InterviewPage');
-const { generateYopMailUser }    = require('../../utils/helpers');
+const { generateYopMailUser, getEnv } = require('../../utils/helpers');
 const testData = require('../../data/testData.json');
 const path     = require('path');
 
 const PL = testData.pipeline;
 const TO = testData.timeouts;
+const applicationsUrl = getEnv(PL.applicationsUrlEnvKey, '');
 
 // ─── Runtime-generated candidate credentials ──────────────────────────────────
 // Generated once per test run — shared across suites via module state
@@ -48,7 +49,7 @@ test.describe('TC_PIPE_001 — Add Candidate → Awaiting Interview status', () 
     const pipeline = new CandidatePipelinePage(page);
 
     await test.step('Navigate to applications page', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
     });
 
@@ -94,7 +95,7 @@ test.describe('TC_PIPE_002 — Interview → Assessment → Decision Pending', (
 
     // ── Add candidate ────────────────────────────────────
     await test.step(`Add candidate ${CAND2.email}`, async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.addCandidateByEmail(CAND2.email);
       await pipeline.filterByEmail(CAND2.email);
@@ -216,7 +217,7 @@ test.describe('TC_PIPE_002 — Interview → Assessment → Decision Pending', (
 
     // ── Assert Assessment In Progress on applications page ─
     await test.step('Assert Assessment In Progress status', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND2.email);
       await pipeline.assertStatus('assessmentInProgress', { timeout: 30_000 });
@@ -278,7 +279,7 @@ test.describe('TC_PIPE_003 — Share with Hiring Manager', () => {
     const candidateName = PL.candidates.fullFlow.name;
 
     await test.step('Navigate to applications and filter candidate', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND2.email);
     });
@@ -313,7 +314,7 @@ test.describe('TC_PIPE_004 — Round Advancement & Outcomes', () => {
     const round2        = PL.rounds[1];
 
     await test.step('Navigate to applications', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND2.email);
     });
@@ -329,7 +330,7 @@ test.describe('TC_PIPE_004 — Round Advancement & Outcomes', () => {
         candidateName,
         PL.explorerStatusMap.roundInProgress
       );
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND2.email);
     });
@@ -365,7 +366,7 @@ test.describe('TC_PIPE_004 — Round Advancement & Outcomes', () => {
     const candidateName = CAND1.yopUsername;
 
     await test.step('Navigate and advance CAND1 to Round 1', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND1.email);
       await pipeline.advanceToRound(candidateName, 'drop-test');
@@ -391,7 +392,7 @@ test.describe('TC_PIPE_005 — Offer Flow (Made → Accepted → Joined → Cont
     const candidateName = PL.candidates.fullFlow.name;
 
     await test.step('Navigate and filter candidate', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND2.email);
     });
@@ -406,7 +407,7 @@ test.describe('TC_PIPE_005 — Offer Flow (Made → Accepted → Joined → Cont
       await pipeline.assertExplorerStatus(
         candidateName, PL.explorerStatusMap.offerMade
       );
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND2.email);
     });
@@ -421,7 +422,7 @@ test.describe('TC_PIPE_005 — Offer Flow (Made → Accepted → Joined → Cont
       await pipeline.assertExplorerStatus(
         candidateName, PL.explorerStatusMap.offerAccepted
       );
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND2.email);
     });
@@ -436,7 +437,7 @@ test.describe('TC_PIPE_005 — Offer Flow (Made → Accepted → Joined → Cont
       await pipeline.assertExplorerStatus(
         candidateName, PL.explorerStatusMap.candidateJoined
       );
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.filterByEmail(CAND2.email);
     });
@@ -469,7 +470,7 @@ test.describe('TC_PIPE_006 — Mark Candidate Not Interested', () => {
     const { email, yopUsername } = generateYopMailUser();
 
     await test.step('Add a fresh candidate', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.addCandidateByEmail(email);
       await pipeline.filterByEmail(email);
@@ -503,7 +504,7 @@ test.describe('TC_PIPE_007 — Reject with Email → YopMail verification', () =
     const { email, yopUsername } = generateYopMailUser();
 
     await test.step('Add a fresh candidate', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.addCandidateByEmail(email);
       await pipeline.filterByEmail(email);
@@ -547,7 +548,7 @@ test.describe('TC_PIPE_008 — Reject without Email → no inbox email', () => {
     const { email, yopUsername } = generateYopMailUser();
 
     await test.step('Add a fresh candidate', async () => {
-      await page.goto(PL.applicationsUrl);
+      await page.goto(applicationsUrl);
       await page.waitForLoadState('networkidle');
       await pipeline.addCandidateByEmail(email);
       await pipeline.filterByEmail(email);

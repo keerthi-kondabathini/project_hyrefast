@@ -173,14 +173,14 @@
     "workspaceName": "Gimolov",
     "memberRole": "Team Lead",
     "memberTeam": "001",
-    "newMemberPassword": "password",
+    "newMemberPasswordEnvKey": "NEW_MEMBER_PASSWORD",
     "teamMembers": [
       "pranav",
       "pravallika"
     ],
     "profileUpdate": {
       "fullName": "prathammu",
-      "email": "pratham@yopmail.com",
+      "emailEnvKey": "PROFILE_EMAIL",
       "phone": "9876543210"
     },
     "company": {
@@ -192,7 +192,7 @@
       "locationOption": "Hyderguda Telangana, India",
       "locationDisplay": "Hyderguda, Telangana, India",
       "description": "we are a mnc",
-      "logoFile": "/Users/techpranee/Downloads/download (3).jpeg"
+      "logoFileEnvKey": "COMPANY_LOGO_FILE"
     }
   },
   "interview": {
@@ -293,7 +293,7 @@
   },
   "signup": {
     "expectedCredits": 25,
-    "password": "password",
+    "passwordEnvKey": "SIGNUP_PASSWORD",
     "recruitingMode": {
       "id": "tc_signup_001",
       "description": "Sign up and choose Recruiting mode workspace"
@@ -310,7 +310,7 @@
   "pipeline": {
     "jobTitle": ".net developer",
     "companyName": "Gimolov",
-    "applicationsUrl": "https://staging.hyrefast.ai/job/69f596299175626e9cccb1e4/applications/",
+    "applicationsUrlEnvKey": "PIPELINE_APPLICATIONS_URL",
     "candidates": {
       "emailOnly": {
         "id": "tc_pipe_001",

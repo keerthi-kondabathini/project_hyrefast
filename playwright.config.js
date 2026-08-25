@@ -26,9 +26,9 @@ module.exports = defineConfig({
   use: {
     baseURL: process.env.BASE_URL,
     headless: process.env.HEADLESS !== 'false',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'on-first-retry',
+    screenshot: process.env.CI ? 'off' : 'only-on-failure',
+    video: process.env.CI ? 'off' : 'retain-on-failure',
+    trace: process.env.CI ? 'off' : 'on-first-retry',
     actionTimeout: 30_000,
     navigationTimeout: 60_000,
   },

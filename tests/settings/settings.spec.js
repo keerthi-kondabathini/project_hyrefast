@@ -2,7 +2,7 @@
 const { test, expect } = require('../../utils/authFixture');
 const { SettingsPage }  = require('../../pages/SettingsPage');
 const { YopMailPage }   = require('../../pages/YopMailPage');
-const { generateYopMailUser } = require('../../utils/helpers');
+const { generateYopMailUser, getEnv } = require('../../utils/helpers');
 const testData = require('../../data/testData.json');
 const path     = require('path');
 
@@ -90,8 +90,9 @@ test.describe('TC_SET_006 — Add Team Member & Verify Invite', () => {
         acceptPage.getByRole('heading', { name: `Join ${workspaceName}` })
       ).toBeVisible({ timeout: 15_000 });
 
-      await acceptPage.getByRole('textbox', { name: 'Password', exact: true }).fill(settingsData.newMemberPassword);
-      await acceptPage.getByRole('textbox', { name: 'Confirm Password' }).fill(settingsData.newMemberPassword);
+      const newMemberPassword = getEnv(settingsData.newMemberPasswordEnvKey, 'password');
+      await acceptPage.getByRole('textbox', { name: 'Password', exact: true }).fill(newMemberPassword);
+      await acceptPage.getByRole('textbox', { name: 'Confirm Password' }).fill(newMemberPassword);
       await acceptPage.getByRole('button', { name: 'Set Password & Join Workspace' }).click();
       await acceptPage.waitForLoadState('networkidle');
     });
@@ -167,6 +168,7 @@ test.describe('TC_SET_008 — Update Personal Profile', () => {
     const settingsData  = testData.settings;
     const settings      = new SettingsPage(page);
     const profileUpdate = settingsData.profileUpdate;
+    const profileEmail  = getEnv(profileUpdate.emailEnvKey, '');
 
     await test.step('Open Settings → Personal Profile', async () => {
       await settings.openSettings();
@@ -176,7 +178,7 @@ test.describe('TC_SET_008 — Update Personal Profile', () => {
     await test.step('Update profile fields and save', async () => {
       await settings.updateProfile({
         fullName: profileUpdate.fullName,
-        email:    profileUpdate.email,
+        email:    profileEmail,
         phone:    profileUpdate.phone,
       });
     });
@@ -197,7 +199,7 @@ test.describe('TC_SET_009 — Add Company to Workspace', () => {
     const settingsData = testData.settings;
     const settings     = new SettingsPage(page);
     const company      = settingsData.company;
-    const logoPath     = company.logoFile;
+    const logoPath     = getEnv(company.logoFileEnvKey, '');
 
     await test.step('Open Settings → Clients', async () => {
       await settings.openSettings();

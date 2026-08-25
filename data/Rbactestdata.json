@@ -16,8 +16,6 @@
 
   "jobTitle": ".net developer",
 
-  "invitePassword": "Test@1234",
-
   "teamMemberships": {
     "Leads":           "teamLead",
     "Owners & Admins": "admin",
