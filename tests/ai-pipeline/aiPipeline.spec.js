@@ -33,7 +33,7 @@ const {
   DEFAULT_THRESHOLDS,
 } = require('../../utils/skillValidator');
 const { futureDateString, getEnv } = require('../../utils/helpers');
-const goldenData = require('../../data/goldenSkills.json');
+const goldenData = require('../../data/goldenskills.json');
 const testData   = require('../../data/testData.json');
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -33,7 +33,7 @@ const { WorkspaceTeamsPage } = require('../../pages/WorkspaceTeamsPage');
 const { RBACJobPage }        = require('../../pages/RBACJobPage');
 const { YopMailPage }        = require('../../pages/YopMailPage');
 const { faker }  = require('@faker-js/faker');
-const rbac       = require('../../data/rbacTestData.json');
+const rbac       = require('../../data/Rbactestdata.json');
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  TC_RBAC_001 — Invite each role and verify invite email delivery
