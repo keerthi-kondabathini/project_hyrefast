@@ -78,7 +78,8 @@ for (const resumeScenario of testData.interview.resumeScenarios) {
     test(`${resumeScenario.label} resume → complete interview → verify completion`, async ({
       page, browser, loggedInPage
     }) => {
-      const { email, yopUsername } = generateYopMailUser();
+      const user                   = await generateYopMailUser();
+      const { email, yopUsername } = user;
       const interview    = testData.interview;
       const timeouts     = testData.timeouts;
       const resumePath   = path.resolve(__dirname, '../../fixtures/resumes', resumeScenario.file);
@@ -100,7 +101,7 @@ for (const resumeScenario of testData.interview.resumeScenarios) {
       const yopMail    = new YopMailPage(yopRawPage);
 
       await test.step(`Verify invite email in ${email}`, async () => {
-        await yopMail.openInbox(yopUsername);
+        await yopMail.openInbox(user);
         let found = false;
         for (let attempt = 1; attempt <= 3; attempt++) {
           try {
@@ -324,7 +325,8 @@ test.describe('TC_INT_AUDIO — Audio Validation Logic', () => {
   for (const scenario of audioScenarios) {
 
     test(`${scenario.id} — ${scenario.label}`, async ({ browser }) => {
-      const { email, yopUsername } = generateYopMailUser();
+      const user                   = await generateYopMailUser();
+      const { email, yopUsername } = user;
       const interview  = testData.interview;
       const timeouts   = testData.timeouts;
       const audioPath  = path.resolve(__dirname, '../../', scenario.audioFile);

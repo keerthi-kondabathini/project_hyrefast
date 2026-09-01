@@ -17,11 +17,12 @@ test.describe('TC_CAND_001 — Add single candidate by email and verify invite',
     page, browser, loggedInPage
   }) => {
     const candidatesPage        = new CandidatesPage(page);
-    const { email, yopUsername } = generateYopMailUser();
+    const user                   = await generateYopMailUser();
+    const { email, yopUsername } = user;
     const jobTitle               = testData.candidates.jobTitle;
     const timeouts               = testData.timeouts;
 
-    console.log(`Generated YopMail: ${email}`);
+    console.log(`Generated email: ${email}`);
 
     // ── 1. Open Candidates page ───────────────────────────
     let candidatesUrl;
@@ -50,7 +51,7 @@ test.describe('TC_CAND_001 — Add single candidate by email and verify invite',
       const yopPage    = await yopContext.newPage();
       const yopMail    = new YopMailPage(yopPage);
 
-      await yopMail.openInbox(yopUsername);
+      await yopMail.openInbox(user);
 
       let emailFound = false;
       for (let attempt = 1; attempt <= 3; attempt++) {
@@ -96,9 +97,9 @@ test.describe('TC_CAND_002 — Add multiple candidates by email', () => {
     const jobTitle       = testData.candidates.jobTitle;
     const timeouts       = testData.timeouts;
 
-    // Generate a fresh YopMail user for each candidate
-    const candidate1 = generateYopMailUser();
-    const candidate2 = generateYopMailUser();
+    // Generate a fresh email user for each candidate
+    const candidate1 = await generateYopMailUser();
+    const candidate2 = await generateYopMailUser();
     const candidates = [candidate1, candidate2];
     const emails     = candidates.map(c => c.email);
 
@@ -130,7 +131,7 @@ test.describe('TC_CAND_002 — Add multiple candidates by email', () => {
         const yopPage    = await yopContext.newPage();
         const yopMail    = new YopMailPage(yopPage);
 
-        await yopMail.openInbox(candidate.yopUsername);
+        await yopMail.openInbox(candidate);
 
         let emailFound = false;
         for (let attempt = 1; attempt <= 3; attempt++) {
@@ -173,10 +174,11 @@ test.describe('TC_CAND_003 — Add candidate by email, send later', () => {
     page, loggedInPage
   }) => {
     const candidatesPage         = new CandidatesPage(page);
-    const { email, yopUsername } = generateYopMailUser();
+    const user                   = await generateYopMailUser();
+    const { email, yopUsername } = user;
     const jobTitle               = testData.candidates.jobTitle;
 
-    console.log(`Generated YopMail (send later): ${email}`);
+    console.log(`Generated email (send later): ${email}`);
 
     // ── 1. Open Candidates page ───────────────────────────
     let candidatesUrl;
@@ -217,7 +219,8 @@ test.describe('TC_CAND_001_E2E — Candidate starts interview and uploads resume
     page, browser, loggedInPage
   }) => {
     const candidatesPage         = new CandidatesPage(page);
-    const { email, yopUsername } = generateYopMailUser();
+    const user                   = await generateYopMailUser();
+    const { email, yopUsername } = user;
     const jobTitle               = testData.candidates.jobTitle;
     const timeouts               = testData.timeouts;
     const resumeFile             = testData.candidates.resumeFile;
@@ -239,7 +242,7 @@ test.describe('TC_CAND_001_E2E — Candidate starts interview and uploads resume
     const yopMail    = new YopMailPage(yopPage);
 
     await test.step(`Open ${email} inbox`, async () => {
-      await yopMail.openInbox(yopUsername);
+      await yopMail.openInbox(user);
     });
 
     // ── 3. Assert invite email arrived ───────────────────

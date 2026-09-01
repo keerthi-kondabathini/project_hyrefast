@@ -1,0 +1,125 @@
+{
+  "_readme": "Test data for POC, Job-Level tabs, Report Templates, and Edit Job. Nothing hardcoded — all values driven from here.",
+
+  "poc": {
+    "companySearchQuery": "hyrefast",
+    "contacts": [
+      {
+        "id": "tc_poc_001",
+        "name": "abc",
+        "designation": "xya",
+        "email": "dummy@yopmail.com",
+        "mobile": "8374983248"
+      }
+    ],
+    "editContact": {
+      "name": "abc updated",
+      "designation": "xya updated"
+    },
+    "spocAssignment": {
+      "jobSearchQuery": ".net developer",
+      "spocSearchQuery": "asdj",
+      "spocOptionText": "Mr. asdj"
+    }
+  },
+
+  "jobLevel": {
+    "jobSearchQuery": ".net developer",
+    "companyFilter": "Hyrefast",
+    "overflowNth": 5,
+
+    "interviewLink": {
+      "name": "automation-link-1",
+      "uses": "1 use",
+      "expirationDay": "25",
+      "expirationHour": "01:00",
+      "toggleCount": 2
+    },
+
+    "publicLinkApplicant": {
+      "fullName": "Automation Tester",
+      "phone": "9876543210"
+    },
+
+    "pipeline": {
+      "pipelineType": "Tech (Default)",
+      "rounds": [
+        { "name": "aptitude", "toggleNth": 0 },
+        { "name": "uion",     "toggleNth": 2 }
+      ]
+    },
+
+    "sourceDocFragment": "Original uploaded job",
+
+    "accessSettings": {
+      "teamSearchQuery": "001",
+      "teamOptionText": "001 members",
+      "memberSearchQuery": "rahul",
+      "memberOptionText": "Rahul Verma rakesh@yopmail.com",
+      "externalVisibility": "Shortlisted",
+      "externalVisibilityUpdate": "All"
+    },
+
+    "editJob": {
+      "roleTitle": "Staff Engineer",
+      "company": "Capgemini",
+      "jobID": "001",
+      "deadline": "2026-08-27",
+      "jobStatus": "Published",
+      "spocText": "Packaging Operator"
+    }
+  },
+
+  "reportTemplate": {
+    "companySearchQuery": "hyre",
+    "template": {
+      "name": "automation-template-1",
+      "setDefault": true,
+      "columns": [
+        {
+          "title": "ctc",
+          "category": null,
+          "fieldSearch": "ctc",
+          "fieldOptionText": "Current CTC (tracker_details."
+        },
+        {
+          "title": "email",
+          "category": null,
+          "fieldSearch": null,
+          "fieldOptionText": "Candidate Email (candidate."
+        },
+        {
+          "title": "phone",
+          "category": null,
+          "fieldSearch": null,
+          "fieldOptionText": "candidate.phone"
+        },
+        {
+          "title": "gender",
+          "category": null,
+          "fieldSearch": "gen",
+          "fieldOptionText": "tracker_details.gender"
+        },
+        {
+          "title": "job",
+          "category": "Job Opening",
+          "fieldSearch": "job tit",
+          "fieldOptionText": "Designation / Job Title (job."
+        }
+      ]
+    },
+    "editColumns": [
+      {
+        "title": "extra-col",
+        "category": null,
+        "fieldSearch": null,
+        "fieldOptionText": "Candidate Email (candidate."
+      }
+    ],
+    "reportsAndTrackers": {
+      "clientComboCurrentText": "Gimolov",
+      "clientSearchQuery": "hyre",
+      "templateOptionText": "automation-template-1"
+    }
+  }
+}

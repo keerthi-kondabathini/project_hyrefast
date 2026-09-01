@@ -35,8 +35,13 @@ const applicationsUrl = getEnv(PL.applicationsUrlEnvKey, '');
 
 // ─── Runtime-generated candidate credentials ──────────────────────────────────
 // Generated once per test run — shared across suites via module state
-const CAND1 = generateYopMailUser(); // email-only candidate
-const CAND2 = generateYopMailUser(); // full-interview candidate
+let CAND1;
+let CAND2;
+
+test.beforeAll(async () => {
+  CAND1 = await generateYopMailUser(); // email-only candidate
+  CAND2 = await generateYopMailUser(); // full-interview candidate
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  TC_PIPE_001 — Add candidate by email → Awaiting Interview → menu check
@@ -116,7 +121,7 @@ test.describe('TC_PIPE_002 — Interview → Assessment → Decision Pending', (
 
     let interviewPage;
     await test.step('Verify invite email and open interview', async () => {
-      await yopMail.openInbox(CAND2.yopUsername);
+      await yopMail.openInbox(CAND2);
       let found = false;
       for (let i = 1; i <= 4; i++) {
         found = await yopMail.mailFrame()
@@ -467,7 +472,8 @@ test.describe('TC_PIPE_006 — Mark Candidate Not Interested', () => {
   }) => {
     const pipeline = new CandidatePipelinePage(page);
     // Use a fresh candidate so this doesn't conflict with other test flows
-    const { email, yopUsername } = generateYopMailUser();
+    const user                   = await generateYopMailUser();
+    const { email, yopUsername } = user;
 
     await test.step('Add a fresh candidate', async () => {
       await page.goto(applicationsUrl);
@@ -501,7 +507,8 @@ test.describe('TC_PIPE_007 — Reject with Email → YopMail verification', () =
     page, browser, loggedInPage
   }) => {
     const pipeline  = new CandidatePipelinePage(page);
-    const { email, yopUsername } = generateYopMailUser();
+    const user                   = await generateYopMailUser();
+    const { email, yopUsername } = user;
 
     await test.step('Add a fresh candidate', async () => {
       await page.goto(applicationsUrl);
@@ -518,7 +525,7 @@ test.describe('TC_PIPE_007 — Reject with Email → YopMail verification', () =
 
       await pipeline.markRejected(yopUsername, 'withEmail', {
         yopMail,
-        yopUsername,
+        user,
         companyName: PL.companyName,
       });
 
@@ -545,7 +552,8 @@ test.describe('TC_PIPE_008 — Reject without Email → no inbox email', () => {
     page, browser, loggedInPage
   }) => {
     const pipeline = new CandidatePipelinePage(page);
-    const { email, yopUsername } = generateYopMailUser();
+    const user                   = await generateYopMailUser();
+    const { email, yopUsername } = user;
 
     await test.step('Add a fresh candidate', async () => {
       await page.goto(applicationsUrl);
@@ -563,7 +571,7 @@ test.describe('TC_PIPE_008 — Reject without Email → no inbox email', () => {
       const yopContext = await browser.newContext();
       const yopPage4   = await yopContext.newPage();
       const yopMail    = new YopMailPage(yopPage4);
-      await yopMail.openInbox(yopUsername);
+      await yopMail.openInbox(user);
       await yopPage4.waitForTimeout(5000);
 
       // Rejection email should NOT exist

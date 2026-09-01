@@ -45,10 +45,15 @@ class CandidateInterviewPage extends BasePage {
     // Set file on the hidden <input type="file">
     await this.resumeFileInput.setInputFiles(filePath);
 
-    // // Assert upload success banner
-    // await expect(
-    //   this.page.getByText(`${fileName} uploaded successfully`)
-    // ).toBeVisible({ timeout: 15_000 });
+    // Wait until the upload is registered and the required-field error clears
+    await expect(
+      this.page.getByText(`${fileName} uploaded successfully`).first()
+    ).toBeVisible({ timeout: 15_000 });
+
+    // Extra safety: ensure "This field is required" is gone before clicking Continue
+    await expect(
+      this.page.getByText('This field is required')
+    ).toBeHidden({ timeout: 10_000 });
   }
 
   async clickCompleteContinue() {

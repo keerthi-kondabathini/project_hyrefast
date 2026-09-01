@@ -6,9 +6,17 @@ const { BasePage } = require('./BasePage');
  * CandidatesPage covers:
  *  - Searching for a job and entering the Candidates view
  *  - Adding candidates via email (bulk invite)
- *  - Adding candidates via resume file upload
+ *  - Adding candidates via resume file upload (File Upload → Resume Upload)
+ *  - Adding candidates via CSV upload (File Upload → CSV Upload wizard)
  *  - Verifying application count changes
  *  - Storing and re-navigating to the candidates URL
+ *
+ *  CSV upload wizard steps (from UI screenshots):
+ *    1. File Upload → CSV Upload sub-tab → upload file (drop zone / file input)
+ *    2. Map CSV Fields — map Name (Required), Email (Required), Phone dropdowns
+ *       to CSV columns → "Preview Mapped Data" button
+ *    3. Preview Candidates — review mapped data → "Create N Applications" button
+ *    4. (Optional) Send Now / Send Later dialog after create
  */
 class CandidatesPage extends BasePage {
   constructor(page) {
@@ -23,7 +31,6 @@ class CandidatesPage extends BasePage {
       page.getByRole('heading', { name: new RegExp(`${jobTitle}`, 'i') });
 
     // ── Candidate count badge ─────────────────────────────
-    // e.g. the "2Applied" text or the numbered badge "1", "2"
     this.appliedCountText  = (count) => page.getByText(`${count}Applied`);
     this.candidateCountBadge = (count) =>
       page.locator('div').filter({ hasText: new RegExp(`^${count}$`) });
@@ -32,7 +39,9 @@ class CandidatesPage extends BasePage {
     this.addCandidatesBtn     = page.getByRole('button', { name: 'Add Candidates' });
     this.emailTab             = page.getByRole('tab',   { name: 'Email' });
     this.fileUploadTab        = page.getByRole('tab',   { name: 'File Upload' });
-  this.resumeFileInput = page.locator('input[type="file"]');
+    // CSV Upload is a SECOND-ROW sub-tab under File Upload (next to Resume Upload).
+    this.csvUploadTab        = page.getByRole('tab',   { name: 'CSV Upload' });
+    this.resumeFileInput      = page.locator('input[type="file"]');
 
     // Email flow
     this.emailInput           = page.getByRole('textbox', { name: 'Enter email addresses' });
@@ -41,16 +50,46 @@ class CandidatesPage extends BasePage {
     this.createWithoutEmailBtn = page.getByRole('button', { name: 'Create without Email' });
     this.bulkCreatedText      = (n) => page.getByText(`Bulk created ${n} applications.`, { exact: true });
 
-    // File upload flow
+    // File upload flow (Resume Upload sub-tab)
     this.chooseResumeFilesBtn  = page.getByRole('button', { name: 'Choose Resume Files' });
     this.importResumesBtn      = page.getByRole('button', { name: 'Import Selected Resumes' });
     this.sendNowBtn            = page.getByRole('button', { name: 'Send Now' });
-    this.sendLaterBtn          = page.getByRole('button', { name: 'I\'ll Send Later' });
+    this.sendLaterBtn          = page.getByRole('button', { name: "I'll Send Later" });
+
+    // ═══════════════════════════════════════════════════════
+    //  CSV Upload wizard selectors (File Upload → CSV Upload)
+    // ═══════════════════════════════════════════════════════
+
+    // Step 1 — file upload area
+    this.csvUploadHeading  = page.getByText('Upload CSV File').first();
+    this.csvDropZoneText   = page.getByText('Drop your CSV file here').first();
+    // The CSV tab may expose a file input (shared or dedicated); we probe for it.
+    this.csvFileInput      = page.locator('input[type="file"]');
+
+    // Step 2 — Map CSV Fields: three mapping dropdowns
+    //    Each shows placeholder "Select column..." and expands to a list
+    //    with options: "Select column...", "name", "email", "phone".
+    //    Target the select elements inside the mapping dialog by label text.
+    const mapDialog = page.locator('div[role="dialog"]').filter({ hasText: /Map CSV Fields/i });
+    this.nameMapCombo      = mapDialog.locator('select').nth(0);
+    this.emailMapCombo     = mapDialog.locator('select').nth(1);
+    this.phoneMapCombo     = mapDialog.locator('select').nth(2);
+
+    // Step 2 — buttons
+    this.previewMappedDataBtn = page.getByRole('button', { name: 'Preview Mapped Data' });
+    this.csvBackBtn           = page.getByRole('button', { name: 'Back' });
+
+    // Step 3 — Preview Candidates
+    this.previewCandidatesHeading = page.getByText('Preview Candidates').first();
+    this.previewBannerText        = page.getByText(/candidates will be processed/i);
+    // "Create N Applications" — text is dynamic (e.g. "Create 2 Applications")
+    this.createApplicationsBtn    = page.getByRole('button', { name: /Create \d+ Applic/i });
+    this.backToMappingBtn         = page.getByRole('button', { name: 'Back to Mapping' });
   }
 
   // ═══════════════════════════════════════════════════════
   //  Navigation
-  // ════════════════════════════════════════════
+  // ════════════════════════════════════════════════
 
   async searchAndOpenCandidates(jobTitle) {
     await this.fillInput(this.jobSearchInput, jobTitle);
@@ -66,10 +105,6 @@ class CandidatesPage extends BasePage {
     );
   }
 
-  /**
-   * Captures and returns the current page URL (candidates page URL).
-   * Use this to navigate back after leaving the page.
-   */
   getCandidatesPageUrl() {
     return this.page.url();
   }
@@ -83,14 +118,10 @@ class CandidatesPage extends BasePage {
   //  Count helpers
   // ═══════════════════════════════════════════════════════
 
-  /**
-   * Returns the numeric candidate count shown on the page.
-   * Reads the "NApplied" text pattern, e.g. "3Applied" → 3
-   */
   async getCandidateCount() {
     const parseTotalFromText = (text) => {
       if (!text) return null;
-      const match = text.match(/(?:\d+\s*-\s*\d+\s*of\s*|of\s*)(\d+)/i);
+      const match = text.match(/(?:\\d+\\s*-\\s*\\d+\\s*of\\s*|of\\s*)(\\d+)/i);
       return match ? parseInt(match[1], 10) : null;
     };
 
@@ -112,7 +143,6 @@ class CandidatesPage extends BasePage {
       }
     }
 
-    // Ensure the candidate rows have loaded before counting.
     const rowLocator = this.page.locator('table tbody tr, [role="row"]');
     await rowLocator.first().waitFor({ state: 'visible', timeout: 15_000 }).catch(() => null);
 
@@ -128,10 +158,9 @@ class CandidatesPage extends BasePage {
       return hasHeader ? await gridRows.count() - 1 : await gridRows.count();
     }
 
-    // Legacy badge fallback if still present.
     const text = await this.page.locator('text=/\\d+Applied/').first().innerText().catch(() => null);
     if (text) {
-      const match = text.match(/(\d+)/);
+      const match = text.match(/(\\d+)/);
       return match ? parseInt(match[1], 10) : 0;
     }
 
@@ -148,23 +177,12 @@ class CandidatesPage extends BasePage {
   //  Add via Email
   // ═══════════════════════════════════════════════════════
 
-  /**
-   * @param {string[]} emails - Array of email addresses
-   * @param {'now' | 'later'} sendTiming
-   */
   async addCandidatesByEmail(emails, sendTiming = 'now') {
     await this.addCandidatesBtn.click();
-
-    // Enter emails (comma-separated or single)
     await this.fillInput(this.emailInput, emails.join(', '));
-
-    // Click "Add N Candidate(s)"
     await this.addCandidateCountBtn(emails.length).click();
-
-    // Wait for confirmation dialog to appear
     await this.page.waitForTimeout(2000);
 
-    // Check which button is available - "Send Now" or "Create & Send Email"
     const sendNowVisible = await this.sendNowBtn.count() > 0;
     const createEmailVisible = await this.createAndSendEmailBtn.count() > 0;
 
@@ -175,43 +193,25 @@ class CandidatesPage extends BasePage {
     } else {
       throw new Error('Neither "Send Now" nor "Create & Send Email" button is visible');
     }
-
-    // // Assert bulk creation success toast
-    // await this.assertVisible(
-    //   this.bulkCreatedText(emails.length),
-    //   `Expected "Bulk created ${emails.length} applications." toast`
-    // );
   }
 
   // ═══════════════════════════════════════════════════════
-  //  Add via Resume Upload
+  //  Add via Resume Upload (File Upload → Resume Upload tab)
   // ═══════════════════════════════════════════════════════
 
-  /**
-   * @param {string} filePath   - Absolute or relative path to the resume file
-   * @param {'now' | 'later'} sendTiming
-   */
   async addCandidateByResume(filePath, sendTiming = 'now') {
     await this.addCandidatesBtn.click();
     await this.fileUploadTab.click();
-
-    // 👇 Click button to ensure input is available
+    // Resume Upload is the default sub-tab when File Upload is selected.
     await this.chooseResumeFilesBtn.click();
 
-    // 👇 Use FIRST visible file input
     const fileInput = this.page.locator('input[type="file"]').first();
-
     await fileInput.waitFor({ state: 'attached' });
-
-    // 👇 Use SAME path passed from test
     await fileInput.setInputFiles(filePath);
 
     await this.importResumesBtn.click();
-
-    // Wait for confirmation dialog to appear
     await this.page.waitForTimeout(2000);
 
-    // Check which button is available - "Send Now" or "Create & Send Email"
     const sendNowVisible = await this.sendNowBtn.count() > 0;
     const createEmailVisible = await this.createAndSendEmailBtn.count() > 0;
 
@@ -226,11 +226,213 @@ class CandidatesPage extends BasePage {
     } else {
       await this.sendLaterBtn.click();
     }
+  }
 
-    // await this.assertVisible(
-    //   this.bulkCreatedText(1),
-    //   'Expected "Bulk created 1 applications." toast'
-    // );
+  // ═══════════════════════════════════════════════════════
+  //  Add via File Upload (PDF / DOC / multiple / unsupported)
+  //  Same path as addCandidateByResume — File Upload → Resume Upload.
+  // ═══════════════════════════════════════════════════════
+
+  async addCandidateByFileUpload(filePaths, sendTiming = 'now') {
+    await this.addCandidatesBtn.click();
+    await this.fileUploadTab.click();
+    await this.chooseResumeFilesBtn.click();
+
+    const fileInput = this.page.locator('input[type="file"]').first();
+    await fileInput.waitFor({ state: 'attached' });
+    await fileInput.setInputFiles(filePaths);
+
+    await this.importResumesBtn.click();
+    await this.page.waitForTimeout(2000);
+
+    const sendNowVisible     = await this.sendNowBtn.count() > 0;
+    const createEmailVisible = await this.createAndSendEmailBtn.count() > 0;
+
+    if (sendTiming === 'now') {
+      if (sendNowVisible) {
+        await this.sendNowBtn.click();
+      } else if (createEmailVisible) {
+        await this.createAndSendEmailBtn.click();
+      } else {
+        throw new Error('Neither "Send Now" nor "Create & Send Email" button is visible');
+      }
+    } else {
+      await this.sendLaterBtn.click();
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  Add via CSV Upload (File Upload → CSV Upload wizard)
+  // ═══════════════════════════════════════════════════════
+
+  /**
+   * Full CSV import wizard:
+   *   1. Add Candidates → File Upload → CSV Upload sub-tab
+   *   2. Upload the CSV file (drop zone / file input)
+   *   3. Map CSV Fields: Name→name, Email→email, Phone→phone
+   *   4. Click "Preview Mapped Data"
+   *   5. Click "Create N Applications"
+   *   6. Handle optional Send Now / Send Later dialog
+   *
+   * @param {string}  filePath     - absolute path to the CSV file
+   * @param {'now' | 'later'} sendTiming
+   */
+  async addCandidateByCSV(filePath, sendTiming = 'now') {
+    // ── Step 0: open panel + navigate to CSV Upload ──────────────
+    await this.addCandidatesBtn.click();
+    await this.fileUploadTab.click();
+    await this.csvUploadTab.click();
+    await this.page.waitForTimeout(1500);
+
+    // Confirm we landed on the CSV upload area (not Resume Upload).
+    await this.assertVisible(
+      this.csvUploadHeading,
+      'Expected "Upload CSV File" heading after switching to CSV Upload tab'
+    );
+
+    // ── Step 1: upload the file ──────────────────────────────────
+    await this._csvUploadFile(filePath);
+
+    // After a file is selected the UI transitions to "Map CSV Fields".
+    await this.page.waitForTimeout(2000);
+    await this.assertVisible(
+      this.page.getByText('Map CSV Fields').first(),
+      'Expected "Map CSV Fields" step after CSV file upload'
+    );
+
+    // ── Step 2: map CSV fields ───────────────────────────────────
+    await this._csvMapFields();
+
+    // ── Step 3: preview mapped data ──────────────────────────────
+    await this.previewMappedDataBtn.click();
+    await this.page.waitForTimeout(2000);
+
+    await this.assertVisible(
+      this.previewCandidatesHeading,
+      'Expected "Preview Candidates" step after clicking "Preview Mapped Data"'
+    );
+
+    // ── Step 4: create applications ──────────────────────────────
+    await this.createApplicationsBtn.click();
+    await this.page.waitForTimeout(3000);
+
+    // ── Step 5: optional send-timing dialog (mirror resume flow) ─
+    const sendNowVisible     = await this.sendNowBtn.count() > 0;
+    const sendLaterVisible   = await this.sendLaterBtn.count() > 0;
+    const hasSendDialog      = sendNowVisible || sendLaterVisible;
+
+    if (hasSendDialog) {
+      if (sendTiming === 'now') {
+        if (sendNowVisible) {
+          await this.sendNowBtn.click();
+        } else {
+          await this.sendLaterBtn.click();
+        }
+      } else {
+        await this.sendLaterBtn.click();
+      }
+      await this.page.waitForTimeout(2000);
+    }
+  }
+
+  /**
+   * Upload a CSV file in the CSV Upload tab.
+   * Tries a native file input first; falls back to the file-chooser
+   * event if the drop zone uses a custom picker.
+   */
+  async _csvUploadFile(filePath) {
+    // Strategy 1 — native <input type="file">
+    const fileInput = this.csvFileInput.first();
+    try {
+      await fileInput.waitFor({ state: 'attached', timeout: 4000 });
+      await fileInput.setInputFiles(filePath);
+      return;
+    } catch {
+      // fall through to strategy 2
+    }
+
+    // Strategy 2 — click the drop zone and handle the file chooser event
+    const [fileChooser] = await Promise.all([
+      this.page.waitForEvent('filechooser', { timeout: 10000 }),
+      this.csvDropZoneText.click(),
+    ]);
+    await fileChooser.setFiles(filePath);
+  }
+
+  /**
+   * Map CSV columns to candidate fields in the "Map CSV Fields" step.
+   *
+   * Default mapping (matches the sample CSV schema):
+   *   Name (Required)  → "name"
+   *   Email (Required) → "email"
+   *   Phone            → "phone"
+   *
+   * @param {string} [nameCol='name']
+   * @param {string} [emailCol='email']
+   * @param {string} [phoneCol='phone']
+   */
+  async _csvMapFields(nameCol = 'name', emailCol = 'email', phoneCol = 'phone') {
+    // Helper: select a column option from a native select dropdown if it isn't already set.
+    const selectColumn = async (comboLocator, optionText) => {
+      if (await comboLocator.count() === 0) return;
+      const current = await comboLocator.inputValue().catch(() => '');
+      if (current !== optionText) {
+        await comboLocator.selectOption(optionText);
+        await this.page.waitForTimeout(500);
+      }
+    };
+
+    // Name (Required)
+    await selectColumn(this.nameMapCombo, nameCol);
+
+    // Email (Required)
+    await selectColumn(this.emailMapCombo, emailCol);
+
+    // Phone (optional, but map it anyway)
+    await selectColumn(this.phoneMapCombo, phoneCol);
+
+    // All mapped — the "Mapping Required" error banner should disappear.
+    await this.page.waitForTimeout(500);
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  Toast / message assertions
+  // ═══════════════════════════════════════════════════════
+
+  async assertBulkCreatedToast(count) {
+    await this.assertVisible(
+      this.bulkCreatedText(count),
+      `Expected "Bulk created ${count} applications." toast`
+    );
+  }
+
+  /**
+   * Returns the first visible error / validation message text on the page
+   * (toast, inline error, dialog, banner). Returns '' if none found.
+   */
+  async getErrorMessage(timeoutMs = 10_000) {
+    const patterns = [
+      this.page.getByText(/unsupported/i),
+      this.page.getByText(/mapping required/i),
+      this.page.getByText(/invalid/i),
+      this.page.getByText(/error/i),
+      this.page.getByText(/duplicate/i),
+      this.page.getByText(/exists/i),
+      this.page.getByText(/missing/i),
+      this.page.getByText(/required/i),
+      this.page.getByRole('status').last(),
+      this.page.locator('text=/\\S+/').filter({ hasText: /could not|failed|not allowed/i }),
+    ];
+    for (const loc of patterns) {
+      try {
+        if (await loc.count() > 0) {
+          await loc.first().waitFor({ state: 'visible', timeout: timeoutMs }).catch(() => null);
+          const txt = await loc.first().innerText().catch(() => '');
+          if (txt && txt.trim()) return txt.trim();
+        }
+      } catch { /* try next pattern */ }
+    }
+    return '';
   }
 }
 

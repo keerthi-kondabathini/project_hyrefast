@@ -28,20 +28,26 @@
  */
 
 const { test: base, expect } = require('@playwright/test');
-const { faker }    = require('@faker-js/faker');
-const { SignupPage }      = require('../pages/SignupPage');
-const { YopMailPage }     = require('../pages/YopMailPage');
-const { LoginPage }       = require('../pages/LoginPage');
+const { faker } = require('@faker-js/faker');
+const { SignupPage } = require('../pages/SignupPage');
+const { YopMailPage } = require('../pages/YopMailPage');
+const {
+  generateTestEmail,
+} = require('./emailProvider');const { LoginPage }       = require('../pages/LoginPage');
 const { DashboardPage }   = require('../pages/DashboardPage');
 const { WorkspaceTeamsPage } = require('../pages/WorkspaceTeamsPage');
 const { getEnv }          = require('./helpers');
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function yopUser(prefix = 'hf') {
-  const id = faker.string.alphanumeric(7).toLowerCase();
-  const username = `${prefix}_${id}`;
-  return { email: `${username}@yopmail.com`, yopUsername: username, password: 'Test@1234' };
+async function yopUser(prefix = 'hf') {
+  const emailUser =
+    await generateTestEmail(prefix);
+
+  return {
+    ...emailUser,
+    password: 'Test@1234',
+  };
 }
 
 function randomPhone() {
@@ -57,7 +63,7 @@ async function activateAccount(browser, user, timeoutMs = 15_000) {
   const page = await ctx.newPage();
   const yop  = new YopMailPage(page);
 
-  await yop.openInbox(user.yopUsername);
+  await yop.openInbox(user);
 
   let found = false;
   for (let i = 1; i <= 5; i++) {
@@ -85,7 +91,7 @@ async function acceptInvite(browser, user, timeoutMs = 15_000) {
   const page = await ctx.newPage();
   const yop  = new YopMailPage(page);
 
-  await yop.openInbox(user.yopUsername);
+  await yop.openInbox(user);
 
   let found = false;
   for (let i = 1; i <= 5; i++) {
@@ -136,7 +142,7 @@ const test = base.extend({
     const BASE = baseURL || process.env.BASE_URL || 'https://staging.hyrefast.ai';
 
     // ── 1. Owner: sign up ──────────────────────────────────
-    const ownerUser = yopUser('owner');
+    const ownerUser = await yopUser('owner');
     const ownerCtx  = await browser.newContext();
     const ownerPage = await ownerCtx.newPage();
     const signup    = new SignupPage(ownerPage);
@@ -182,9 +188,9 @@ const test = base.extend({
     await wsPage.goToTeamMembers();
 
     // ── 4. Invite admin, teamLead, member ──────────────────
-    const adminUser    = yopUser('admin');
-    const teamLeadUser = yopUser('lead');
-    const memberUser   = yopUser('member');
+    const adminUser    = await yopUser('admin');
+    const teamLeadUser = await yopUser('lead');
+    const memberUser   = await yopUser('member');
 
     await wsPage.inviteMember({ email: adminUser.email,    role: 'Admin' });
     await wsPage.inviteMember({ email: teamLeadUser.email, role: 'Team Lead' });

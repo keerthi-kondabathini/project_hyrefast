@@ -47,9 +47,9 @@ test.describe('TC_RBAC_001 — Invite roles and verify invite emails', () => {
     const wsPage = new WorkspaceTeamsPage(owner.page);
 
     const invitees = [
-      { user: yopUser('inv_admin'), role: 'Admin' },
-      { user: yopUser('inv_lead'),  role: 'Team Lead' },
-      { user: yopUser('inv_mem'),   role: 'Team Member' },
+      { user: await yopUser('inv_admin'), role: 'Admin' },
+      { user: await yopUser('inv_lead'),  role: 'Team Lead' },
+      { user: await yopUser('inv_mem'),   role: 'Team Member' },
     ];
 
     for (const { user, role } of invitees) {
@@ -63,7 +63,7 @@ test.describe('TC_RBAC_001 — Invite roles and verify invite emails', () => {
         const yopCtx  = await browser.newContext();
         const yopPage = await yopCtx.newPage();
         const yop     = new YopMailPage(yopPage);
-        await yop.openInbox(user.yopUsername);
+        await yop.openInbox(user);
 
         let found = false;
         for (let i = 1; i <= 4; i++) {
@@ -100,7 +100,7 @@ test.describe('TC_RBAC_002 — Invite with pre-assigned team shows pending invit
   }) => {
     const { owner } = workspace;
     const wsPage = new WorkspaceTeamsPage(owner.page);
-    const newUser = yopUser('pending');
+    const newUser = await yopUser('pending');
 
     await test.step('Invite member', async () => {
       await wsPage.openWorkspaceSettings();
@@ -431,8 +431,8 @@ test.describe('TC_RBAC_012 — Candidate visibility by role', () => {
     const teamLeadJobPage = new RBACJobPage(teamLead.page);
     const adminJobPage    = new RBACJobPage(admin.page);
 
-    const memberCandidate    = yopUser('cand_m');
-    const teamLeadCandidate  = yopUser('cand_l');
+    const memberCandidate    = await yopUser('cand_m');
+    const teamLeadCandidate  = await yopUser('cand_l');
 
     // ── Member adds a candidate ──────────────────────────
     await test.step('Member adds a candidate to the JD', async () => {
@@ -527,7 +527,7 @@ test.describe('TC_RBAC_014 — Remove member from workspace', () => {
     const wsPage    = new WorkspaceTeamsPage(owner.page);
 
     // Create a fresh user just for removal so we don't break other tests
-    const removable = yopUser('remove');
+    const removable = await yopUser('remove');
 
     await test.step('Invite a fresh member', async () => {
       await wsPage.openWorkspaceSettings();

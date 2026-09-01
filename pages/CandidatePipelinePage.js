@@ -453,9 +453,9 @@ class CandidatePipelinePage extends BasePage {
       await expect(this.page.getByText('Rejection email sent')).toBeVisible({ timeout: 10_000 });
       await expect(this.page.getByText('Email successfully sent to')).toBeVisible();
 
-      // Optionally verify in YopMail
+      // Optionally verify rejection email in inbox
       if (yopMailContext) {
-        await yopMailContext.yopMail.openInbox(yopMailContext.yopUsername);
+        await yopMailContext.yopMail.openInbox(yopMailContext.user);
         await this._assertRejectionEmail(yopMailContext.yopMail, yopMailContext.companyName);
       }
 

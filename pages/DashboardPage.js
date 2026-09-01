@@ -15,10 +15,9 @@ this.logoutLink = page.getByRole('menuitem', { name: /log out/i });
     this.hyrefastHeading = page.getByRole('heading', { name: 'Hyrefast', exact: true });
 
     // ── User menu ─────────────────────────────────────────
-this.companyLogoButton = page
-  .getByRole('button')
-  .filter({ hasText: 'G' })
-  // ── CTA ───────────────────────────────────────────────
+    this.companyLogoButton = page.getByRole('button', { name: 'Company Logo' });
+
+    // ── CTA ───────────────────────────────────────────────
     this.createJobButton = page.getByRole('button', { name: 'Create Job' });
     this.searchJobInput  = page.getByRole('textbox', { name: 'Search by job name or ID' });
   }

@@ -31,7 +31,8 @@ test.describe('TC_SGN_001 — Sign Up with Recruiting Mode', () => {
   test('New user signs up, activates via email, chooses Recruiting mode workspace', async ({
     browser
   }) => {
-    const { email, yopUsername } = generateYopMailUser();
+    const user                   = await generateYopMailUser();
+    const { email, yopUsername } = user;
     const timeouts = testData.timeouts;
 
     // ── Open signup page (fresh context — not logged in) ──
@@ -67,8 +68,8 @@ test.describe('TC_SGN_001 — Sign Up with Recruiting Mode', () => {
     const yopPage    = await yopContext.newPage();
     const yopMail    = new YopMailPage(yopPage);
 
-    await test.step(`Open YopMail inbox: ${email}`, async () => {
-      await yopMail.openInbox(yopUsername);
+    await test.step(`Open email inbox: ${email}`, async () => {
+      await yopMail.openInbox(user);
     });
 
     await test.step('Verify activation email is received', async () => {
@@ -129,7 +130,8 @@ test.describe('TC_SGN_002 — Sign Up with Agency Mode (direct selection)', () =
   test('New user signs up, activates via email, chooses Agency mode at workspace setup', async ({
     browser
   }) => {
-    const { email, yopUsername } = generateYopMailUser();
+    const user                   = await generateYopMailUser();
+    const { email, yopUsername } = user;
     const timeouts = testData.timeouts;
 
     const context = await browser.newContext();
@@ -152,8 +154,8 @@ test.describe('TC_SGN_002 — Sign Up with Agency Mode (direct selection)', () =
     const yopPage    = await yopContext.newPage();
     const yopMail    = new YopMailPage(yopPage);
 
-    await test.step('Open activation email in YopMail', async () => {
-      await yopMail.openInbox(yopUsername);
+    await test.step('Open activation email in inbox', async () => {
+      await yopMail.openInbox(user);
       let found = false;
       for (let attempt = 1; attempt <= 4; attempt++) {
         const visible = await yopMail.mailFrame()

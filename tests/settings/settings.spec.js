@@ -16,7 +16,8 @@ test.describe('TC_SET_006 — Add Team Member & Verify Invite', () => {
     page, browser, loggedInPage, credentials
   }) => {
     const settingsData    = testData.settings;
-    const { email, yopUsername } = generateYopMailUser();
+    const user            = await generateYopMailUser();
+    const { email, yopUsername } = user;
     const workspaceName   = settingsData.workspaceName;
     const timeouts        = testData.timeouts;
 
@@ -46,7 +47,7 @@ test.describe('TC_SET_006 — Add Team Member & Verify Invite', () => {
       invitePage    = await inviteContext.newPage();
       const yopMail = new YopMailPage(invitePage);
 
-      await yopMail.openInbox(yopUsername);
+      await yopMail.openInbox(user);
 
       let found = false;
       for (let attempt = 1; attempt <= 3; attempt++) {

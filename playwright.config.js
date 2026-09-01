@@ -15,8 +15,8 @@ module.exports = defineConfig({
   timeout: 600_000,           // 10 min — full interview + AI analysis polling
   expect: { timeout: 50_000 },
   fullyParallel: false,
-  retries: process.env.CI ? 2 : 1,
-  workers: 1,
+  retries: process.env.CI ? 2 : 0,
+  workers: 5,
   reporter: [
     ['html', { outputFolder: 'reports/html', open: 'never' }],
     ['list'],
