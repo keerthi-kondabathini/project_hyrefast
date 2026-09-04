@@ -14,9 +14,11 @@ jobs:
       CI: true
       TEST_ENV: staging
       BASE_URL: ${{ secrets.BASE_URL }}
-      # Add login credentials here if your tests need them
-      # STAGING_EMAIL: ${{ secrets.STAGING_EMAIL }}
-      # STAGING_PASSWORD: ${{ secrets.STAGING_PASSWORD }}
+      USER_EMAIL: ${{ secrets.USER_EMAIL }}
+      USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+      USER_FULL_NAME: ${{ secrets.USER_FULL_NAME }}
+      WORKSPACE_NAME: ${{ secrets.WORKSPACE_NAME }}
+      WORKSPACE_SLUG: ${{ secrets.WORKSPACE_SLUG }}
 
     steps:
       - uses: actions/checkout@v4
