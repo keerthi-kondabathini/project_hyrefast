@@ -209,6 +209,43 @@ class WorkspaceTeamsPage extends BasePage {
   }
 
   /**
+   * Deletes a team by name. Opens the kebab/overflow menu on the team row and confirms.
+   * @param {string} teamName
+   */
+  async deleteTeam(teamName) {
+    await this.goToTeamsTab();
+    // Locate the team row and open its action menu (empty-text button = kebab)
+    const teamRow = this.page.locator('div').filter({ hasText: new RegExp(`^${teamName}`) }).first();
+    await teamRow.locator('button').filter({ hasText: /^$/ }).first().click();
+    await this.page.waitForTimeout(400);
+    // Confirm the delete
+    await this.page.getByRole('button', { name: /delete team/i }).first().click();
+    await expect(
+      this.page.getByRole('heading', { name: 'Delete Team' })
+    ).toBeVisible({ timeout: 10_000 }).catch(() => null);
+    await this.page.getByRole('button', { name: /delete/i }).first().click();
+    await expect(this.page.getByRole('status')).toBeVisible({ timeout: 10_000 });
+  }
+
+  /**
+   * Deletes a team by name. Opens the team's overflow/kebab menu and removes it.
+   * @param {string} teamName
+   */
+  async deleteTeam(teamName) {
+    await this.goToTeamsTab();
+    // Click the kebab menu for the team row
+    const teamRow = this.page.locator('div').filter({ hasText: new RegExp(`^${teamName}`) }).first();
+    await teamRow.locator('button').filter({ hasText: /^$/ }).first().click();
+    await this.page.waitForTimeout(300);
+    await this.page.getByRole('button', { name: 'Delete team' }).first().click();
+    await expect(
+      this.page.getByRole('heading', { name: 'Delete Team' })
+    ).toBeVisible({ timeout: 10_000 }).catch(() => null);
+    await this.page.getByRole('button', { name: /delete/i }).first().click();
+    await expect(this.page.getByRole('status')).toBeVisible({ timeout: 10_000 });
+  }
+
+  /**
    * Add members to an existing team via the "Add members" button.
    * @param {string} teamName  - Name of the team to add members to
    * @param {{ query: string, displayText: string }[]} members

@@ -200,25 +200,25 @@
     "companyName": "Gimolov",
     "directInterviewUrl": "",
     "skills": {
-      "mustHaveSnippet": "Must Have7Core skills that directly impact role success",
-      "goodToHaveSnippet": "Good to Have2Complementary strengths that improve fit",
-      "bonusSnippet": "Bonus2Differentiators that can set top candidates apart"
+      "mustHaveSnippet": "Must Have6Core skills that directly impact role success",
+      "goodToHaveSnippet": "Good to Have4Complementary strengths that improve fit",
+      "bonusSnippet": "Bonus3Differentiators that can set top candidates apart"
     },
     "resumeScenarios": [
       {
         "id": "002",
         "label": "High Skill Match",
-        "file": "fixtures/resumes/Advanced_DotNet_Resume_7.docx"
+        "file": "Advanced_DotNet_Resume_7.docx"
       },
       {
         "id": "003",
         "label": "Medium Skill Match",
-        "file": "fixtures/resumes/Advanced_DotNet_Resume_7.docx"
+        "file": "Advanced_DotNet_Resume_7.docx"
       },
       {
         "id": "004",
         "label": "Low Skill Match",
-        "file": "fixtures/resumes/Advanced_DotNet_Resume_7.docx"
+        "file": "Advanced_DotNet_Resume_7.docx"
       }
     ],
     "feedbackRatings": [

@@ -47,7 +47,7 @@ test.describe('TC_INT_001 — Job Skills & Question Capture', () => {
     // ── 4. Accept skills → proceed to questions ───────────
     await test.step('Accept skills and navigate to Questions stage', async () => {
       await jobEditPage.acceptSkillsAndProceed();
-      await jobEditPage.proceedToQuestionsStage();
+      await jobEditPage.captureQuestionCount(); // wait until questions heading appears
     });
 
     // ── 5. Capture question count & questions dynamically ─
@@ -95,7 +95,7 @@ for (const resumeScenario of testData.interview.resumeScenarios) {
         await candidatesPage.addCandidatesByEmail([email], 'now');
       });
 
-      // ── 2. Verify invite email ───────────────────────────
+      // ── Verify invite email ───────────────────────────
       const yopContext = await browser.newContext();
       const yopRawPage = await yopContext.newPage();
       const yopMail    = new YopMailPage(yopRawPage);

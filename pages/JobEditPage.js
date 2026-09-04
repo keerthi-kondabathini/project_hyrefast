@@ -63,22 +63,35 @@ class JobEditPage extends BasePage {
   async acceptSkillsAndProceed() {
     await this.acceptSkillsBtn.click();
     await this.page.waitForLoadState('networkidle');
+    // Advance through Question Strategy → Topics & Off Topics → Questions
+    for (let i = 0; i < 2; i++) {
+      await this.nextStageBtn.click();
+      await this.page.waitForLoadState('networkidle');
+      await this.page.waitForTimeout(1500);
+    }
   }
 
-  // Move through interview config stages to reach Questions
-  async proceedToQuestionsStage() {
-    await this.nextStageBtn.click(); // Stage 1 → 2
-    await this.page.waitForTimeout(2000);
-    await this.nextStageBtn.click(); // Stage 2 → Questions
-    await this.page.waitForTimeout(2000);
-  }
-
-  // ── Capture question count from Decide Questions heading ─
+  // ── Capture question count from the Questions step heading ─
   async captureQuestionCount() {
-    // The number is in a sibling element right after the heading (e.g. <h3>Decide Questions</h3><div>9</div>)
-    const parentText = await this.decideQuestionsHeading.locator('xpath=..').innerText();
-    const match = parentText.match(/Decide Questions\s*(\d+)/);
+    await this._openQuestionsTab();
+    // Look for a heading like "Decide Questions 9" or "Interview Questions 9"
+    const heading = this.page.locator('#root').getByText(/(Decide Questions|Interview Questions)\s*\d+/i).first();
+    const text = await heading.innerText().catch(() => '');
+    const match = text.match(/(?:Decide Questions|Interview Questions)\s*(\d+)/i);
     return match ? parseInt(match[1], 10) : 0;
+  }
+
+  async _openQuestionsTab() {
+    // Click the Questions tab (pill-style navigation) only if it is enabled and not active.
+    const questionsTab = this.page.locator('button, [role="tab"]').filter({ hasText: /^Questions$/i }).first();
+    const isVisible = await questionsTab.isVisible().catch(() => false);
+    if (!isVisible) return;
+    const isDisabled = await questionsTab.isDisabled().catch(() => false);
+    const isActive = await questionsTab.evaluate(el => el.classList.contains('bg-teal-600')).catch(() => false);
+    if (!isDisabled && !isActive) {
+      await questionsTab.click();
+      await this.page.waitForTimeout(1500);
+    }
   }
 
   // ── Capture questions dynamically ────────────────────
@@ -87,6 +100,8 @@ class JobEditPage extends BasePage {
    * Returns an ordered string[] of question texts.
    */
   async captureQuestions() {
+    await this._openQuestionsTab();
+
     // Questions are rendered as paragraph/span text inside the root;
     // we grab all visible question-like text blocks
     const questionLocators = this.page.locator('#root p, #root li, #root span').filter({

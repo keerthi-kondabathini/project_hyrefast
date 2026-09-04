@@ -28,7 +28,7 @@ class CandidatesPage extends BasePage {
 
     // ── Applications header ───────────────────────────────
     this.applicationsHeading = (jobTitle) =>
-      page.getByRole('heading', { name: new RegExp(`${jobTitle}`, 'i') });
+      page.locator('h1, h2').filter({ hasText: new RegExp(`${jobTitle}`, 'i') }).first();
 
     // ── Candidate count badge ─────────────────────────────
     this.appliedCountText  = (count) => page.getByText(`${count}Applied`);

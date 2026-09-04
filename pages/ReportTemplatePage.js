@@ -43,7 +43,7 @@ class ReportTemplatePage extends BasePage {
     this.reportsTrackersBtn = page.getByRole('button', { name: 'Reports & Trackers' });
     this.clearAllBtn        = page.getByRole('button', { name: 'Clear All' });
     this.clientSearchInput  = page.getByRole('textbox', { name: 'Search clients…' });
-    this.templateCombo      = page.getByRole('combobox').filter({ hasText: /nm|xya|\u2728/i });
+    this.templateCombo      = page.locator('button[role="combobox"]').filter({ has: page.locator('span').filter({ hasText: /template/i }) }).first();
   }
 
   // ── Navigation ─────────────────────────────────────────
@@ -159,10 +159,14 @@ class ReportTemplatePage extends BasePage {
     await this.page.waitForTimeout(500);
     await this.page.getByRole('button', { name: new RegExp(clientSearchQuery, 'i') }).first().click();
 
-    // Select template
-    await this.templateCombo.click();
-    await this.page.getByText(templateOptionText).click();
-    await this.page.waitForTimeout(500);
+    // Select template — the dropdown may already show the desired template.
+    const templateName = templateOptionText.replace(/^\s*[\u2728\uD83C-\uDFFF]+\s*/, '').trim();
+    const currentTemplateText = await this.templateCombo.innerText().catch(() => '');
+    if (!currentTemplateText.includes(templateName)) {
+      await this.templateCombo.click();
+      await this.page.getByRole('option').filter({ hasText: new RegExp(templateName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') }).click();
+      await this.page.waitForTimeout(500);
+    }
   }
 }
 

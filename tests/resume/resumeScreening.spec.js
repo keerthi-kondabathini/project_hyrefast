@@ -17,9 +17,9 @@ const RS = testData.resumeScreening;
 // Resolve env-driven resume / candidate values at runtime
 const resumeFile     = getEnv(RS.resumeFileEnvKey) || testData.candidates.resumeFile;
 const resumeFileName = getEnv(RS.resumeFileNameEnvKey) || path.basename(resumeFile);
-const candidateName  = getEnv(RS.candidateNameEnvKey);
-const candidateEmail = getEnv(RS.candidateEmailEnvKey);
-const explorerEmail  = getEnv(RS.explorerEmailEnvKey);
+const candidateName  = getEnv(RS.candidateNameEnvKey) || 'Mulki Srujana';
+const candidateEmail = getEnv(RS.candidateEmailEnvKey) || 'test002@yopmail.com';
+const explorerEmail  = getEnv(RS.explorerEmailEnvKey) || candidateEmail;
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  TC_RES_001 — Upload resume, verify screening status & score consistency
@@ -34,7 +34,7 @@ test.describe('TC_RES_001 — Resume Upload & Screening Flow', () => {
 
     // ── 1. Navigate to job candidates page ───────────────
     await test.step(`Navigate to "${RS.jobTitle}" candidates`, async () => {
-      await resumePage.goToDashboard();
+      // loggedInPage fixture already lands on the dashboard; just open the job candidates
       await resumePage.openCandidatesForJob(RS.jobTitle);
     });
 

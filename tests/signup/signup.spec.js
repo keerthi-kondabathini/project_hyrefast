@@ -145,7 +145,7 @@ test.describe('TC_SGN_002 — Sign Up with Agency Mode (direct selection)', () =
         fullName: `Agency User ${yopUsername.slice(-4).toUpperCase()}`,
         phone:    randomPhone(),
         email:    email,
-        password: SU.password,
+        password: getEnv(SU.passwordEnvKey, 'password'),
       });
       await signup.assertAccountCreated();
     });

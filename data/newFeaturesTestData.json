@@ -102,7 +102,7 @@
         },
         {
           "title": "job",
-          "category": "Job Opening",
+          "category": "Job Data",
           "fieldSearch": "job tit",
           "fieldOptionText": "Designation / Job Title (job."
         }

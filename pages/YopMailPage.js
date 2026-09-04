@@ -169,7 +169,7 @@ class YopMailPage extends BasePage {
 
     // Wait for the invite email subject in the inbox list, then open it and wait for body.
     const frame = this.mailFrame();
-    const subjectLocator = frame.getByText('Your Private Interview Link').first();
+    const subjectLocator = frame.getByText(/Your Private Interview Link/i).first();
     await expect(subjectLocator).toBeVisible({ timeout: 60000 });
     await subjectLocator.click();
     await this.page.waitForTimeout(1500);

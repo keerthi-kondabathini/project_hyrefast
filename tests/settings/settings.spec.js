@@ -163,7 +163,7 @@ test.describe('TC_SET_007 — Create Team', () => {
 // ─────────────────────────────────────────────────────────────────────────────
 test.describe('TC_SET_008 — Update Personal Profile', () => {
 
-  test('Edit full name, email, phone and verify save notification', async ({
+  test('Edit full name, email, phone → save → verify changes persisted', async ({
     page, loggedInPage
   }) => {
     const settingsData  = testData.settings;
@@ -184,7 +184,30 @@ test.describe('TC_SET_008 — Update Personal Profile', () => {
       });
     });
 
-   
+    await test.step('Verify profile page shows updated inputs', async () => {
+      // Re-open the profile section to read back saved values
+      await settings.goToPersonalProfile();
+
+      // Verify at least the 3 expected inputs are present
+      const inputs = settings.page.locator('input[type="text"]');
+      const count = await inputs.count();
+      expect(count).toBeGreaterThanOrEqual(3,
+        'Expected at least 3 text inputs (name, email, phone) on profile page');
+
+      // Read back the saved values from the inputs
+      const savedName  = await settings.page.locator('input[name="fullName"], input[name="name"], input[name="full_name"]').first().inputValue().catch(() => '');
+      const savedEmail = await settings.page.locator('input[name="email"], input[name="emailAddress"], input[name="email_address"]').first().inputValue().catch(() => '');
+      const savedPhone = await settings.page.locator('input[name="phone"], input[name="phoneNumber"], input[name="phone_number"]').first().inputValue().catch(() => '');
+
+      expect(savedName).toBe(profileUpdate.fullName,
+        `Expected saved full name "${profileUpdate.fullName}" but got "${savedName}"`);
+      if (profileEmail) {
+        expect(savedEmail).toBe(profileEmail,
+          `Expected saved email "${profileEmail}" but got "${savedEmail}"`);
+      }
+      expect(savedPhone).toBe(profileUpdate.phone,
+        `Expected saved phone "${profileUpdate.phone}" but got "${savedPhone}"`);
+    });
   });
 
 });
@@ -210,8 +233,8 @@ test.describe('TC_SET_009 — Add Company to Workspace', () => {
     // Capture initial company count
     let initialCount = 0;
     await test.step('Capture initial company count', async () => {
-      const countText = await page.getByText(/Companies\d+/).innerText().catch(() => '0');
-      const match = countText.match(/\d+/);
+      const countText = await page.getByText(/Companies\\d+/).innerText().catch(() => '0');
+      const match = countText.match(/\\d+/);
       initialCount = match ? parseInt(match[0], 10) : 0;
       console.log(`Initial company count: ${initialCount}`);
     });

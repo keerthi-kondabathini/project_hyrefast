@@ -9,7 +9,7 @@
     "globalTimeout": 0,
     "grep": {},
     "grepInvert": null,
-    "maxFailures": 0,
+    "maxFailures": 1,
     "metadata": {
       "actualWorkers": 1
     },
@@ -31,7 +31,7 @@
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 600000
+        "timeout": 0
       },
       {
         "outputDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/test-results",
@@ -47,7 +47,7 @@
         "testMatch": [
           "**/interview/**"
         ],
-        "timeout": 600000
+        "timeout": 0
       }
     ],
     "quiet": false,
@@ -79,30 +79,30 @@
     "updateSnapshots": "missing",
     "updateSourceMethod": "patch",
     "version": "1.59.1",
-    "workers": 5,
+    "workers": 1,
     "webServer": null
   },
   "suites": [
     {
-      "title": "applications\\Applications-CSV.spec.js",
-      "file": "applications/Applications-CSV.spec.js",
+      "title": "reports\\reportsAndTrackers.spec.js",
+      "file": "reports/reportsAndTrackers.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "TC_APP_009 — CSV missing required columns",
-          "file": "applications/Applications-CSV.spec.js",
-          "line": 211,
+          "title": "TC_RPT — Reports & Trackers",
+          "file": "reports/reportsAndTrackers.spec.js",
+          "line": 39,
           "column": 6,
           "specs": [
             {
-              "title": "Upload CSV with only \"name\" column (no email/phone) → mapping blocked / no creation",
+              "title": "TC_RPT_023 — Add custom tracker column and bind candidate data",
               "ok": true,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 600000,
+                  "timeout": 0,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
@@ -112,34 +112,37 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 51897,
+                      "duration": 51828,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Missing-columns CSV wizard threw: locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('div[role=\"dialog\"]').filter({ hasText: /Map CSV Fields/i }).locator('select').nth(1)\u001b[22m\n\u001b[2m    - locator resolved to <select class=\"mt-1 h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\">…</select>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m      - did not find some options\u001b[22m\n\u001b[2m    - retrying select option action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m      - did not find some options\u001b[22m\n\u001b[2m    - retrying select option action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    59 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m       - did not find some options\u001b[22m\n\u001b[2m     - retrying select option action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n"
+                          "text": "Headers after add: [\n  \u001b[32m''\u001b[39m,\n  \u001b[32m'column1'\u001b[39m,\n  \u001b[32m'Source Details'\u001b[39m,\n  \u001b[32m'location'\u001b[39m,\n  \u001b[32m'AutoCol_1788497769319'\u001b[39m,\n  \u001b[32m'AutoCol_1788498021718'\u001b[39m,\n  \u001b[32m'AutoCol_1788498469697'\u001b[39m,\n  \u001b[32m'AutoCol_1788498621928'\u001b[39m,\n  \u001b[32m'AutoCol_1788505867835'\u001b[39m,\n  \u001b[32m'AutoCol_1788506632520'\u001b[39m,\n  \u001b[32m'AutoCol_1788507733204'\u001b[39m,\n  \u001b[32m'AutoCol_1788510662107'\u001b[39m\n]\n"
+                        },
+                        {
+                          "text": "Column index: \u001b[33m11\u001b[39m for AutoCol_1788510662107\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
                       "steps": [
                         {
-                          "title": "Open Candidates view for \".net developer\"",
-                          "duration": 5498
+                          "title": "Open add column dialog and create column",
+                          "duration": 10003
                         },
                         {
-                          "title": "Upload missing-columns CSV through the wizard",
-                          "duration": 34934
+                          "title": "Verify new column appears in table header",
+                          "duration": 3690
                         },
                         {
-                          "title": "Verify count did NOT increase",
-                          "duration": 3727
+                          "title": "Bind existing candidate data to the new column",
+                          "duration": 3614
                         },
                         {
-                          "title": "Capture any error message",
-                          "duration": 72
+                          "title": "Verify the cell value was bound",
+                          "duration": 1351
                         }
                       ],
-                      "startTime": "2026-09-01T17:55:44.345Z",
+                      "startTime": "2026-09-04T08:30:30.244Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -147,61 +150,9 @@
                   "status": "expected"
                 }
               ],
-              "id": "6b102f33d195d99fe36d-6689d060a9f60fd3196e",
-              "file": "applications/Applications-CSV.spec.js",
-              "line": 213,
-              "column": 3
-            },
-            {
-              "title": "Upload CSV missing email column (name, phone only) → mapping blocked / no creation",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 600000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 53189,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "No-email-column CSV wizard threw: locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('div[role=\"dialog\"]').filter({ hasText: /Map CSV Fields/i }).locator('select').nth(1)\u001b[22m\n\u001b[2m    - locator resolved to <select class=\"mt-1 h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\">…</select>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m      - did not find some options\u001b[22m\n\u001b[2m    - retrying select option action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m      - did not find some options\u001b[22m\n\u001b[2m    - retrying select option action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m       - did not find some options\u001b[22m\n\u001b[2m     - retrying select option action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "steps": [
-                        {
-                          "title": "Open Candidates view for \".net developer\"",
-                          "duration": 2885
-                        },
-                        {
-                          "title": "Upload CSV missing email column through the wizard",
-                          "duration": 35363
-                        },
-                        {
-                          "title": "Verify count unchanged",
-                          "duration": 5092
-                        }
-                      ],
-                      "startTime": "2026-09-01T17:56:36.582Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "6b102f33d195d99fe36d-55d3c71920a8e1dfa62a",
-              "file": "applications/Applications-CSV.spec.js",
-              "line": 246,
+              "id": "263de72c89a01f64d836-5599353442aded657427",
+              "file": "reports/reportsAndTrackers.spec.js",
+              "line": 436,
               "column": 3
             }
           ]
@@ -211,9 +162,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-09-01T17:55:42.954Z",
-    "duration": 107354.042,
-    "expected": 2,
+    "startTime": "2026-09-04T08:30:28.679Z",
+    "duration": 54609.665,
+    "expected": 1,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
