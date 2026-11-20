@@ -43,7 +43,7 @@ class ReportsAndTrackersPage extends BasePage {
     this.emailBtn = page.locator('button').filter({ has: page.locator('svg.lucide-mail') });
     this.manageTemplatesBtn = page.locator('button').filter({ has: page.locator('svg.lucide-settings2') }).nth(1);
     this.addColumnBtn = page.locator('button').filter({ has: page.locator('svg.lucide-plus') }).first();
-    this.themeToggleBtn = page.locator('button').filter({ has: page.locator('svg.lucide-moon, svg.lucide-sun') }).first();
+    this.themeToggleBtn = page.getByRole('button', { name: /theme|dark mode|light mode/i }).first();
 
     // ── Date range ───────────────────────────────────────────
     this.fromDateInput = page.locator('input[type="date"]').nth(0);
@@ -51,10 +51,11 @@ class ReportsAndTrackersPage extends BasePage {
     this.clearDateFilterBtn = page.locator('button[title="Clear date filter"]');
 
     // ── Table ────────────────────────────────────────────────
-    this.table = page.locator('table');
-    this.tableRows = page.locator('table tbody tr');
-    this.headerCheckbox = page.locator('table thead input[type="checkbox"]').first();
-    this.rowsPerPageSelect = page.locator('select');
+    this.table = page.locator('table:visible').filter({
+      has: page.getByRole('columnheader', { name: /Candidate Name/i }),
+    }).last();
+    this.tableRows = this.table.locator('tbody tr');
+    this.headerCheckbox = this.table.locator('thead input[type="checkbox"]').first();
     this.paginationText = page.locator('text=/Showing .* of .* candidates/');
     this.pageInfoText = page.locator('text=/Page \\d+ of \\d+/');
     this.nextPageBtn = page.locator('button').filter({ has: page.locator('svg.lucide-chevron-right') }).first();
@@ -109,13 +110,18 @@ class ReportsAndTrackersPage extends BasePage {
 
   async captureTableData() {
     await this.page.waitForTimeout(1000);
-    return this.page.evaluate(() => {
-      const rows = Array.from(document.querySelectorAll('table tbody tr'));
+    return this.table.evaluate((table) => {
+      const headers = Array.from(table.querySelectorAll('thead th'));
+      const candidateNameIndex = headers.findIndex((th) => /candidate\s*name/i.test(th.innerText));
+      const rows = Array.from(table.querySelectorAll('tbody tr'));
       return rows.map((tr) => {
         const checkbox = tr.querySelector('input[type="checkbox"]');
         const inputs = Array.from(tr.querySelectorAll('input[type="text"]'));
         return {
           selected: checkbox ? checkbox.checked : false,
+          candidateName: candidateNameIndex >= 0
+            ? (tr.cells[candidateNameIndex]?.innerText || '').trim()
+            : '',
           values: inputs.map((i) => ({
             title: i.getAttribute('title') || '',
             value: i.value || '',
@@ -243,8 +249,29 @@ class ReportsAndTrackersPage extends BasePage {
   // ═══════════════════════════════════════════════════════
 
   async setRowsPerPage(count) {
-    await this.rowsPerPageSelect.selectOption(String(count));
+    // The table contains many native selects for editable tracker cells. Pick
+    // the page-size select outside the table, identified by its standard size options.
+    const pageSizeIndex = await this.page.locator('select').evaluateAll((selects) =>
+      selects.findIndex((select) => !select.closest('table') &&
+        Array.from(select.options).some((option) => /^(10|20|25|50|100)$/.test(option.value || option.textContent.trim())))
+    );
+    if (pageSizeIndex < 0) {
+      throw new Error('Could not find the rows-per-page selector outside the tracker table');
+    }
+
+    const selector = this.page.locator('select').nth(pageSizeIndex);
+    const selectedSize = await selector.evaluate((select, requested) => {
+      const sizes = Array.from(select.options)
+        .map((option) => Number(option.value || option.textContent.trim()))
+        .filter((value) => Number.isFinite(value) && value > 0)
+        .sort((a, b) => a - b);
+      return sizes.includes(requested)
+        ? requested
+        : (sizes.filter((value) => value <= requested).pop() || sizes[0]);
+    }, count);
+    await selector.selectOption(String(selectedSize));
     await this.page.waitForTimeout(2500);
+    return selectedSize;
   }
 
   async goToNextPage() {
@@ -262,7 +289,7 @@ class ReportsAndTrackersPage extends BasePage {
   // ═══════════════════════════════════════════════════════
 
   async sortByColumn(columnName) {
-    const header = this.page.locator('table th').filter({ hasText: columnName }).first();
+    const header = this.table.getByRole('columnheader', { name: new RegExp(columnName, 'i') }).first();
     await header.click();
     await this.page.waitForTimeout(2000);
   }
@@ -331,80 +358,37 @@ class ReportsAndTrackersPage extends BasePage {
   }
 
   async fillEmailDialog({ to, cc, subject, body }) {
-    // Focus inputs via DOM evaluate, then type with page.keyboard so React
-    // registers the values/tokens in the Radix-portaled email dialog.
     if (to) {
-      await this.page.evaluate(() => {
-        const dialog = Array.from(document.querySelectorAll('[role="dialog"]'))
-          .find((d) => d.textContent.includes('Send Report via Email'));
-        if (!dialog) return;
-        const clearAll = Array.from(dialog.querySelectorAll('button, [role="button"]'))
-          .find((b) => b.textContent.trim() === 'Clear All');
-        if (clearAll) clearAll.click();
-      });
-      await this.page.waitForTimeout(600);
+      const recipientInput = this.dialog.getByRole('textbox', { name: /recipient emails/i });
+      await recipientInput.fill(to);
+      await recipientInput.press('Enter');
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
+        await expect(this.dialog.getByText(to, { exact: true })).toBeVisible({ timeout: 5000 });
+      }
     }
 
-    if (to) {
-      await this.page.evaluate(() => {
-        const dialog = Array.from(document.querySelectorAll('[role="dialog"]'))
-          .find((d) => d.textContent.includes('Send Report via Email'));
-        if (!dialog) return;
-        const input = dialog.querySelectorAll('input[type="text"]')[0];
-        if (input) input.focus();
-      });
-      await this.page.keyboard.type(to);
-      await this.page.keyboard.press('Enter');
-      await this.page.waitForTimeout(500);
-    }
     if (cc) {
-      await this.page.evaluate(() => {
-        const dialog = Array.from(document.querySelectorAll('[role="dialog"]'))
-          .find((d) => d.textContent.includes('Send Report via Email'));
-        if (!dialog) return;
-        const input = dialog.querySelectorAll('input[type="text"]')[1];
-        if (input) input.focus();
-      });
-      await this.page.keyboard.type(cc);
-      await this.page.keyboard.press('Enter');
-      await this.page.waitForTimeout(500);
+      const ccInput = this.dialog.getByRole('textbox', { name: /CC emails/i });
+      await ccInput.fill(cc);
+      await ccInput.press('Enter');
+      await expect(this.dialog.getByText(cc, { exact: true })).toBeVisible({ timeout: 5000 });
     }
+
     if (subject) {
-      await this.page.evaluate(() => {
-        const dialog = Array.from(document.querySelectorAll('[role="dialog"]'))
-          .find((d) => d.textContent.includes('Send Report via Email'));
-        if (!dialog) return;
-        const inputs = Array.from(dialog.querySelectorAll('input[type="text"]'));
-        const input = inputs.find((i) => i.placeholder?.toLowerCase().includes('subject')) || inputs[2];
-        if (input) input.focus();
-      });
-      await this.page.keyboard.type(subject);
-      await this.page.waitForTimeout(300);
+      await this.dialog.getByRole('textbox', { name: 'Subject' }).fill(subject);
     }
+
     if (body) {
-      await this.page.evaluate(() => {
-        const dialog = Array.from(document.querySelectorAll('[role="dialog"]'))
-          .find((d) => d.textContent.includes('Send Report via Email'));
-        if (!dialog) return;
-        const el = dialog.querySelector('[contenteditable="true"]');
-        if (el) el.focus();
-      });
-      await this.page.keyboard.type(body);
-      await this.page.waitForTimeout(300);
+      await this.dialog.locator('[contenteditable="true"]').fill(body);
     }
-    await this.page.waitForTimeout(500);
   }
 
-  async sendEmail() {
-    await this.page.evaluate(() => {
-      const dialog = Array.from(document.querySelectorAll('[role="dialog"]'))
-        .find((d) => d.textContent.includes('Send Report via Email'));
-      if (!dialog) return;
-      const btn = Array.from(dialog.querySelectorAll('button'))
-        .find((b) => b.textContent.trim() === 'Send Email');
-      if (btn) btn.click();
-    });
-    await this.page.waitForTimeout(2000);
+  async sendEmail({ allowDisabled = false } = {}) {
+    const sendButton = this.dialog.getByRole('button', { name: 'Send Email', exact: true });
+    if (allowDisabled && !(await sendButton.isEnabled())) return;
+    await expect(sendButton).toBeEnabled({ timeout: 10_000 });
+    await sendButton.click();
+    await expect(this.dialog).toBeHidden({ timeout: 15_000 }).catch(() => {});
   }
 
   async cancelEmailDialog() {
@@ -622,8 +606,8 @@ class ReportsAndTrackersPage extends BasePage {
   }
 
   async getColumnHeaders() {
-    return this.page.evaluate(() =>
-      Array.from(document.querySelectorAll('table thead th')).map((th) => th.innerText.trim())
+    return this.table.evaluate((table) =>
+      Array.from(table.querySelectorAll('thead th')).map((th) => th.innerText.trim())
     );
   }
 
@@ -633,7 +617,23 @@ class ReportsAndTrackersPage extends BasePage {
   }
 
   async toggleTheme() {
-    await this.themeToggleBtn.click();
+    if (await this.themeToggleBtn.isVisible().catch(() => false)) {
+      await this.themeToggleBtn.click();
+    } else {
+      // On this screen the theme control lives in the account menu.
+      const accountMenuButton = this.page.locator('nav button').last();
+      await accountMenuButton.click();
+      const menuToggle = this.page.getByRole('menuitem', { name: /theme|appearance|dark|light/i })
+        .or(this.page.getByRole('button', { name: /theme|appearance|dark|light/i })).first();
+      await expect(menuToggle, 'Expected a theme control in the account menu').toBeVisible();
+      await menuToggle.click();
+      if (/appearance/i.test((await menuToggle.innerText().catch(() => '')))) {
+        const appearanceChoice = this.page.getByRole('menuitem', { name: /dark|light/i })
+          .or(this.page.getByRole('button', { name: /dark|light/i })).first();
+        await expect(appearanceChoice, 'Expected a dark or light appearance choice').toBeVisible();
+        await appearanceChoice.click();
+      }
+    }
     await this.page.waitForTimeout(1000);
   }
 
@@ -650,22 +650,10 @@ class ReportsAndTrackersPage extends BasePage {
   }
 
   async editLastCell(rowIndex, newValue) {
-    await this.page.evaluate(({ idx, value }) => {
-      const row = document.querySelectorAll('table tbody tr')[idx];
-      if (!row) return;
-      const inputs = Array.from(row.querySelectorAll('input[type="text"]'));
-      const last = inputs[inputs.length - 1];
-      if (last) {
-        last.scrollIntoView({ block: 'center', inline: 'center' });
-        last.focus();
-        last.value = value;
-        last.dispatchEvent(new Event('input', { bubbles: true }));
-        last.dispatchEvent(new Event('change', { bubbles: true }));
-        last.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true }));
-        last.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', code: 'Enter', bubbles: true }));
-        last.blur();
-      }
-    }, { idx: rowIndex, value: newValue });
+    const cellInput = this.tableRows.nth(rowIndex).locator('input[type="text"]').last();
+    await cellInput.scrollIntoViewIfNeeded();
+    await cellInput.fill(newValue);
+    await cellInput.press('Enter');
     await this.page.waitForTimeout(1500);
   }
 }

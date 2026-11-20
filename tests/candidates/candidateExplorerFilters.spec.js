@@ -58,7 +58,7 @@ test.describe('TC_CEF — Candidate Explorer filters & dropdowns', () => {
     });
 
     await test.step('Verify every visible row contains the searched name', async () => {
-      const filtered = await explorer.captureTableData();
+      const filtered = await explorer.captureTableData(target.name);
       expect(filtered.length).toBeGreaterThan(0);
       for (const row of filtered) {
         expect(row.name).toContain(target.name);
@@ -154,7 +154,9 @@ test.describe('TC_CEF — Candidate Explorer filters & dropdowns', () => {
       const filtered = await explorer.captureTableData();
       expect(filtered.length).toBeGreaterThan(0);
       for (const row of filtered) {
-        expect(row.role).toMatch(new RegExp(`JID:\\s*0*${jobId}`, 'i'));
+        const actualJobId = row.role.match(/JID:\s*(?:[A-Z]+-)?(\d+)/i)?.[1];
+        expect(actualJobId, `Expected a Job ID in "${row.role}"`).toBeTruthy();
+        expect(Number(actualJobId)).toBe(Number(jobId));
       }
     });
   });
@@ -224,7 +226,6 @@ test.describe('TC_CEF — Candidate Explorer filters & dropdowns', () => {
 
   test('TC_CEF_012 — Rows per page dropdown changes visible row count', async () => {
     await test.step('Change rows per page to 20', async () => {
-      await explorer.goto();
       await explorer.setRowsPerPage(20);
     });
 

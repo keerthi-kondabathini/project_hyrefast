@@ -1,0 +1,39 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - button [ref=e6] [cursor=pointer]:
+          - img
+        - generic [ref=e7]:
+          - heading "Prerequisite Questions" [level=1] [ref=e8]
+          - paragraph [ref=e9]: Configure questions candidates must answer before interviewing.
+      - button "Save Changes" [ref=e10] [cursor=pointer]:
+        - img
+        - text: Save Changes
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - paragraph [ref=e14]: Questions shown to candidates before starting the AI interview. Resume upload is included by default.
+        - generic [ref=e15]: 1 Question
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - img [ref=e19]
+            - generic [ref=e26]: "1"
+          - generic [ref=e27]:
+            - textbox "Question text (e.g. How many years of React experience?)" [ref=e28]: Describe one automated test suite you have built and the tools you used.
+            - generic [ref=e29]:
+              - combobox [ref=e30] [cursor=pointer]:
+                - generic: Text
+                - img [ref=e31]
+              - generic [ref=e33]:
+                - generic [ref=e34]: Required
+                - switch [checked] [ref=e35] [cursor=pointer]
+          - button [ref=e36] [cursor=pointer]:
+            - img
+        - button "Add Question" [ref=e37] [cursor=pointer]:
+          - img
+          - text: Add Question

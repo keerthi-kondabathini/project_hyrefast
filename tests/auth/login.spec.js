@@ -4,25 +4,18 @@ const { LoginPage } = require('../../pages/LoginPage');
 const { YopMailPage } = require('../../pages/YopMailPage');
 const { DashboardPage } = require('../../pages/DashboardPage');
 const { getTimeOfDay, getEnv } = require('../../utils/helpers');
-const { MailTmClient } = require('../../utils/mailTmClient');
 
 const RESET_EMAIL = getEnv('RESET_TEST_EMAIL');
 const RESET_PASSWORD = getEnv('RESET_TEST_PASSWORD');
 const RESET_YOP_USERNAME = RESET_EMAIL ? RESET_EMAIL.split('@')[0] : '';
 
-/**
- * Build a Mail.tm-backed email inbox for the reset tests.
- * Falls back to a fresh Mail.tm account when YopMail is blocked by CAPTCHA.
- */
-async function createResetInbox() {
-  const mailTm = new MailTmClient();
-  const account = await mailTm.createAccount('hyrefast_reset');
-  return {
-    provider: 'mailtm',
-    email: account.email,
-    yopUsername: account.email.split('@')[0],
-    mailTmClient: mailTm,
-  };
+function assertResetTestConfiguration() {
+  if (!RESET_EMAIL || !RESET_PASSWORD) {
+    throw new Error('Set RESET_TEST_EMAIL and RESET_TEST_PASSWORD in the selected .env file to run password reset tests.');
+  }
+  if (!RESET_EMAIL.toLowerCase().endsWith('@yopmail.com')) {
+    throw new Error('RESET_TEST_EMAIL must be a YopMail inbox address because the reset tests read the email through YopMail.');
+  }
 }
 
 test.describe('Authentication — Login & Logout', () => {
@@ -127,107 +120,86 @@ await dashboardPage.assertWelcomeDashboard(credentials.fullName);    });
   test('TC_AUTH_005 — Password reset link request flow', async ({
     browser
   }) => {
-    test.skip(
-      true,
-      'Blocked on staging: reset emails are not delivered to disposable inboxes (YopMail shows reCAPTCHA; Mail.tm receives no email). ' +
-      'Re-enable once a controllable email account (e.g. Gmail app-password inbox) is configured.'
-    );
+    assertResetTestConfiguration();
+    const inboxContext = await browser.newContext();
+    const appContext = await browser.newContext();
+    try {
+      const inboxPage = await inboxContext.newPage();
+      const yopMail = new YopMailPage(inboxPage);
+      await test.step('Open the configured reset test inbox', async () => {
+        await yopMail.openInbox(RESET_YOP_USERNAME);
+      });
 
-    const inbox = await createResetInbox();
+      const appPage = await appContext.newPage();
+      const loginPage = new LoginPage(appPage);
+      await test.step('Request a reset link for the dedicated test account', async () => {
+        await loginPage.navigate();
+        await loginPage.requestPasswordReset(RESET_EMAIL);
+        await loginPage.assertPasswordResetEmailSent();
+      });
 
-    const yopContext = await browser.newContext();
-    const yopPage = await yopContext.newPage();
-    const yopMail = new YopMailPage(yopPage);
-
-    await test.step('Open Mail.tm inbox for reset test account', async () => {
-      await yopMail.openInbox(inbox);
-    });
-
-    // ── Request password reset on the login page ──
-    const resetContext = await browser.newContext();
-    const resetPage = await resetContext.newPage();
-    const loginPage = new LoginPage(resetPage);
-
-    await test.step('Open forgot-password form and request reset link', async () => {
-      await loginPage.navigate();
-      await loginPage.requestPasswordReset(inbox.email);
-      await loginPage.assertPasswordResetEmailSent();
-    });
-
-    await test.step('Verify reset email is received in inbox', async () => {
-      await yopMail.assertResetPasswordEmailVisible();
-    });
-
-    await yopContext.close();
-    await resetContext.close();
+      await test.step('Verify the reset email arrives in the configured inbox', async () => {
+        await yopMail.assertResetPasswordEmailVisible();
+      });
+    } finally {
+      await Promise.all([inboxContext.close(), appContext.close()]);
+    }
   });
 
   test('TC_AUTH_006 — Reset password via email link and login with new password', async ({
     browser
   }) => {
-    test.skip(
-      true,
-      'Blocked on staging: reset emails are not delivered to disposable inboxes (YopMail shows reCAPTCHA; Mail.tm receives no email). ' +
-      'Re-enable once a controllable email account (e.g. Gmail app-password inbox) is configured.'
-    );
-
-    const newPassword = 'ResetPass123!';
-    const inbox = await createResetInbox();
-
-    const yopContext = await browser.newContext();
-    const yopPage = await yopContext.newPage();
-    const yopMail = new YopMailPage(yopPage);
-
-    await test.step('Open Mail.tm inbox for reset test account', async () => {
-      await yopMail.openInbox(inbox);
-    });
-
-    // ── Request password reset ──
-    const resetContext = await browser.newContext();
-    const resetPage = await resetContext.newPage();
-    const loginPage = new LoginPage(resetPage);
-
-    await test.step('Request password reset link', async () => {
-      await loginPage.navigate();
-      await loginPage.requestPasswordReset(inbox.email);
-      await loginPage.assertPasswordResetEmailSent();
-    });
-
-    // ── Open reset link from email and set new password ──
-    let resetLink;
-    await test.step('Extract reset link from email', async () => {
-      await yopMail.assertResetPasswordEmailVisible();
-      resetLink = await yopMail.extractLinkHref('Reset My Password');
-      expect(resetLink).toContain('/reset-password/');
-    });
-
-    await test.step('Open reset link and set new password', async () => {
-      await resetPage.goto(resetLink);
-      await loginPage.assertOnSetNewPasswordPage();
-      await loginPage.setNewPassword(newPassword);
-    });
-
-    await test.step('Verify password reset successful email', async () => {
-      await yopMail.assertPasswordResetSuccessfulEmailVisible();
-    });
-
-    // ── Login with new password ──
+    assertResetTestConfiguration();
+    const newPassword = RESET_PASSWORD;
+    const inboxContext = await browser.newContext();
+    const appContext = await browser.newContext();
     const loginContext = await browser.newContext();
-    const loginPageInstance = await loginContext.newPage();
-    const freshLogin = new LoginPage(loginPageInstance);
-    const dashboard = new DashboardPage(loginPageInstance);
+    try {
+      const inboxPage = await inboxContext.newPage();
+      const yopMail = new YopMailPage(inboxPage);
+      await test.step('Open the configured reset test inbox', async () => {
+        await yopMail.openInbox(RESET_YOP_USERNAME);
+      });
 
-    await test.step('Login with the new password', async () => {
-      await freshLogin.navigate();
-      await freshLogin.login(inbox.email, newPassword);
-    });
+      const resetPage = await appContext.newPage();
+      const resetLoginPage = new LoginPage(resetPage);
+      await test.step('Request a reset link for the dedicated test account', async () => {
+        await resetLoginPage.navigate();
+        await resetLoginPage.requestPasswordReset(RESET_EMAIL);
+        await resetLoginPage.assertPasswordResetEmailSent();
+      });
 
-    await test.step('Verify dashboard is displayed', async () => {
-      await dashboard.assertWelcomeDashboard(/./);
-    });
+      let resetLink;
+      await test.step('Open the reset email and extract its password link', async () => {
+        await yopMail.openResetPasswordEmail();
+        resetLink = await yopMail.extractLinkHref('Reset My Password');
+        expect(resetLink, 'Reset email should contain a password reset link').toBeTruthy();
+        expect(new URL(resetLink).pathname).toContain('/reset-password/');
+      });
 
-    await yopContext.close();
-    await resetContext.close();
-    await loginContext.close();
+      await test.step('Set the configured new password', async () => {
+        await resetPage.goto(resetLink);
+        await resetLoginPage.assertOnSetNewPasswordPage();
+        await resetLoginPage.setNewPassword(newPassword);
+        await resetLoginPage.assertLoginPageVisible();
+      });
+
+      await test.step('Verify the password reset confirmation email', async () => {
+        await yopMail.refreshInbox();
+        await yopMail.assertPasswordResetSuccessfulEmailVisible();
+      });
+
+      const freshPage = await loginContext.newPage();
+      const freshLogin = new LoginPage(freshPage);
+      const dashboard = new DashboardPage(freshPage);
+      await test.step('Log in with the new password and verify the account dashboard', async () => {
+        await freshLogin.navigate();
+        await freshLogin.login(RESET_EMAIL, newPassword);
+        await expect(freshPage.getByRole('heading', { name: /Good (Morning|Afternoon|Evening), .+/i })).toBeVisible();
+        await expect(dashboard.hyrefastHeading).toBeVisible();
+      });
+    } finally {
+      await Promise.all([inboxContext.close(), appContext.close(), loginContext.close()]);
+    }
   });
 });

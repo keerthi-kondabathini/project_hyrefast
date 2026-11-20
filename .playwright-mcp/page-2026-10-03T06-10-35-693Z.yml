@@ -1,0 +1,58 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e1767]:
+    - banner [ref=e1768]:
+      - generic [ref=e1769]:
+        - button "Go back" [ref=e1770] [cursor=pointer]:
+          - img
+        - generic [ref=e1771]:
+          - generic [ref=e1772]:
+            - heading "Bot Interview Configuration" [level=1] [ref=e1773]
+            - generic [ref=e1774]: Saved
+          - 'heading "Job: JD Upload QA 20261003" [level=2] [ref=e1775]'
+          - paragraph [ref=e1776]: Configure topics, questions, and strategy for the Hyrefast Bot Screening
+      - generic [ref=e1777]:
+        - button "View Resume" [ref=e1778] [cursor=pointer]:
+          - img
+          - text: View Resume
+        - button "Save & Return" [ref=e1779] [cursor=pointer]:
+          - img
+          - text: Save & Return
+    - main [ref=e1780]:
+      - generic [ref=e1781]:
+        - generic [ref=e1783]:
+          - generic [ref=e1784]:
+            - button "Question Strategy" [ref=e1785] [cursor=pointer]
+            - generic [ref=e1786]: →
+          - generic [ref=e1787]:
+            - button "Topics & Off Topics" [ref=e1788] [cursor=pointer]
+            - generic [ref=e1789]: →
+          - generic [ref=e1790]:
+            - button "Questions" [ref=e1791] [cursor=pointer]
+            - generic [ref=e1792]: →
+          - button "Interview Settings" [disabled] [ref=e1794]
+        - generic [ref=e2068]:
+          - generic [ref=e2069]:
+            - paragraph [ref=e2070]: Platform & Security
+            - paragraph [ref=e2071]: Configure how candidates can access and take the AI interview.
+          - generic [ref=e2073]:
+            - generic [ref=e2074] [cursor=pointer]:
+              - generic [ref=e2075]:
+                - text: Allow Mobile Interview
+                - paragraph [ref=e2076]: Enable candidates to complete the AI interview from their mobile devices.
+              - switch [ref=e2077]
+            - generic [ref=e2078]:
+              - generic [ref=e2079]:
+                - text: Enable Proctoring
+                - paragraph [ref=e2080]: Require camera and screen sharing to detect tab-switching and outside help.
+              - switch [ref=e2081] [cursor=pointer]
+        - generic [ref=e1812]:
+          - button "Previous Stage" [ref=e1907] [cursor=pointer]:
+            - img
+            - text: Previous Stage
+          - 'button "Next: Job Settings" [active] [ref=e2082] [cursor=pointer]':
+            - text: "Next: Job Settings"
+            - img

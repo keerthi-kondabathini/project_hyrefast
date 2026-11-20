@@ -48,7 +48,7 @@ for (const scenario of testData.jdCreation.scenarios) {
           locationQuery:  scenario.locationQuery,
           locationOption: scenario.locationOption,
           generateFromRoleTitle: scenario.generateFromRoleTitle || false,
-          jobDescriptionFilePath: scenario.generateFromRoleTitle ? null : path.resolve(__dirname, '../../fixtures/resumes/Advanced_DotNet_Resume_7.docx'),
+          jobDescriptionFilePath: scenario.generateFromRoleTitle ? null : path.resolve(__dirname, '../../fixtures/jds/01_Cybersecurity_Analyst_JD.pdf'),
         });
       });
 

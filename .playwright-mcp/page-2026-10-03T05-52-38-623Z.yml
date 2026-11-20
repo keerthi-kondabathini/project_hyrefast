@@ -1,0 +1,343 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e608]:
+    - generic [ref=e609]:
+      - generic [ref=e610]:
+        - generic [ref=e611]:
+          - button [ref=e612] [cursor=pointer]:
+            - img
+          - generic [ref=e613]:
+            - paragraph [ref=e614]: Job title
+            - heading "JD Upload QA 20261003" [level=1] [ref=e771]
+        - generic [ref=e616]: Skills
+      - generic [ref=e617]:
+        - generic [ref=e618] [cursor=pointer]:
+          - generic [ref=e619]: Job
+          - button [ref=e620]:
+            - img [ref=e621]
+        - generic [ref=e623]:
+          - generic [ref=e624]: Skills
+          - button [ref=e625] [cursor=pointer]:
+            - img [ref=e626]
+        - generic [ref=e628]:
+          - generic [ref=e629]: Rounds
+          - button [ref=e630] [cursor=pointer]:
+            - img [ref=e631]
+        - generic [ref=e633]:
+          - generic [ref=e634]: Settings
+          - button [ref=e635] [cursor=pointer]:
+            - img [ref=e636]
+    - generic [ref=e773]:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - img
+              - textbox "Search skills, tools, technologies..."
+          - generic:
+            - button "View Resume":
+              - img
+              - text: View Resume
+            - button "Re-extract Skills" [disabled]:
+              - img
+              - text: Re-extract Skills
+            - button "Add Skill":
+              - img
+              - text: Add Skill
+            - generic: Saved
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: Must Have
+                      - generic: "14"
+                    - paragraph: Core skills that directly impact role success.
+                - generic:
+                  - generic:
+                    - generic "Scrollable Must Have column showing at least 4 skills":
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: ASP.NET Core
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: NET Framework
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: C#
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: TypeScript
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Azure
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Docker
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Kubernetes
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Postman
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Git
+                            - generic:
+                              - generic: GitHub
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: SonarQube
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Order Management Systems
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Microservices
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Unit Testing
+                            - generic:
+                              - generic: NUnit
+                              - generic: xUnit
+                              - generic: Moq
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: CI/CD
+                            - generic:
+                              - generic: Azure
+                              - generic: GitHub
+                              - generic: CI
+                              - generic: "+1"
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: Good to Have
+                      - generic: "2"
+                    - paragraph: Complementary strengths that improve fit.
+                - generic:
+                  - generic:
+                    - generic "Scrollable Good to Have column showing at least 4 skills":
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: Azure
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+                      - generic:
+                        - generic:
+                          - button "Drag to reorder":
+                            - img
+                          - generic:
+                            - generic:
+                              - paragraph: ReSharper
+                          - generic:
+                            - generic:
+                              - generic:
+                                - img
+                                - generic:
+                                  - img
+                            - button "Delete skill":
+                              - img
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: Bonus
+                      - generic: "0"
+                    - paragraph: Differentiators that can set top candidates apart.
+                - generic:
+                  - generic: No skills extracted for this column yet.
+            - status
+      - generic [ref=e774]:
+        - button "Back to JD" [disabled]:
+          - img
+          - text: Back to JD
+        - generic [ref=e775]:
+          - button "Save Draft" [disabled]
+          - button "Re-extracting Skills..." [disabled]:
+            - img
+            - text: Re-extracting Skills...

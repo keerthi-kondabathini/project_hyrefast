@@ -1,6 +1,12 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
-require('dotenv').config({ path: `.env.${process.env.TEST_ENV || 'staging'}` });
+const path = require('node:path');
+
+const testEnv = process.env.TEST_ENV || 'staging';
+require('dotenv').config({ path: path.join(__dirname, `.env.${testEnv}`) });
+// Staging-specific suites may be run directly from a parent working directory.
+// Keep their default target explicit and safe when the local env file omits BASE_URL.
+if (testEnv === 'staging') process.env.BASE_URL ||= 'https://staging.hyrefast.ai';
 
 /**
  * HyreFast Automation — Playwright Configuration
@@ -37,8 +43,11 @@ module.exports = defineConfig({
     // ── Default: real browser, no fake media (auth, JD, settings) ──
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      testIgnore: ['**/interview/**'],
+      use: {
+        ...devices['Desktop Chrome'],
+        ...(process.env.PLAYWRIGHT_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHANNEL } : {}),
+      },
+      testIgnore: ['**/interview/**', '**/api/**'],
     },
 
     // ── Interview tests: fake camera + microphone + audio files ──
@@ -56,6 +65,13 @@ module.exports = defineConfig({
         },
       },
       testMatch: ['**/interview/**'],
+    },
+
+    // API-only equivalents use Playwright's request context and do not launch a browser.
+    {
+      name: 'api',
+      testMatch: ['**/api/**/*.spec.js'],
+      workers: 1,
     },
   ],
 });

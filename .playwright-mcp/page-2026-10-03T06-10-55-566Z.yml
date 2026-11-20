@@ -1,0 +1,104 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e2084]:
+    - generic [ref=e2085]:
+      - generic [ref=e2086]:
+        - generic [ref=e2087]:
+          - button [ref=e2088] [cursor=pointer]:
+            - img
+          - generic [ref=e2089]:
+            - paragraph [ref=e2090]: Job title
+            - heading "JD Upload QA 20261003" [level=1] [ref=e2091]
+        - generic [ref=e2092]: Settings
+      - generic [ref=e2093]:
+        - generic [ref=e2094] [cursor=pointer]:
+          - generic [ref=e2095]: Job
+          - button [ref=e2096]:
+            - img [ref=e2097]
+        - generic [ref=e2099] [cursor=pointer]:
+          - generic [ref=e2100]: Skills
+          - button [ref=e2101]:
+            - img [ref=e2102]
+        - generic [ref=e2104] [cursor=pointer]:
+          - generic [ref=e2105]: Rounds
+          - button [ref=e2106]:
+            - img [ref=e2107]
+        - generic [ref=e2109]:
+          - generic [ref=e2110]: Settings
+          - button [ref=e2111] [cursor=pointer]:
+            - img [ref=e2112]
+    - generic [ref=e2115]:
+      - generic [ref=e2116]:
+        - heading "Publish & Job Settings" [level=2] [ref=e2117]
+        - paragraph [ref=e2118]: Finalize access, communication, and publishing preferences.
+      - generic [ref=e2119]:
+        - generic [ref=e2120]:
+          - generic [ref=e2121]:
+            - generic [ref=e2122]:
+              - heading "Prerequisite Questions" [level=3] [ref=e2123]:
+                - img [ref=e2124]
+                - text: Prerequisite Questions
+              - generic [ref=e2128]:
+                - img [ref=e2129]
+                - text: 1 Question
+            - paragraph [ref=e2132]: Require candidates to answer screening questions (or upload files) before they can start the AI interview.
+          - button "Configure Prerequisites" [ref=e2133] [cursor=pointer]
+        - generic [ref=e2134]:
+          - heading "Publication & Access Settings" [level=3] [ref=e2135]:
+            - img [ref=e2136]
+            - text: Publication & Access Settings
+          - generic [ref=e2139]:
+            - generic [ref=e2140]:
+              - text: Publication Status
+              - combobox [ref=e2141] [cursor=pointer]:
+                - generic: Publish Now
+                - img [ref=e2142]
+              - paragraph [ref=e2144]: Visible once published.
+            - generic [ref=e2145]:
+              - text: Access Controls
+              - combobox [ref=e2146] [cursor=pointer]:
+                - generic: Internal and Invite only (default)
+                - img [ref=e2147]
+              - paragraph [ref=e2149]: Controls candidate reach.
+            - generic [ref=e2150]:
+              - text: Expiry Date
+              - textbox [ref=e2151]
+              - paragraph [ref=e2152]: Links expire after this date.
+        - generic [ref=e2154]:
+          - generic [ref=e2155]:
+            - img [ref=e2157]
+            - generic [ref=e2159]:
+              - generic [ref=e2160]:
+                - heading "WhatsApp Candidate Enrichment" [level=3] [ref=e2161]
+                - generic [ref=e2162]: Disabled
+              - paragraph [ref=e2163]: Automatically engage applicants on WhatsApp to capture missing profile information, confirm job-specific technical skills, and verify project experience.
+          - switch "Toggle WhatsApp candidate enrichment" [ref=e2165] [cursor=pointer]
+        - button "Candidate Email Communication Configure how candidates will receive interview invites." [ref=e2167] [cursor=pointer]:
+          - generic [ref=e2168]:
+            - img [ref=e2169]
+            - generic [ref=e2172]:
+              - heading "Candidate Email Communication" [level=3] [ref=e2173]
+              - paragraph [ref=e2174]: Configure how candidates will receive interview invites.
+          - img [ref=e2176]
+        - generic [ref=e2178]:
+          - heading "Client Custom Job Metadata" [level=3] [ref=e2179]:
+            - img [ref=e2180]
+            - text: Client Custom Job Metadata
+          - generic [ref=e2181]:
+            - generic [ref=e2182]:
+              - generic [ref=e2183]: GST *
+              - textbox "Enter GST..." [ref=e2184]
+            - generic [ref=e2185]:
+              - generic [ref=e2186]: Job Alias Name
+              - textbox "Enter Job Alias Name..." [ref=e2187]
+            - generic [ref=e2188]:
+              - generic [ref=e2189]: Max Candidates *
+              - spinbutton [ref=e2190]
+      - generic [ref=e2192]:
+        - button "Back to Rounds" [ref=e2193] [cursor=pointer]:
+          - img
+          - text: Back to Rounds
+        - button "Publish Job" [ref=e2195] [cursor=pointer]

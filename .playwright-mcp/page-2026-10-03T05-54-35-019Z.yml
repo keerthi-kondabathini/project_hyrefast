@@ -1,0 +1,28 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e1426]:
+    - generic [ref=e1427]:
+      - generic [ref=e1428]:
+        - button [ref=e1429] [cursor=pointer]:
+          - img
+        - generic [ref=e1430]:
+          - heading "Prerequisite Questions" [level=1] [ref=e1431]
+          - paragraph [ref=e1432]: Configure questions candidates must answer before interviewing.
+      - button "Save Changes" [ref=e1433] [cursor=pointer]:
+        - img
+        - text: Save Changes
+    - generic [ref=e1435]:
+      - generic [ref=e1436]:
+        - paragraph [ref=e1437]: Questions shown to candidates before starting the AI interview. Resume upload is included by default.
+        - generic [ref=e1438]: 0 Questions
+      - generic [ref=e1439]:
+        - img [ref=e1441]
+        - generic [ref=e1444]:
+          - heading "No prerequisite questions configured" [level=4] [ref=e1445]
+          - paragraph [ref=e1446]: Add screening questions, links, or file upload requirements for candidates before they interview.
+        - button "Add First Question" [ref=e1447] [cursor=pointer]:
+          - img
+          - text: Add First Question

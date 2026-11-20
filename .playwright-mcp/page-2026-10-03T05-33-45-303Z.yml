@@ -1,0 +1,194 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e603]:
+    - generic [ref=e604]:
+      - generic [ref=e605]:
+        - generic [ref=e606]:
+          - button [ref=e607] [cursor=pointer]:
+            - img
+          - generic [ref=e608]:
+            - paragraph [ref=e609]: Job title
+            - heading "QA Automation Engineer 20261003" [level=1] [ref=e735]
+        - generic [ref=e611]: Skills
+      - generic [ref=e612]:
+        - generic [ref=e613] [cursor=pointer]:
+          - generic [ref=e614]: Job
+          - button [ref=e615]:
+            - img [ref=e616]
+        - generic [ref=e618]:
+          - generic [ref=e619]: Skills
+          - button [ref=e620] [cursor=pointer]:
+            - img [ref=e621]
+        - generic [ref=e623]:
+          - generic [ref=e624]: Rounds
+          - button [ref=e625] [cursor=pointer]:
+            - img [ref=e626]
+        - generic [ref=e628]:
+          - generic [ref=e629]: Settings
+          - button [ref=e630] [cursor=pointer]:
+            - img [ref=e631]
+    - generic [ref=e850]:
+      - generic [ref=e947]:
+        - generic [ref=e948]:
+          - generic [ref=e950]:
+            - img [ref=e951]
+            - textbox "Search skills, tools, technologies..." [ref=e954]
+          - generic [ref=e955]:
+            - button "View JD" [ref=e956] [cursor=pointer]:
+              - img
+              - text: View JD
+            - button "Re-extract Skills" [ref=e957] [cursor=pointer]:
+              - img
+              - text: Re-extract Skills
+            - button "Add Skill" [ref=e958] [cursor=pointer]:
+              - img
+              - text: Add Skill
+            - generic [ref=e959]: Saved
+        - generic [ref=e961]:
+          - generic [ref=e962]:
+            - generic [ref=e963]:
+              - generic [ref=e965]:
+                - generic [ref=e966]:
+                  - paragraph [ref=e967]: Must Have
+                  - generic [ref=e968]: "6"
+                - paragraph [ref=e969]: Core skills that directly impact role success.
+              - generic "Scrollable Must Have column showing at least 4 skills" [ref=e972]:
+                - generic [ref=e974]:
+                  - button "Drag to reorder" [ref=e975]:
+                    - img [ref=e976]
+                  - paragraph [ref=e985]: Java
+                  - generic [ref=e986]:
+                    - generic [ref=e988]:
+                      - img [ref=e989]
+                      - img [ref=e992]
+                    - button "Delete skill" [ref=e994] [cursor=pointer]:
+                      - img [ref=e995]
+                - generic [ref=e999]:
+                  - button "Drag to reorder" [ref=e1000]:
+                    - img [ref=e1001]
+                  - paragraph [ref=e1010]: Python
+                  - generic [ref=e1011]:
+                    - generic [ref=e1013]:
+                      - img [ref=e1014]
+                      - img [ref=e1017]
+                    - button "Delete skill" [ref=e1019] [cursor=pointer]:
+                      - img [ref=e1020]
+                - generic [ref=e1024]:
+                  - button "Drag to reorder" [ref=e1025]:
+                    - img [ref=e1026]
+                  - paragraph [ref=e1035]: Selenium WebDriver
+                  - generic [ref=e1036]:
+                    - generic [ref=e1038]:
+                      - img [ref=e1039]
+                      - img [ref=e1042]
+                    - button "Delete skill" [ref=e1044] [cursor=pointer]:
+                      - img [ref=e1045]
+                - generic [ref=e1049]:
+                  - button "Drag to reorder" [ref=e1050]:
+                    - img [ref=e1051]
+                  - paragraph [ref=e1060]: SQL
+                  - generic [ref=e1061]:
+                    - generic [ref=e1063]:
+                      - img [ref=e1064]
+                      - img [ref=e1067]
+                    - button "Delete skill" [ref=e1069] [cursor=pointer]:
+                      - img [ref=e1070]
+                - generic [ref=e1074]:
+                  - button "Drag to reorder" [ref=e1075]:
+                    - img [ref=e1076]
+                  - paragraph [ref=e1085]: Jira
+                  - generic [ref=e1086]:
+                    - generic [ref=e1088]:
+                      - img [ref=e1089]
+                      - img [ref=e1092]
+                    - button "Delete skill" [ref=e1094] [cursor=pointer]:
+                      - img [ref=e1095]
+                - generic [ref=e1099]:
+                  - button "Drag to reorder" [ref=e1100]:
+                    - img [ref=e1101]
+                  - paragraph [ref=e1110]: Agile
+                  - generic [ref=e1111]:
+                    - generic [ref=e1113]:
+                      - img [ref=e1114]
+                      - img [ref=e1117]
+                    - button "Delete skill" [ref=e1119] [cursor=pointer]:
+                      - img [ref=e1120]
+            - generic [ref=e1123]:
+              - generic [ref=e1125]:
+                - generic [ref=e1126]:
+                  - paragraph [ref=e1127]: Good to Have
+                  - generic [ref=e1128]: "4"
+                - paragraph [ref=e1129]: Complementary strengths that improve fit.
+              - generic "Scrollable Good to Have column showing at least 4 skills" [ref=e1132]:
+                - generic [ref=e1134]:
+                  - button "Drag to reorder" [ref=e1135]:
+                    - img [ref=e1136]
+                  - generic [ref=e1143]:
+                    - paragraph [ref=e1145]: API Testing
+                    - generic [ref=e1146]:
+                      - generic [ref=e1147]: REST Assured
+                      - generic [ref=e1148]: Postman
+                  - generic [ref=e1149]:
+                    - generic [ref=e1151]:
+                      - img [ref=e1152]
+                      - img [ref=e1155]
+                    - button "Delete skill" [ref=e1157] [cursor=pointer]:
+                      - img [ref=e1158]
+                - generic [ref=e1162]:
+                  - button "Drag to reorder" [ref=e1163]:
+                    - img [ref=e1164]
+                  - generic [ref=e1171]:
+                    - paragraph [ref=e1173]: Git
+                    - generic [ref=e1175]: GitHub
+                  - generic [ref=e1176]:
+                    - generic [ref=e1178]:
+                      - img [ref=e1179]
+                      - img [ref=e1182]
+                    - button "Delete skill" [ref=e1184] [cursor=pointer]:
+                      - img [ref=e1185]
+                - generic [ref=e1189]:
+                  - button "Drag to reorder" [ref=e1190]:
+                    - img [ref=e1191]
+                  - generic [ref=e1198]:
+                    - paragraph [ref=e1200]: Cloud Platforms
+                    - generic [ref=e1201]:
+                      - generic [ref=e1202]: AWS
+                      - generic [ref=e1203]: Azure
+                  - generic [ref=e1204]:
+                    - generic [ref=e1206]:
+                      - img [ref=e1207]
+                      - img [ref=e1210]
+                    - button "Delete skill" [ref=e1212] [cursor=pointer]:
+                      - img [ref=e1213]
+                - generic [ref=e1217]:
+                  - button "Drag to reorder" [ref=e1218]:
+                    - img [ref=e1219]
+                  - generic [ref=e1226]:
+                    - paragraph [ref=e1228]: Software Testing Life Cycle
+                    - generic [ref=e1230]: STLC
+                  - generic [ref=e1231]:
+                    - generic [ref=e1233]:
+                      - img [ref=e1234]
+                      - img [ref=e1237]
+                    - button "Delete skill" [ref=e1239] [cursor=pointer]:
+                      - img [ref=e1240]
+            - generic [ref=e1243]:
+              - generic [ref=e1245]:
+                - generic [ref=e1246]:
+                  - paragraph [ref=e1247]: Bonus
+                  - generic [ref=e1248]: "0"
+                - paragraph [ref=e1249]: Differentiators that can set top candidates apart.
+              - generic [ref=e1251]: No skills extracted for this column yet.
+          - status [ref=e1252]
+      - generic [ref=e945]:
+        - button "Back to JD" [ref=e1253] [cursor=pointer]:
+          - img
+          - text: Back to JD
+        - generic [ref=e946]:
+          - button "Save Draft" [ref=e1254] [cursor=pointer]
+          - button "Confirm Skills" [ref=e1255] [cursor=pointer]:
+            - text: Confirm Skills
+            - img

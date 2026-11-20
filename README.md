@@ -102,6 +102,15 @@ npm run test:production:auth
 
 # JD creation tests only (production)
 npm run test:production:jd
+
+# Super Admin billing plan CRUD (staging only)
+npm run test:staging:super-admin:plans
+
+# All Super Admin Plan & Pricing CRUD + sanity checks (staging only)
+npm run test:staging:super-admin:plan-pricing
+
+# Third-party user profile, credits, API key, branding, and logout checks (staging only)
+npm run test:staging:third-party-dashboard
 ```
 
 ### Debug / Headed mode
@@ -144,6 +153,16 @@ npm run report
 ---
 
 ## Adding New Test Scenarios
+
+### Super Admin billing plan CRUD
+
+The Plan & Pricing page objects and CRUD flows are isolated under `pages/super-admin/` and `tests/super-admin/`, with a separate super-admin login page object. They use `SUPER_ADMIN_EMAIL` and `SUPER_ADMIN_PASSWORD`; `SUPER_ADMIN_TEST_WORKSPACE` selects the required workspace and defaults to `Test WorkSpace`. The complete suite covers billing plans, subscriptions, entitlements, services, service contracts, and credit economics. It checks that the configured origin is exactly `https://staging.hyrefast.ai` before signing in and removes its disposable records during cleanup.
+
+Set those credentials in `.env.staging` (kept out of version control), then run `npm run test:staging:super-admin:plan-pricing`. The runner enforces the staging origin; do not point this CRUD workflow at production.
+
+### Third-party user dashboard
+
+The external-user page objects and suite are isolated under `pages/external-user/` and `tests/external-user/`. Configure `EXTERNAL_USER_EMAIL` and `EXTERNAL_USER_PASSWORD` in `.env.staging`, then run `npm run test:staging:third-party-dashboard`. The suite is pinned to the staging origin and covers profile edit/restore, Credits refresh, API-key generate/revoke, branding save/restore, security-control visibility, and logout. It does not submit password-reset email, toggle two-factor authentication, or change whitelisted domains.
 
 ### Option A — Add data (zero code change)
 

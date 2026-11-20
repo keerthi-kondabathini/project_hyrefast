@@ -52,7 +52,7 @@ class JobLevelPage extends BasePage {
     this.customizeRoundsBtn = page.getByRole('button', { name: 'Customize Rounds' });
     this.addRoundBtn        = page.getByRole('button', { name: 'Add Round' });
     this.savePipelineBtn    = page.getByRole('button', { name: 'Save Changes' });
-    this.pipelineUpdatedToast = page.getByText(/pipeline updated|updated successfully/i);
+    this.pipelineUpdatedToast = page.getByText(/pipeline (updated|saved)|saved successfully/i);
     this.pipelineCustomisedText = page.getByText(/pipeline customized|customized for this job/i);
 
     // ── Source Document ───────────────────────────────────
@@ -81,13 +81,24 @@ class JobLevelPage extends BasePage {
     this.jobIDInput          = page.getByRole('textbox', { name: 'Job ID' });
     this.deadlineInput       = page.getByRole('textbox', { name: 'Application deadline' });
     this.jobStatusCombo      = page.getByRole('combobox', { name: 'Job status' });
-    this.mobileInterviewSwitch = page.getByRole('switch', { name: 'Toggle mobile interview' });
-    this.agentInterviewSwitch  = page.getByRole('switch', { name: 'Enable agent interview for' });
-    this.preScreeningSwitch    = page.getByRole('switch', { name: 'Enable pre-screening for this' });
-    this.skillsTab           = page.getByRole('tab', { name: 'Skills' });
-    this.topicsTab           = page.getByRole('tab', { name: 'Topics' });
-    this.questionsTab        = page.getByRole('tab', { name: 'Questions' });
+    this.mobileInterviewSwitch = this._switchForLabel('Mobile Interview Enabled');
+    this.advancedProctoringSwitch = this._switchForLabel('Enable Advanced Proctoring');
+    this.whatsappEnrichmentSwitch = this._switchForLabel('Enable WhatsApp Enrichment');
+    this.skillsTab           = page.getByText('Skills', { exact: true });
+    this.topicsTab           = page.getByText('Topics', { exact: true });
+    this.questionsTab        = page.getByText('Questions', { exact: true });
     this.saveChangesBtn      = page.getByRole('button', { name: 'Save changes' });
+  }
+
+  _switchForLabel(label) {
+    return this.page.getByText(label, { exact: true })
+      .locator("xpath=ancestor::div[.//*[@role='switch']][1]")
+      .getByRole('switch');
+  }
+
+  async setSwitchState(locator, enabled) {
+    const current = (await locator.getAttribute('aria-checked')) === 'true';
+    if (current !== enabled) await locator.click();
   }
 
   // ═══════════════════════════════════════════════════════
@@ -96,6 +107,7 @@ class JobLevelPage extends BasePage {
 
   async searchJobOnDashboard(query) {
     await this.jobSearchInput.fill(query);
+    this.lastSearchedJob = query;
     await this.page.waitForTimeout(1500);
   }
 
@@ -106,15 +118,52 @@ class JobLevelPage extends BasePage {
   }
 
   async openViewJD(overflowNth = 5) {
-    await this.overflowBtn(overflowNth).click();
+    await this._openJobActions(overflowNth);
     await this.viewJDMenuItem.click();
     await this.page.waitForLoadState('networkidle');
   }
 
   async openEditJobDetails(overflowNth = 5) {
-    await this.overflowBtn(overflowNth).click();
+    await this._openJobActions(overflowNth);
     await this.editJobMenuItem.click();
     await this.page.waitForLoadState('networkidle');
+  }
+
+  async _openJobActions(overflowNth) {
+    if (!this.lastSearchedJob) {
+      await this.overflowBtn(overflowNth).click();
+      return;
+    }
+
+    // Dashboard cards append metadata to the title (for example, experience),
+    // and the search can return several jobs with the same title. Inspect each
+    // matching card and prefer a published job, since draft jobs lack these tabs.
+    const titles = this.page.getByText(this.lastSearchedJob, { exact: false });
+    // Wait for the dashboard's filtered cards to finish rendering. Falling back
+    // to a positional menu while search results are still loading can open a
+    // completely different job (which may not have the requested tab).
+    await expect(titles.first()).toBeVisible({ timeout: 15_000 });
+    const count = await titles.count();
+    let firstCard = null;
+    for (let i = 0; i < count; i++) {
+      const title = titles.nth(i);
+      if (!(await title.isVisible().catch(() => false))) continue;
+      const card = title.locator('xpath=ancestor::div[.//button][1]');
+      if ((await card.getByRole('button').count()) === 0) continue;
+      if (!firstCard) firstCard = card;
+      const cardText = await card.innerText().catch(() => '');
+      if (/\bpublished\b/i.test(cardText)) {
+        await card.getByRole('button').last().click();
+        return;
+      }
+    }
+
+    if (firstCard) {
+      await firstCard.getByRole('button').last().click();
+      return;
+    }
+
+    throw new Error(`Could not find an action menu for searched job "${this.lastSearchedJob}"`);
   }
 
   // ═══════════════════════════════════════════════════════
@@ -269,8 +318,12 @@ class JobLevelPage extends BasePage {
    * @param {string} linkName
    */
   _linkCardActionBar(linkName = /automation-link/i) {
-    const linkCard = this.page.locator('div').filter({ hasText: linkName }).first();
-    return linkCard.locator('.flex.items-center.justify-between.p-4 > .flex.items-center.space-x-2');
+    // Start at the actual link title and walk to the nearest card that contains
+    // its action buttons. A broad `div.filter(hasText)` matches the page shell,
+    // which can select a different (often disabled) link card with the same name.
+    const linkTitle = this.page.getByText(linkName).first();
+    const linkCard = linkTitle.locator('xpath=ancestor::div[.//button][1]');
+    return linkCard.locator('.flex.items-center.space-x-2').last();
   }
 
   async editInterviewLink({ linkName = /automation-link/i, toggles = 2 } = {}) {
@@ -299,6 +352,16 @@ class JobLevelPage extends BasePage {
     await expect(this.linkDeletedToast).toBeVisible({ timeout: 10_000 });
   }
 
+  async enableInterviewLink(linkName) {
+    const linkTitle = this.page.getByText(linkName, { exact: true }).first();
+    const linkCard = linkTitle.locator('xpath=ancestor::div[.//button][1]');
+    const actionBar = this._linkCardActionBar(linkName);
+    // Newly created links are disabled by default in this UI. The fourth
+    // action is the enable control (it becomes a disable control when active).
+    await actionBar.locator('button').nth(3).click({ force: true });
+    await expect(linkCard.getByText(/Active/i)).toBeVisible({ timeout: 10_000 });
+  }
+
   /**
    * Open the public link (opens popup), fill apply form, submit, assert confirmation.
    * @param {{ fullName, email, phone }} applicant
@@ -311,16 +374,16 @@ class JobLevelPage extends BasePage {
     const publicPage = await popup;
     await publicPage.waitForLoadState('networkidle');
 
-    // Assert public page loads
-    await expect(publicPage.getByText('Private Interview Process')).toBeVisible({ timeout: 15_000 });
-    await expect(publicPage.getByText('After submitting this form')).toBeVisible();
-
-    // Fill form
-    await publicPage.getByRole('textbox', { name: 'Full Name *' }).fill(fullName);
-    await publicPage.getByRole('textbox', { name: 'Email Address *' }).fill(email);
-    await publicPage.getByRole('textbox', { name: 'Phone Number *' }).fill(phone);
-    await publicPage.getByRole('button', { name: 'Submit Application & Get' }).click();
-    await publicPage.waitForTimeout(2000);
+    // The public page copy changes between link types; the required fields are
+    // the stable contract for a usable application form.
+    const fullNameInput = publicPage.getByRole('textbox', { name: /full name/i });
+    const emailInput = publicPage.getByRole('textbox', { name: /email address/i });
+    const phoneInput = publicPage.getByRole('textbox', { name: /phone number/i });
+    await expect(fullNameInput).toBeVisible({ timeout: 15_000 });
+    await fullNameInput.fill(fullName);
+    await emailInput.fill(email);
+    await phoneInput.fill(phone);
+    await publicPage.getByRole('button', { name: /submit application/i }).click();
 
     // Assert success — accept either the post-submit confirmation or the "already applied" state
     const successHeading = publicPage.getByRole('heading').filter({ hasText: /Application Submitted|Interview Link Sent|Already Applied|Application Received/i });
@@ -388,11 +451,12 @@ class JobLevelPage extends BasePage {
     await this.page.waitForTimeout(500);
   }
 
-  async assertSourceDocumentVisible(docNameFragment) {
-    await expect(this.originalUploadedText).toBeVisible({ timeout: 10_000 });
-    if (docNameFragment) {
-      await expect(this.page.getByText(docNameFragment)).toBeVisible({ timeout: 10_000 });
-    }
+  async assertSourceDocumentVisible() {
+    // The current job detail UI renders the uploaded JD in Overview and no
+    // longer exposes a separate Source Document tab.
+    await expect(this.page.getByRole('tab', { name: 'Overview' })).toBeVisible();
+    await expect(this.page.getByText(/Job Purpose/i)).toBeVisible({ timeout: 10_000 });
+    await expect(this.page.getByText(/Job Duties/i)).toBeVisible({ timeout: 10_000 });
   }
 
   // ═══════════════════════════════════════════════════════
@@ -438,22 +502,46 @@ class JobLevelPage extends BasePage {
   }
 
   async revokeTeamAccess(teamName) {
-    // Click the delete icon on the team chip in "Teams with inherited access".
-    const chip = this.page.locator('div').filter({ hasText: /Teams with inherited access/i })
-      .locator('..').locator('div, span').filter({ hasText: new RegExp(teamName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) }).first();
-    await chip.locator('button').filter({ hasText: /^$/ }).first().click();
-    await expect(this.page.getByText(/access revoked|removed|deleted/i).first()).toBeVisible({ timeout: 10_000 });
+    // Revoke is confirmed by the team disappearing from the inherited-access
+    // list; the app does not consistently show a toast for this action.
+    const teamLabel = this.page.getByText(teamName, { exact: true }).first();
+    const chip = teamLabel.locator('xpath=ancestor::div[.//button][1]');
+    await chip.getByRole('button').click();
+    await expect(this.page.getByText(teamName, { exact: true })).toHaveCount(0, { timeout: 10_000 });
   }
 
-  async assignIndividualMember() {
+  async assignIndividualMember(searchQuery, expectedOptionText) {
     await this.selectMemberBtn.click();
-    // Select the first available member option and capture the name for revocation.
-    const firstOption = this.page.getByRole('option').first();
+    const options = this.page.getByRole('option');
+    let firstOption;
+    if (searchQuery) {
+      await this.memberSearchInput.fill(searchQuery);
+      const matchingOption = expectedOptionText
+        ? options.filter({ hasText: expectedOptionText }).first()
+        : options.first();
+      if (await matchingOption.isVisible().catch(() => false)) firstOption = matchingOption;
+    }
+
+    // Configured members can already be assigned, in which case the picker
+    // correctly omits them. Clear the search and choose an available member.
+    if (!firstOption) {
+      await this.memberSearchInput.fill('');
+      firstOption = options.first();
+      if (!(await firstOption.isVisible().catch(() => false))) {
+        await this.memberSearchInput.fill('a');
+        firstOption = options.first();
+      }
+    }
+    await expect(firstOption).toBeVisible({ timeout: 10_000 });
     const optionText = await firstOption.innerText();
     const memberName = optionText.split(/\n/)[0].trim();
     await firstOption.click();
     // Click the add/confirm button (the primary button with the plus icon) next to the member dropdown.
-    await this.page.locator('.p-6 > .flex.space-x-2 > .inline-flex.items-center.justify-center').click();
+    // The select's accessible name changes after selection, so locate the
+    // currently selected control by its chosen member text and use its sibling + button.
+    const selectedMemberButton = this.page.getByRole('button')
+      .filter({ hasText: memberName }).first();
+    await selectedMemberButton.locator('xpath=following-sibling::button[1]').click();
     await this.page.waitForTimeout(500);
     return memberName;
   }
@@ -461,7 +549,8 @@ class JobLevelPage extends BasePage {
   async revokeMemberAccess(memberName) {
     // Click the delete/revoke icon on the row containing the given member name.
     const memberRow = this.page.locator('tr').filter({ hasText: new RegExp(memberName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) }).first();
-    await memberRow.locator('button').filter({ hasText: /^$/ }).last().click();
+    await expect(memberRow).toBeVisible({ timeout: 10_000 });
+    await memberRow.getByRole('button').last().click();
     await expect(this.memberAccessRevokedText).toBeVisible({ timeout: 10_000 });
   }
 
@@ -521,10 +610,11 @@ class JobLevelPage extends BasePage {
   /**
    * Edit job details.
    * @param {{ roleTitle, company, jobID, deadline, jobStatus, spocText,
-   *           mobileInterview, agentInterview, preScreening }} fields
+   *           mobileInterview, advancedProctoring, whatsappEnrichment }} fields
    */
   async editJobDetails({ roleTitle, company, jobID, deadline, jobStatus,
-                         spocText, mobileInterview, agentInterview, preScreening } = {}) {
+                         spocText, mobileInterview, advancedProctoring,
+                         whatsappEnrichment } = {}) {
     if (roleTitle) {
       await this.roleTitleInput.click();
       await this.roleTitleInput.fill(roleTitle);
@@ -548,11 +638,17 @@ class JobLevelPage extends BasePage {
       await this.jobStatusCombo.click();
       await this.page.getByRole('option', { name: jobStatus }).click();
     }
-    if (mobileInterview !== undefined) await this.mobileInterviewSwitch.click();
-    if (agentInterview  !== undefined) await this.agentInterviewSwitch.click();
-    if (preScreening    !== undefined) await this.preScreeningSwitch.click();
+    if (mobileInterview !== undefined) {
+      await this.setSwitchState(this.mobileInterviewSwitch, mobileInterview);
+    }
+    if (advancedProctoring !== undefined) {
+      await this.setSwitchState(this.advancedProctoringSwitch, advancedProctoring);
+    }
+    if (whatsappEnrichment !== undefined) {
+      await this.setSwitchState(this.whatsappEnrichmentSwitch, whatsappEnrichment);
+    }
 
-    // Navigate Skills → Topics → Questions tabs to verify they load
+    // Visit the editor's Skills, Topics and Questions panes before saving.
     await this.skillsTab.click();
     await this.page.waitForTimeout(500);
     await this.topicsTab.click();

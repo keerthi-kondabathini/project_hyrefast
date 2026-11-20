@@ -1,0 +1,125 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e8]:
+    - banner [ref=e9]:
+      - generic [ref=e10]:
+        - button "Go back" [ref=e11] [cursor=pointer]:
+          - img
+        - generic [ref=e12]:
+          - generic [ref=e13]:
+            - heading "Bot Interview Configuration" [level=1] [ref=e14]
+            - generic [ref=e15]: Saved
+          - 'heading "Job: JD Upload QA 20261003" [level=2] [ref=e16]'
+          - paragraph [ref=e17]: Configure topics, questions, and strategy for the Hyrefast Bot Screening
+      - generic [ref=e18]:
+        - button "View Resume" [ref=e19] [cursor=pointer]:
+          - img
+          - text: View Resume
+        - button "Save & Return" [ref=e20] [cursor=pointer]:
+          - img
+          - text: Save & Return
+    - main [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - button "Question Strategy" [ref=e26] [cursor=pointer]
+            - generic [ref=e27]: →
+          - generic [ref=e28]:
+            - button "Topics & Off Topics" [disabled] [ref=e29]
+            - generic [ref=e30]: →
+          - generic [ref=e31]:
+            - button "Questions" [disabled] [ref=e32]
+            - generic [ref=e33]: →
+          - button "Interview Settings" [disabled] [ref=e35]
+        - generic [ref=e56]:
+          - generic [ref=e58]:
+            - paragraph [ref=e59]: Decide Topics & Off Topics
+            - paragraph [ref=e60]: Review the generated focus areas, tune the discussion timing, and keep the off-topic guidance to one clear sentence.
+          - generic [ref=e61]:
+            - generic [ref=e62]:
+              - generic [ref=e64]:
+                - generic [ref=e65]:
+                  - heading "Topics to Focus" [level=3] [ref=e66]
+                  - paragraph [ref=e67]: Generated from the current job title and structured skills.
+                - button "Regenerate Topics" [ref=e68] [cursor=pointer]:
+                  - img
+                  - text: Regenerate Topics
+              - generic [ref=e70]:
+                - generic [ref=e71]:
+                  - paragraph [ref=e74]: Backend Architecture & Microservices Design
+                  - generic [ref=e75]:
+                    - img [ref=e76]
+                    - text: 4 min
+                  - button "Open details for Backend Architecture & Microservices Design" [ref=e79] [cursor=pointer]:
+                    - img
+                  - button "Delete Backend Architecture & Microservices Design" [ref=e80] [cursor=pointer]:
+                    - img
+                - generic [ref=e81]:
+                  - paragraph [ref=e84]: Cloud Infrastructure & Containerization
+                  - generic [ref=e85]:
+                    - img [ref=e86]
+                    - text: 3 min
+                  - button "Open details for Cloud Infrastructure & Containerization" [ref=e89] [cursor=pointer]:
+                    - img
+                  - button "Delete Cloud Infrastructure & Containerization" [ref=e90] [cursor=pointer]:
+                    - img
+                - generic [ref=e91]:
+                  - paragraph [ref=e94]: Test Automation & Quality Assurance
+                  - generic [ref=e95]:
+                    - img [ref=e96]
+                    - text: 3 min
+                  - button "Open details for Test Automation & Quality Assurance" [ref=e99] [cursor=pointer]:
+                    - img
+                  - button "Delete Test Automation & Quality Assurance" [ref=e100] [cursor=pointer]:
+                    - img
+                - generic [ref=e101]:
+                  - paragraph [ref=e104]: DevOps Pipeline & Version Control
+                  - generic [ref=e105]:
+                    - img [ref=e106]
+                    - text: 3 min
+                  - button "Open details for DevOps Pipeline & Version Control" [ref=e109] [cursor=pointer]:
+                    - img
+                  - button "Delete DevOps Pipeline & Version Control" [ref=e110] [cursor=pointer]:
+                    - img
+                - generic [ref=e111]:
+                  - paragraph [ref=e114]: Legacy Integration & Tooling
+                  - generic [ref=e115]:
+                    - img [ref=e116]
+                    - text: 2 min
+                  - button "Open details for Legacy Integration & Tooling" [ref=e119] [cursor=pointer]:
+                    - img
+                  - button "Delete Legacy Integration & Tooling" [ref=e120] [cursor=pointer]:
+                    - img
+            - generic [ref=e122]:
+              - generic [ref=e124]:
+                - heading "Off Topic" [level=3] [ref=e125]
+                - paragraph [ref=e126]: Keep this to one straight sentence describing what the interview should avoid.
+              - generic [ref=e127]:
+                - text: Off-topic sentence
+                - textbox "Avoid personal hobbies, unrelated technologies, and puzzle questions that do not map back to the role." [ref=e128]: Keep the interview focused on job-relevant technical depth, delivery ownership, and behavioral evidence. Avoid personal hobbies, irrelevant technologies, and hypothetical puzzles that are not tied to the role.
+              - generic [ref=e129]:
+                - generic [ref=e130]:
+                  - generic [ref=e131]:
+                    - heading "Interview Duration" [level=3] [ref=e132]
+                    - paragraph [ref=e133]: Adjust the total interview time and topic durations will rebalance automatically using the current topic ratios.
+                  - generic [ref=e134]: 15 min
+                - generic [ref=e135]:
+                  - generic [ref=e136]:
+                    - generic [ref=e137]:
+                      - text: "Total topic time:"
+                      - generic [ref=e138]: 15 min
+                    - generic [ref=e139]: Range 8-15 min
+                  - slider [ref=e144]
+                  - generic [ref=e145]:
+                    - generic [ref=e146]: 8 min
+                    - generic [ref=e147]: 15 min
+        - generic [ref=e53]:
+          - button "Previous Stage" [ref=e148] [cursor=pointer]:
+            - img
+            - text: Previous Stage
+          - button "Next Stage" [active] [ref=e55] [cursor=pointer]:
+            - text: Next Stage
+            - img

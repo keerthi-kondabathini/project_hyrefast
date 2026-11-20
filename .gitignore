@@ -30,7 +30,7 @@ logs/
 coverage/
 
 # Reports
-reports/
+/reports/
 
 # OS files
 .DS_Store

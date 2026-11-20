@@ -1,0 +1,198 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e1767]:
+    - banner [ref=e1768]:
+      - generic [ref=e1769]:
+        - button "Go back" [ref=e1770] [cursor=pointer]:
+          - img
+        - generic [ref=e1771]:
+          - generic [ref=e1772]:
+            - heading "Bot Interview Configuration" [level=1] [ref=e1773]
+            - generic [ref=e1774]: Saved
+          - 'heading "Job: JD Upload QA 20261003" [level=2] [ref=e1775]'
+          - paragraph [ref=e1776]: Configure topics, questions, and strategy for the Hyrefast Bot Screening
+      - generic [ref=e1777]:
+        - button "View Resume" [ref=e1778] [cursor=pointer]:
+          - img
+          - text: View Resume
+        - button "Save & Return" [ref=e1779] [cursor=pointer]:
+          - img
+          - text: Save & Return
+    - main [ref=e1780]:
+      - generic [ref=e1781]:
+        - generic [ref=e1783]:
+          - generic [ref=e1784]:
+            - button "Question Strategy" [ref=e1785] [cursor=pointer]
+            - generic [ref=e1786]: →
+          - generic [ref=e1787]:
+            - button "Topics & Off Topics" [ref=e1788] [cursor=pointer]
+            - generic [ref=e1789]: →
+          - generic [ref=e1790]:
+            - button "Questions" [disabled] [ref=e1791]
+            - generic [ref=e1792]: →
+          - button "Interview Settings" [disabled] [ref=e1794]
+        - generic [ref=e1908]:
+          - generic [ref=e1909]:
+            - generic [ref=e1910]:
+              - generic [ref=e1911]:
+                - generic [ref=e1912]: Decide Questions
+                - generic [ref=e1913]: "5"
+              - paragraph [ref=e1914]: Generate interview questions or add your own with topic, proficiency, skills, and evaluation notes.
+            - generic [ref=e1915]:
+              - button "Download PDF" [ref=e1916] [cursor=pointer]:
+                - img
+                - text: Download PDF
+              - button "New Question" [ref=e1917] [cursor=pointer]:
+                - img
+                - text: New Question
+              - button "Regenerate Questions" [ref=e1918] [cursor=pointer]:
+                - img
+                - text: Regenerate Questions
+          - generic [ref=e1919]:
+            - img
+            - textbox "Search questions..." [ref=e1920]
+          - generic [ref=e1921]:
+            - generic [ref=e1922]:
+              - generic [ref=e1923]:
+                - button "Drag to reorder" [ref=e1924]:
+                  - img [ref=e1925]
+                - paragraph [ref=e1932]: Your Dockerized service is crashing in Azure Kubernetes Service due to OOMKilled errors despite sufficient cluster resources, how do you diagnose and fix the memory limits in the YAML manifest?
+              - generic [ref=e1933]:
+                - generic [ref=e1934]: AI generated
+                - generic [ref=e1935]: Cloud Infrastructure & Containerization
+                - generic [ref=e1936]: L3 (Intermediate)
+                - generic [ref=e1937]: Azure
+                - generic [ref=e1938]: Kubernetes
+                - generic [ref=e1939]: Docker
+              - generic [ref=e1940]:
+                - button "Edit" [ref=e1941] [cursor=pointer]:
+                  - img
+                  - text: Edit
+                - button "Remove" [ref=e1942] [cursor=pointer]:
+                  - img
+                  - text: Remove
+            - generic [ref=e1943]:
+              - generic [ref=e1944]:
+                - button "Drag to reorder" [ref=e1945]:
+                  - img [ref=e1946]
+                - paragraph [ref=e1953]: Your Unit Testing suite is passing locally but failing in the build pipeline due to a dependency on a shared database state, how do you refactor the code to use Moq or NSubstitute to isolate the logic?
+              - generic [ref=e1954]:
+                - generic [ref=e1955]: AI generated
+                - generic [ref=e1956]: Test Automation & Quality Assurance
+                - generic [ref=e1957]: L3 (Intermediate)
+                - generic [ref=e1958]: Unit Testing
+              - generic [ref=e1959]:
+                - button "Edit" [ref=e1960] [cursor=pointer]:
+                  - img
+                  - text: Edit
+                - button "Remove" [ref=e1961] [cursor=pointer]:
+                  - img
+                  - text: Remove
+            - generic [ref=e1962]:
+              - generic [ref=e1963]:
+                - button "Drag to reorder" [ref=e1964]:
+                  - img [ref=e1965]
+                - paragraph [ref=e1972]: An Azure DevOps CI/CD pipeline is failing during the deployment stage because of a Git merge conflict in the release branch, how do you resolve the conflict and ensure the pipeline triggers the correct environment?
+              - generic [ref=e1973]:
+                - generic [ref=e1974]: AI generated
+                - generic [ref=e1975]: DevOps Pipeline & Version Control
+                - generic [ref=e1976]: L3 (Intermediate)
+                - generic [ref=e1977]: Azure
+                - generic [ref=e1978]: Git
+                - generic [ref=e1979]: CI/CD
+              - generic [ref=e1980]:
+                - button "Edit" [ref=e1981] [cursor=pointer]:
+                  - img
+                  - text: Edit
+                - button "Remove" [ref=e1982] [cursor=pointer]:
+                  - img
+                  - text: Remove
+            - generic [ref=e1983]:
+              - generic [ref=e1984]:
+                - button "Drag to reorder" [ref=e1985]:
+                  - img [ref=e1986]
+                - paragraph [ref=e1993]: A legacy .NET Framework application is suffering from significant memory leaks in a long-running process, how do you use ReSharper's static analysis or profiling tools to identify the leaking objects?
+              - generic [ref=e1994]:
+                - generic [ref=e1995]: AI generated
+                - generic [ref=e1996]: Legacy Integration & Tooling
+                - generic [ref=e1997]: L3 (Intermediate)
+                - generic [ref=e1998]: NET Framework
+                - generic [ref=e1999]: ReSharper
+              - generic [ref=e2000]:
+                - button "Edit" [ref=e2001] [cursor=pointer]:
+                  - img
+                  - text: Edit
+                - button "Remove" [ref=e2002] [cursor=pointer]:
+                  - img
+                  - text: Remove
+            - generic [ref=e2003]:
+              - generic [ref=e2004]:
+                - button "Drag to reorder" [ref=e2005]:
+                  - img [ref=e2006]
+                - paragraph [ref=e2013]: A microservices system using ASP.NET Core is experiencing intermittent timeouts during high-traffic bursts, do you implement a circuit breaker pattern via Polly or scale the pods horizontally, and what specific C# metrics guide that choice?
+              - generic [ref=e2014]:
+                - generic [ref=e2015]: AI generated
+                - generic [ref=e2016]: Backend Architecture & Microservices Design
+                - generic [ref=e2017]: L4 (Advanced)
+                - generic [ref=e2018]: ASP.NET Core
+                - generic [ref=e2019]: Microservices
+                - generic [ref=e2020]: C#
+              - generic [ref=e2021]:
+                - button "Edit" [ref=e2022] [cursor=pointer]:
+                  - img
+                  - text: Edit
+                - button "Remove" [ref=e2023] [cursor=pointer]:
+                  - img
+                  - text: Remove
+          - status [ref=e2024]
+          - generic [ref=e2025]:
+            - generic [ref=e2026]:
+              - heading "Skill Coverage Report" [level=4] [ref=e2027]
+              - generic [ref=e2028]: 100% coverage
+            - generic [ref=e2029]:
+              - img [ref=e2030]
+              - generic [ref=e2033]: All 11 skills are covered. You can proceed.
+            - generic [ref=e2034]:
+              - generic [ref=e2035]:
+                - generic [ref=e2036]: Unit Testing
+                - generic [ref=e2037]: 1 Q
+              - generic [ref=e2038]:
+                - generic [ref=e2039]: ASP.NET Core
+                - generic [ref=e2040]: 1 Q
+              - generic [ref=e2041]:
+                - generic [ref=e2042]: Microservices
+                - generic [ref=e2043]: 1 Q
+              - generic [ref=e2044]:
+                - generic [ref=e2045]: C#
+                - generic [ref=e2046]: 1 Q
+              - generic [ref=e2047]:
+                - generic [ref=e2048]: Azure
+                - generic [ref=e2049]: 2 Q
+              - generic [ref=e2050]:
+                - generic [ref=e2051]: Docker
+                - generic [ref=e2052]: 1 Q
+              - generic [ref=e2053]:
+                - generic [ref=e2054]: Git
+                - generic [ref=e2055]: 1 Q
+              - generic [ref=e2056]:
+                - generic [ref=e2057]: NET Framework
+                - generic [ref=e2058]: 1 Q
+              - generic [ref=e2059]:
+                - generic [ref=e2060]: CI/CD
+                - generic [ref=e2061]: 1 Q
+              - generic [ref=e2062]:
+                - generic [ref=e2063]: Kubernetes
+                - generic [ref=e2064]: 1 Q
+              - generic [ref=e2065]:
+                - generic [ref=e2066]: ReSharper
+                - generic [ref=e2067]: 1 Q
+        - generic [ref=e1812]:
+          - button "Previous Stage" [ref=e1907] [cursor=pointer]:
+            - img
+            - text: Previous Stage
+          - button "Next Stage" [active] [ref=e1814] [cursor=pointer]:
+            - text: Next Stage
+            - img

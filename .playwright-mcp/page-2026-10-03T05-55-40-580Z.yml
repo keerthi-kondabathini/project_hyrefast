@@ -1,0 +1,56 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e1767]:
+    - banner [ref=e1768]:
+      - generic [ref=e1769]:
+        - button "Go back" [ref=e1770] [cursor=pointer]:
+          - img
+        - generic [ref=e1771]:
+          - generic [ref=e1772]:
+            - heading "Bot Interview Configuration" [level=1] [ref=e1773]
+            - generic [ref=e1774]: Saved
+          - 'heading "Job: JD Upload QA 20261003" [level=2] [ref=e1775]'
+          - paragraph [ref=e1776]: Configure topics, questions, and strategy for the Hyrefast Bot Screening
+      - generic [ref=e1777]:
+        - button "View Resume" [ref=e1778] [cursor=pointer]:
+          - img
+          - text: View Resume
+        - button "Save & Return" [ref=e1779] [cursor=pointer]:
+          - img
+          - text: Save & Return
+    - main [ref=e1780]:
+      - generic [ref=e1781]:
+        - generic [ref=e1783]:
+          - generic [ref=e1784]:
+            - button "Question Strategy" [disabled] [ref=e1785]
+            - generic [ref=e1786]: →
+          - generic [ref=e1787]:
+            - button "Topics & Off Topics" [disabled] [ref=e1788]
+            - generic [ref=e1789]: →
+          - generic [ref=e1790]:
+            - button "Questions" [disabled] [ref=e1791]
+            - generic [ref=e1792]: →
+          - button "Interview Settings" [disabled] [ref=e1794]
+        - generic [ref=e1797]:
+          - generic [ref=e1798]:
+            - paragraph [ref=e1799]: Screening Approach
+            - paragraph [ref=e1800]: Choose how the bot conducts candidate screening.
+          - generic [ref=e1801]:
+            - button "Standard Approach Active Structured assessment with recruiter-defined questions." [ref=e1802] [cursor=pointer]:
+              - generic [ref=e1803]:
+                - paragraph [ref=e1804]: Standard Approach
+                - generic [ref=e1805]: Active
+              - paragraph [ref=e1806]: Structured assessment with recruiter-defined questions.
+            - generic [ref=e1808] [cursor=pointer]:
+              - paragraph [ref=e1810]: Interactive Approach
+              - paragraph [ref=e1811]: Conversational AI-led interview. Topics are set, questions adapt dynamically.
+        - generic [ref=e1812]:
+          - button "Back to Config" [ref=e1813] [cursor=pointer]:
+            - img
+            - text: Back to Config
+          - button "Next Stage" [ref=e1814] [cursor=pointer]:
+            - text: Next Stage
+            - img

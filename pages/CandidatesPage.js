@@ -37,6 +37,13 @@ class CandidatesPage extends BasePage {
 
     // ── Add Candidates panel ──────────────────────────────
     this.addCandidatesBtn     = page.getByRole('button', { name: 'Add Candidates' });
+    this.aiCandidateSuggestionsBtn = this.addCandidatesBtn.locator('xpath=../button[3]');
+    this.aiSuggestionCheckbox = (name) =>
+      page.getByRole('checkbox', { name: name || 'Select candidate for bulk add' });
+    this.aiAddSelectedBtn = (count) =>
+      page.getByRole('button', { name: `Add Selected (${count})` });
+    this.aiSuggestionsTab = (label) => page.getByRole('button', { name: new RegExp(label) });
+    this.aiAddedBadge = page.getByText('Added');
     this.emailTab             = page.getByRole('tab',   { name: 'Email' });
     this.fileUploadTab        = page.getByRole('tab',   { name: 'File Upload' });
     // CSV Upload is a SECOND-ROW sub-tab under File Upload (next to Resume Upload).
@@ -171,6 +178,48 @@ class CandidatesPage extends BasePage {
     await expect.poll(async () => {
       return await this.getCandidateCount();
     }, { timeout: 30_000, message: `Expected candidate count to be ${expected}` }).toBe(expected);
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  AI Candidate Suggestions
+  // ═══════════════════════════════════════════════════════
+
+  async openAICandidateSuggestions() {
+    await this.assertVisible(
+      this.aiCandidateSuggestionsBtn,
+      'Expected AI Candidate Suggestions button to be visible on applications page'
+    );
+    await this.aiCandidateSuggestionsBtn.click();
+  }
+
+  async assertAICandidateSuggestionsPanelOpen() {
+    await this.assertVisible(
+      this.page.getByText('Suggested Candidates').first(),
+      'Expected Suggested Candidates panel to open'
+    );
+  }
+
+  async closeAICandidateSuggestionsPanel() {
+    await this.page.keyboard.press('Escape');
+  }
+
+  async getAICandidateSuggestionCount() {
+    return this.aiSuggestionCheckbox().count();
+  }
+
+  async addFirstAICandidateSuggestion() {
+    await expect.poll(() => this.getAICandidateSuggestionCount(), {
+      timeout: 240_000,
+      message: 'Expected AI candidate suggestions to load within 4 minutes',
+    }).toBeGreaterThan(0);
+
+    const totalSuggestions = await this.getAICandidateSuggestionCount();
+    if (await this.aiAddedBadge.count() >= totalSuggestions) {
+      await this.aiSuggestionsTab('New').click();
+    }
+
+    await this.aiSuggestionCheckbox().first().click();
+    await this.aiAddSelectedBtn(1).click();
   }
 
   // ═══════════════════════════════════════════════════════

@@ -1,0 +1,48 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e603]:
+    - generic [ref=e604]:
+      - generic [ref=e605]:
+        - generic [ref=e606]:
+          - button [ref=e607] [cursor=pointer]:
+            - img
+          - generic [ref=e608]:
+            - paragraph [ref=e609]: Job title
+            - heading "QA Automation Engineer 20261003" [level=1] [ref=e735]
+        - generic [ref=e611]: Skills
+      - generic [ref=e612]:
+        - generic [ref=e613] [cursor=pointer]:
+          - generic [ref=e614]: Job
+          - button [ref=e615]:
+            - img [ref=e616]
+        - generic [ref=e618]:
+          - generic [ref=e619]: Skills
+          - button [ref=e620] [cursor=pointer]:
+            - img [ref=e621]
+        - generic [ref=e623]:
+          - generic [ref=e624]: Rounds
+          - button [ref=e625] [cursor=pointer]:
+            - img [ref=e626]
+        - generic [ref=e628]:
+          - generic [ref=e629]: Settings
+          - button [ref=e630] [cursor=pointer]:
+            - img [ref=e631]
+    - generic [ref=e851]:
+      - generic [ref=e852]:
+        - img [ref=e853]
+        - generic [ref=e855]:
+          - paragraph [ref=e856]: Extracting & Structuring Skills
+          - paragraph [ref=e857]: AI is analysing the job description and building your skill board...
+      - generic [ref=e866]:
+        - generic [ref=e869]:
+          - paragraph [ref=e871]: Must Have
+          - paragraph [ref=e873]: Core skills that directly impact role success.
+        - generic [ref=e895]:
+          - paragraph [ref=e897]: Good to Have
+          - paragraph [ref=e899]: Complementary strengths that improve fit.
+        - generic [ref=e921]:
+          - paragraph [ref=e923]: Bonus
+          - paragraph [ref=e925]: Differentiators that can set top candidates apart.

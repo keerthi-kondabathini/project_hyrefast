@@ -79,7 +79,7 @@ class JDCreationPage extends BasePage {
   }) {
     await this.assertVisible(this.uploadHeading, 'JD creation wizard should be open');
 
-    const defaultJDFilePath = path.resolve(__dirname, '../fixtures/resumes/Advanced_DotNet_Resume_7.docx');
+    const defaultJDFilePath = path.resolve(__dirname, '../fixtures/jds/01_Cybersecurity_Analyst_JD.pdf');
     const uploadPath = jobDescriptionFilePath || defaultJDFilePath;
 
     // Upload-first flow takes precedence unless the scenario explicitly uses role-title generation.

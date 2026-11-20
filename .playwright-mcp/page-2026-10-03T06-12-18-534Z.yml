@@ -1,0 +1,135 @@
+- generic:
+  - generic:
+    - region "Notifications (F8)":
+      - list
+    - list
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - button:
+                - img
+              - generic:
+                - paragraph: Job title
+                - heading [level=1]: JD Upload QA 20261003
+            - generic: Settings
+          - generic:
+            - generic:
+              - generic: Job
+              - button:
+                - img
+            - generic:
+              - generic: Skills
+              - button:
+                - img
+            - generic:
+              - generic: Rounds
+              - button:
+                - img
+            - generic:
+              - generic: Settings
+              - button:
+                - img
+        - generic:
+          - generic:
+            - generic:
+              - heading [level=2]: Publish & Job Settings
+              - paragraph: Finalize access, communication, and publishing preferences.
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]:
+                      - img
+                      - text: Prerequisite Questions
+                    - generic:
+                      - img
+                      - text: 1 Question
+                  - paragraph: Require candidates to answer screening questions (or upload files) before they can start the AI interview.
+                - button: Configure Prerequisites
+              - generic:
+                - heading [level=3]:
+                  - img
+                  - text: Publication & Access Settings
+                - generic:
+                  - generic:
+                    - text: Publication Status
+                    - combobox:
+                      - generic: Publish Now
+                      - img
+                    - paragraph: Visible once published.
+                  - generic:
+                    - text: Access Controls
+                    - combobox:
+                      - generic: Internal and Invite only (default)
+                      - img
+                    - paragraph: Controls candidate reach.
+                  - generic:
+                    - text: Expiry Date
+                    - textbox: 2026-11-02
+                    - paragraph: Links expire after this date.
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - generic:
+                        - heading [level=3]: WhatsApp Candidate Enrichment
+                        - generic: Disabled
+                      - paragraph: Automatically engage applicants on WhatsApp to capture missing profile information, confirm job-specific technical skills, and verify project experience.
+                  - generic:
+                    - switch
+              - generic:
+                - button:
+                  - generic:
+                    - img
+                    - generic:
+                      - heading [level=3]: Candidate Email Communication
+                      - paragraph: Configure how candidates will receive interview invites.
+                  - generic:
+                    - img
+              - generic:
+                - heading [level=3]:
+                  - img
+                  - text: Client Custom Job Metadata
+                - generic:
+                  - generic:
+                    - generic: GST *
+                    - textbox:
+                      - /placeholder: Enter GST...
+                      - text: 22AAAAA0000A1Z5
+                  - generic:
+                    - generic: Job Alias Name
+                    - textbox:
+                      - /placeholder: Enter Job Alias Name...
+                  - generic:
+                    - generic: Max Candidates *
+                    - spinbutton: "10"
+            - generic:
+              - button:
+                - img
+                - text: Back to Rounds
+              - generic:
+                - button: Publish Job
+  - dialog "Job Published — Interview Links Ready" [ref=e2197]:
+    - generic [ref=e2198]:
+      - heading "Job Published — Interview Links Ready" [level=2] [ref=e2199]
+      - paragraph [ref=e2200]: Your job is live. Share these interview links with candidates.
+    - generic [ref=e2201]:
+      - generic [ref=e2202]:
+        - img [ref=e2203]
+        - generic [ref=e2206]:
+          - paragraph [ref=e2207]: Published successfully
+          - paragraph [ref=e2208]: Share these links with candidates.
+      - generic [ref=e2210]:
+        - paragraph [ref=e2211]: Main Interview Link
+        - paragraph [ref=e2212]: https://staging.hyrefast.ai/interview/65ce9da77985
+        - button "Copy" [active] [ref=e2214] [cursor=pointer]:
+          - img
+          - text: Copy
+    - button "Done" [ref=e2216] [cursor=pointer]
+    - button "Close" [ref=e2217] [cursor=pointer]:
+      - img [ref=e2218]
+      - generic [ref=e2221]: Close

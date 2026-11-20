@@ -1,0 +1,164 @@
+- generic:
+  - generic:
+    - list
+    - list
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - button:
+                - img
+              - generic:
+                - paragraph: Job title
+                - heading [level=1]: QA Automation Engineer 20261003
+            - generic: Job
+          - generic:
+            - generic:
+              - generic: Job
+              - button:
+                - img
+            - generic:
+              - generic: Skills
+              - button:
+                - img
+            - generic:
+              - generic: Rounds
+              - button:
+                - img
+            - generic:
+              - generic: Settings
+              - button:
+                - img
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=4]: Generate from Role Title
+                    - generic:
+                      - img
+                      - textbox:
+                        - /placeholder: e.g. Senior Frontend Engineer
+                        - text: QA Automation Engineer 20261003
+                    - generic:
+                      - button:
+                        - img
+                        - text: Back to Upload
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: Job Title *
+                      - textbox:
+                        - /placeholder: e.g. Senior React Developer
+                        - text: QA Automation Engineer 20261003
+                    - generic:
+                      - generic: External Job ID (optional)
+                      - textbox:
+                        - /placeholder: e.g. greenhouse-role-987
+                  - generic:
+                    - generic: Location *
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Hyderabad, Telangana, India
+                          - button:
+                            - img
+                        - textbox:
+                          - /placeholder: Add location...
+                  - generic:
+                    - generic: Company Profile*(Agency)
+                    - combobox:
+                      - generic: Gimolov
+                      - img
+              - generic:
+                - generic:
+                  - heading [level=3]: Role Snapshot
+                  - generic:
+                    - generic:
+                      - generic: Experience (years) *
+                      - generic: Required (slide to set)
+                    - generic:
+                      - generic:
+                        - slider
+                      - generic:
+                        - slider
+                  - generic:
+                    - generic:
+                      - generic: Salary Range (LPA)
+                      - generic: Not specified
+                    - generic:
+                      - generic:
+                        - slider
+                      - generic:
+                        - slider
+                  - generic:
+                    - text: Work Mode
+                    - generic:
+                      - button: On-site
+                      - button: Hybrid
+                      - button: Remote
+                  - generic:
+                    - text: Work Type
+                    - generic:
+                      - button: Full-time
+                      - button: Contract
+                      - button: Part-time
+                      - button: Internship
+                  - generic:
+                    - button:
+                      - generic:
+                        - img
+                        - generic: Education & Certifications *
+                        - generic: "1"
+                      - img
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Education
+                          - button:
+                            - img
+                            - text: Add
+                        - generic:
+                          - combobox [expanded]:
+                            - generic: Bachelor's
+                            - img
+                          - textbox:
+                            - /placeholder: Field of study
+                          - generic:
+                            - button: Req
+                            - button: Pref
+                          - button:
+                            - img
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img
+                            - text: Certifications
+                          - button:
+                            - img
+                            - text: Add
+                        - paragraph: No certifications added
+            - generic:
+              - button: Cancel
+              - generic:
+                - button: Save Draft
+                - button [disabled]: Continue to Skills →
+  - listbox [ref=e797]:
+    - option "Any Degree" [ref=e798]:
+      - generic [ref=e800]: Any Degree
+    - option "Bachelor's" [active] [selected] [ref=e801]:
+      - img [ref=e804]
+      - generic [ref=e806]: Bachelor's
+    - option "Master's" [ref=e807]:
+      - generic [ref=e809]: Master's
+    - option "PhD" [ref=e810]:
+      - generic [ref=e812]: PhD
+    - option "Diploma" [ref=e813]:
+      - generic [ref=e815]: Diploma
+    - option "High School" [ref=e816]:
+      - generic [ref=e818]: High School
+    - option "None" [ref=e819]:
+      - generic [ref=e821]: None

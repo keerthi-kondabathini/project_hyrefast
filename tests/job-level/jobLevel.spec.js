@@ -20,8 +20,10 @@ const JL = td.jobLevel;
 
 // helper — open a job's View JD
 async function openViewJD(page, jobLevelPage) {
-  await page.goto('/dashboard');
-  await page.waitForLoadState('networkidle');
+  // loggedInPage already leaves the app on the dashboard. Avoid a full reload:
+  // auth is initialized by the SPA and a hard navigation can send this session
+  // back to Sign In before the job menu is opened.
+  await expect(jobLevelPage.jobSearchInput).toBeVisible({ timeout: 15_000 });
   await jobLevelPage.searchJobOnDashboard(JL.jobSearchQuery);
   await jobLevelPage.openViewJD(JL.overflowNth);
 }
@@ -54,7 +56,10 @@ test.describe('TC_JL_001 — View JD: all field assertions', () => {
 test.describe('TC_JL_002 — Interview Links CRUD', () => {
   test('Create → Edit → Delete interview link', async ({ page, loggedInPage }) => {
     const jlPage = new JobLevelPage(page);
-    const link   = JL.interviewLink;
+    const link   = {
+      ...JL.interviewLink,
+      name: `${JL.interviewLink.name}-${Date.now()}`,
+    };
 
     await test.step('Open View JD → Interview Links tab', async () => {
       await openViewJD(page, jlPage);
@@ -88,6 +93,7 @@ test.describe('TC_JL_003 — Public Interview Link Apply Form', () => {
   test('Open public link in popup → fill form → assert Application Submitted', async ({ page, loggedInPage }) => {
     const jlPage    = new JobLevelPage(page);
     const applicant = JL.publicLinkApplicant;
+    const linkName = `public-test-link-${Date.now()}`;
     // Generate fresh email and phone each run to avoid duplicate-application errors
     const { email } = await generateYopMailUser();
     const phone = faker.string.numeric(10);
@@ -97,24 +103,28 @@ test.describe('TC_JL_003 — Public Interview Link Apply Form', () => {
       await jlPage.navigateToLinksTab();
     });
 
-    await test.step('Create a link first (if none exists)', async () => {
-      const createBtn = page.getByRole('button', { name: 'Create New Link' });
-      if (await createBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
-        await jlPage.createInterviewLink({
-          name: 'public-test-link',
-          uses: 'Unlimited',
-          toggles: 0,
-        });
-      }
+    await test.step('Create a fresh public link for this run', async () => {
+      await jlPage.createInterviewLink({
+        name: linkName,
+        uses: 'Unlimited',
+        // Keep the default public application settings enabled. Clicking the
+        // modal switches here disabled fields that the public form requires.
+        toggles: 0,
+      });
+      await jlPage.enableInterviewLink(linkName);
     });
 
     await test.step('Open public link and submit application', async () => {
       await jlPage.testPublicLinkApply({
-        linkName: /public-test-link/i,
+        linkName,
         fullName: applicant.fullName,
         email,
         phone,
       });
+    });
+
+    await test.step('Remove the generated interview link', async () => {
+      await jlPage.deleteInterviewLink({ linkName });
     });
   });
 });
@@ -132,16 +142,34 @@ test.describe('TC_JL_004 — Interview Pipeline Customization', () => {
     });
 
     await test.step('Customize pipeline and save', async () => {
-      const suffix = faker.string.alphanumeric(4).toLowerCase();
-      const pipeline = {
-        // Customize the already-active rounds; do not copy a template to avoid duplicate config errors.
-        rounds: JL.pipeline.rounds.map((r) => ({
-          name: `${r.name}_${suffix}`,
-          alias: `${r.name}_${suffix}`,
-          toggleNth: r.toggleNth,
-        })),
-      };
-      await jlPage.customizePipeline(pipeline);
+      const customizeButton = page.getByRole('button', { name: /Customize Rounds/i });
+      if (await customizeButton.isVisible().catch(() => false)) {
+        const suffix = faker.string.alphanumeric(4).toLowerCase();
+        await jlPage.customizePipeline({
+          rounds: JL.pipeline.rounds.map((round) => ({
+            name: `${round.name}_${suffix}`,
+            alias: `${round.name}_${suffix}`,
+            toggleNth: round.toggleNth,
+          })),
+        });
+        return;
+      }
+
+      // Current UI starts on the company default and exposes Copy Template as
+      // the supported way to create a job-specific pipeline.
+      const copyTemplate = page.getByText(/Copy Template/i).last();
+      await expect(copyTemplate).toBeVisible({ timeout: 10_000 });
+      await copyTemplate.click();
+      // The Copy Template menu has entries such as "Copy from Tech" and
+      // "Copy from Sales". Select a template different from the active Tech
+      // default so the pipeline becomes dirty and Save Pipeline is enabled.
+      const copyFromSales = page.getByText(/^Copy from Sales\b/i);
+      await expect(copyFromSales).toBeVisible({ timeout: 10_000 });
+      await copyFromSales.click();
+      await expect(page.getByRole('button', { name: /Save Pipeline/i })).toBeEnabled({ timeout: 10_000 });
+      await page.getByRole('button', { name: /Save Pipeline/i }).click();
+      await expect(jlPage.pipelineUpdatedToast.or(jlPage.pipelineCustomisedText))
+        .toBeVisible({ timeout: 15_000 });
     });
   });
 });
@@ -149,17 +177,16 @@ test.describe('TC_JL_004 — Interview Pipeline Customization', () => {
 // ─────────────────────────────────────────────────────────────────────────────
 //  TC_JL_005 — Source Document tab
 // ─────────────────────────────────────────────────────────────────────────────
-test.describe('TC_JL_005 — Source Document tab', () => {
-  test('Open Source Document tab → assert original uploaded document visible', async ({ page, loggedInPage }) => {
+test.describe('TC_JL_005 — Source Document content', () => {
+  test('Open job Overview → assert uploaded job description content is visible', async ({ page, loggedInPage }) => {
     const jlPage = new JobLevelPage(page);
 
-    await test.step('Open View JD → Source Document tab', async () => {
+    await test.step('Open View JD → Overview', async () => {
       await openViewJD(page, jlPage);
-      await jlPage.navigateToSourceDocTab();
     });
 
-    await test.step('Assert original document text is visible', async () => {
-      await jlPage.assertSourceDocumentVisible(JL.sourceDocFragment);
+    await test.step('Assert job description sections are visible', async () => {
+      await jlPage.assertSourceDocumentVisible();
     });
   });
 });
@@ -193,7 +220,10 @@ test.describe('TC_JL_006 — Access Settings', () => {
 
     let grantedMemberName;
     await test.step('Add individual member', async () => {
-      grantedMemberName = await jlPage.assignIndividualMember();
+      grantedMemberName = await jlPage.assignIndividualMember(
+        access.memberSearchQuery,
+        access.memberOptionText,
+      );
     });
 
     await test.step('Revoke individual member access', async () => {
@@ -229,10 +259,11 @@ test.describe('TC_JL_007 — Edit Job Details', () => {
   test('Open Edit Job Details → capture before → edit all fields → save → verify changes', async ({ page, loggedInPage }) => {
     const jlPage = new JobLevelPage(page);
     const edit   = JL.editJob;
+    const futureDeadline = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
+      .toISOString().slice(0, 10);
 
     await test.step('Navigate to dashboard and open Edit Job Details', async () => {
-      await page.goto('/dashboard');
-      await page.waitForLoadState('networkidle');
+      await expect(jlPage.jobSearchInput).toBeVisible({ timeout: 15_000 });
       await jlPage.searchJobOnDashboard(JL.jobSearchQuery);
       await jlPage.openEditJobDetails(JL.overflowNth);
     });
@@ -247,18 +278,22 @@ test.describe('TC_JL_007 — Edit Job Details', () => {
         roleTitle:       edit.roleTitle,
         company:         edit.company,
         jobID:           edit.jobID,
-        deadline:        edit.deadline,
+        deadline:        futureDeadline,
         jobStatus:       edit.jobStatus,
         spocText:        edit.spocText,
         mobileInterview: true,
-        agentInterview:  true,
-        preScreening:    true,
+        advancedProctoring: true,
+        whatsappEnrichment: true,
       });
     });
 
     await test.step('Open View JD and verify changes are reflected', async () => {
-      await page.goto('/dashboard');
-      await page.waitForLoadState('networkidle');
+      // The edit page was opened from the dashboard menu; use browser history
+      // to return through the SPA router without dropping the authenticated state.
+      if (!(await jlPage.jobSearchInput.isVisible().catch(() => false))) {
+        await page.goBack();
+      }
+      await expect(jlPage.jobSearchInput).toBeVisible({ timeout: 15_000 });
       await jlPage.searchJobOnDashboard(edit.roleTitle);
       await jlPage.openViewJD(JL.overflowNth);
       await jlPage.assertViewJDFields({

@@ -1,0 +1,521 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e1558]:
+    - navigation [ref=e1561]:
+      - generic [ref=e1562] [cursor=pointer]:
+        - img "Hyrefast brand logo" [ref=e1563]
+        - heading "Hyrefast" [level=1] [ref=e1564]
+      - generic [ref=e1565]:
+        - generic [ref=e1566]:
+          - button "9+" [ref=e1567] [cursor=pointer]:
+            - img
+            - generic [ref=e1568]: 9+
+          - button "AI Copilot Extension" [ref=e1569] [cursor=pointer]:
+            - img
+        - paragraph [ref=e1572]: pratham
+        - button "Company Logo" [ref=e1573] [cursor=pointer]:
+          - img "Company Logo" [ref=e1575]
+          - img
+    - generic [ref=e1579]:
+      - generic [ref=e1580]:
+        - heading "Good Morning, pratham 👋" [level=1] [ref=e1581]
+        - paragraph [ref=e1582]: Activity Across Gimolov.
+      - generic [ref=e1583]:
+        - generic [ref=e1584]:
+          - paragraph [ref=e1585]: Published Jobs
+          - paragraph [ref=e1586]: "83"
+        - generic [ref=e1587]:
+          - paragraph [ref=e1588]: Applications
+          - paragraph [ref=e1589]: "359"
+        - generic [ref=e1590]:
+          - paragraph [ref=e1591]: Shortlisted
+          - paragraph [ref=e1592]: "164"
+    - generic [ref=e1594]:
+      - complementary [ref=e1595]:
+        - generic [ref=e1596]:
+          - heading "Quick Actions" [level=3] [ref=e1598]
+          - generic [ref=e1599]:
+            - button "Create Job" [ref=e1600] [cursor=pointer]:
+              - img
+              - text: Create Job
+            - button "Explore Candidates" [ref=e1601] [cursor=pointer]:
+              - img
+              - text: Explore Candidates
+            - button "Reports & Trackers" [ref=e1602] [cursor=pointer]:
+              - img
+              - text: Reports & Trackers
+      - generic [ref=e1604]:
+        - generic [ref=e1606]:
+          - generic [ref=e1607]:
+            - heading "Job Openings" [level=3] [ref=e1608]
+            - paragraph [ref=e1609]: 261 Total Jobs
+          - generic [ref=e1610]:
+            - img [ref=e1611]
+            - textbox "Search by job name or ID" [ref=e1614]
+        - generic [ref=e1615]:
+          - generic [ref=e1616]:
+            - generic [ref=e1617]:
+              - combobox [ref=e1618] [cursor=pointer]:
+                - generic: All Jobs
+                - img [ref=e1619]
+              - combobox [ref=e1621] [cursor=pointer]:
+                - generic: All companies
+                - img [ref=e1622]
+            - generic [ref=e1624]:
+              - button "Sort by created date" [ref=e1625] [cursor=pointer]:
+                - text: Sort by created date
+                - img
+              - button "Sort by applications" [ref=e1626] [cursor=pointer]:
+                - text: Sort by applications
+                - img
+              - button "Sort by last date" [ref=e1627] [cursor=pointer]:
+                - text: Sort by last date
+                - img
+          - generic [ref=e1628]:
+            - 'link "QA Automation Engineer 20261003(0-1 years) Oct 3, 11:02 AM pratham@yopmail.com Published Full-time Gimolov Gimolov View Candidates 0 Shortlisted 0 -- 0 Questions: 5 Skills: 10 Job Quality: A" [ref=e1629] [cursor=pointer]':
+              - generic [ref=e1630]:
+                - generic [ref=e1631]:
+                  - generic [ref=e1632]:
+                    - heading "QA Automation Engineer 20261003(0-1 years)" [level=3] [ref=e1633]:
+                      - text: QA Automation Engineer 20261003
+                      - generic [ref=e1634]: (0-1 years)
+                    - generic [ref=e1635]:
+                      - generic [ref=e1636]:
+                        - img [ref=e1637]
+                        - text: Oct 3, 11:02 AM
+                      - generic [ref=e1639]: pratham@yopmail.com
+                    - generic [ref=e1640]:
+                      - generic [ref=e1641]: Published
+                      - generic [ref=e1642]: Full-time
+                      - generic [ref=e1643]:
+                        - img "Gimolov" [ref=e1645]
+                        - generic [ref=e1646]: Gimolov
+                  - generic [ref=e1647]:
+                    - button "View Candidates" [ref=e1648]
+                    - button [ref=e1649]:
+                      - img
+                - generic [ref=e1650]:
+                  - generic [ref=e1651]:
+                    - generic [ref=e1652]:
+                      - img [ref=e1653]
+                      - generic [ref=e1658]: "0"
+                    - generic [ref=e1659]:
+                      - generic [ref=e1660]: Shortlisted
+                      - generic [ref=e1661]: "0"
+                    - generic [ref=e1662]:
+                      - img [ref=e1663]
+                      - generic [ref=e1666]: "--"
+                    - generic [ref=e1667]:
+                      - img [ref=e1668]
+                      - generic [ref=e1672]: "0"
+                  - generic [ref=e1673]:
+                    - generic [ref=e1674]: "Questions:"
+                    - generic [ref=e1675]: "5"
+                    - generic [ref=e1676]: "Skills:"
+                    - generic [ref=e1677]: "10"
+                    - generic [ref=e1678]: "Job Quality:"
+                    - generic [ref=e1679]: A
+            - 'link "tester(0-3 years) Oct 1, 5:00 PM pratham@yopmail.com Published Full-time Gimolov Gimolov View Candidates 0 Shortlisted 0 -- 0 Questions: 5 Skills: 11 Job Quality: A" [ref=e1680] [cursor=pointer]':
+              - generic [ref=e1681]:
+                - generic [ref=e1682]:
+                  - generic [ref=e1683]:
+                    - heading "tester(0-3 years)" [level=3] [ref=e1684]:
+                      - text: tester
+                      - generic [ref=e1685]: (0-3 years)
+                    - generic [ref=e1686]:
+                      - generic [ref=e1687]:
+                        - img [ref=e1688]
+                        - text: Oct 1, 5:00 PM
+                      - generic [ref=e1690]: pratham@yopmail.com
+                    - generic [ref=e1691]:
+                      - generic [ref=e1692]: Published
+                      - generic [ref=e1693]: Full-time
+                      - generic [ref=e1694]:
+                        - img "Gimolov" [ref=e1696]
+                        - generic [ref=e1697]: Gimolov
+                  - generic [ref=e1698]:
+                    - button "View Candidates" [ref=e1699]
+                    - button [ref=e1700]:
+                      - img
+                - generic [ref=e1701]:
+                  - generic [ref=e1702]:
+                    - generic [ref=e1703]:
+                      - img [ref=e1704]
+                      - generic [ref=e1709]: "0"
+                    - generic [ref=e1710]:
+                      - generic [ref=e1711]: Shortlisted
+                      - generic [ref=e1712]: "0"
+                    - generic [ref=e1713]:
+                      - img [ref=e1714]
+                      - generic [ref=e1717]: "--"
+                    - generic [ref=e1718]:
+                      - img [ref=e1719]
+                      - generic [ref=e1723]: "0"
+                  - generic [ref=e1724]:
+                    - generic [ref=e1725]: "Questions:"
+                    - generic [ref=e1726]: "5"
+                    - generic [ref=e1727]: "Skills:"
+                    - generic [ref=e1728]: "11"
+                    - generic [ref=e1729]: "Job Quality:"
+                    - generic [ref=e1730]: A
+            - 'link "QA Tester Oct 1, 11:24 AM pratham@yopmail.com Draft Full-time H Hyrefast 0 Shortlisted 0 -- 0 Questions: 0 Skills: 0 Job Quality: F" [ref=e1731] [cursor=pointer]':
+              - generic [ref=e1732]:
+                - generic [ref=e1733]:
+                  - generic [ref=e1734]:
+                    - heading "QA Tester" [level=3] [ref=e1735]
+                    - generic [ref=e1736]:
+                      - generic [ref=e1737]:
+                        - img [ref=e1738]
+                        - text: Oct 1, 11:24 AM
+                      - generic [ref=e1740]: pratham@yopmail.com
+                    - generic [ref=e1741]:
+                      - generic [ref=e1742]: Draft
+                      - generic [ref=e1743]: Full-time
+                      - generic [ref=e1744]:
+                        - generic [ref=e1746]: H
+                        - generic [ref=e1747]: Hyrefast
+                  - button [ref=e1749]:
+                    - img
+                - generic [ref=e1750]:
+                  - generic [ref=e1751]:
+                    - generic [ref=e1752]:
+                      - img [ref=e1753]
+                      - generic [ref=e1758]: "0"
+                    - generic [ref=e1759]:
+                      - generic [ref=e1760]: Shortlisted
+                      - generic [ref=e1761]: "0"
+                    - generic [ref=e1762]:
+                      - img [ref=e1763]
+                      - generic [ref=e1766]: "--"
+                    - generic [ref=e1767]:
+                      - img [ref=e1768]
+                      - generic [ref=e1772]: "0"
+                  - generic [ref=e1773]:
+                    - generic [ref=e1774]: "Questions:"
+                    - generic [ref=e1775]: "0"
+                    - generic [ref=e1776]: "Skills:"
+                    - generic [ref=e1777]: "0"
+                    - generic [ref=e1778]: "Job Quality:"
+                    - generic [ref=e1779]: F
+            - 'link "AI/ML Engineer Oct 1, 11:24 AM pratham@yopmail.com Draft Full-time H Hyrefast 0 Shortlisted 0 -- 0 Questions: 0 Skills: 0 Job Quality: F" [ref=e1780] [cursor=pointer]':
+              - generic [ref=e1781]:
+                - generic [ref=e1782]:
+                  - generic [ref=e1783]:
+                    - heading "AI/ML Engineer" [level=3] [ref=e1784]
+                    - generic [ref=e1785]:
+                      - generic [ref=e1786]:
+                        - img [ref=e1787]
+                        - text: Oct 1, 11:24 AM
+                      - generic [ref=e1789]: pratham@yopmail.com
+                    - generic [ref=e1790]:
+                      - generic [ref=e1791]: Draft
+                      - generic [ref=e1792]: Full-time
+                      - generic [ref=e1793]:
+                        - generic [ref=e1795]: H
+                        - generic [ref=e1796]: Hyrefast
+                  - button [ref=e1798]:
+                    - img
+                - generic [ref=e1799]:
+                  - generic [ref=e1800]:
+                    - generic [ref=e1801]:
+                      - img [ref=e1802]
+                      - generic [ref=e1807]: "0"
+                    - generic [ref=e1808]:
+                      - generic [ref=e1809]: Shortlisted
+                      - generic [ref=e1810]: "0"
+                    - generic [ref=e1811]:
+                      - img [ref=e1812]
+                      - generic [ref=e1815]: "--"
+                    - generic [ref=e1816]:
+                      - img [ref=e1817]
+                      - generic [ref=e1821]: "0"
+                  - generic [ref=e1822]:
+                    - generic [ref=e1823]: "Questions:"
+                    - generic [ref=e1824]: "0"
+                    - generic [ref=e1825]: "Skills:"
+                    - generic [ref=e1826]: "0"
+                    - generic [ref=e1827]: "Job Quality:"
+                    - generic [ref=e1828]: F
+            - 'link "Ruby Rails Dev(12-17 years) Oct 1, 10:52 AM pratham@yopmail.com Job ID: 145 Published Full-time A Aswanth Company View Candidates 1 Shortlisted 0 17% 0 Questions: 0 Skills: 1 Job Quality: F" [ref=e1829] [cursor=pointer]':
+              - generic [ref=e1830]:
+                - generic [ref=e1831]:
+                  - generic [ref=e1832]:
+                    - heading "Ruby Rails Dev(12-17 years)" [level=3] [ref=e1833]:
+                      - text: Ruby Rails Dev
+                      - generic [ref=e1834]: (12-17 years)
+                    - generic [ref=e1835]:
+                      - generic [ref=e1836]:
+                        - img [ref=e1837]
+                        - text: Oct 1, 10:52 AM
+                      - generic [ref=e1839]: pratham@yopmail.com
+                      - generic [ref=e1840]: "Job ID: 145"
+                    - generic [ref=e1841]:
+                      - generic [ref=e1842]: Published
+                      - generic [ref=e1843]: Full-time
+                      - generic [ref=e1844]:
+                        - generic [ref=e1846]: A
+                        - generic [ref=e1847]: Aswanth Company
+                  - generic [ref=e1848]:
+                    - button "View Candidates" [ref=e1849]
+                    - button [ref=e1850]:
+                      - img
+                - generic [ref=e1851]:
+                  - generic [ref=e1852]:
+                    - generic [ref=e1853]:
+                      - img [ref=e1854]
+                      - generic [ref=e1859]: "1"
+                    - generic [ref=e1860]:
+                      - generic [ref=e1861]: Shortlisted
+                      - generic [ref=e1862]: "0"
+                    - generic [ref=e1863]:
+                      - img [ref=e1864]
+                      - generic [ref=e1867]: 17%
+                    - generic [ref=e1868]:
+                      - img [ref=e1869]
+                      - generic [ref=e1873]: "0"
+                  - generic [ref=e1874]:
+                    - generic [ref=e1875]: "Questions:"
+                    - generic [ref=e1876]: "0"
+                    - generic [ref=e1877]: "Skills:"
+                    - generic [ref=e1878]: "1"
+                    - generic [ref=e1879]: "Job Quality:"
+                    - generic [ref=e1880]: F
+            - 'link "java developer(2-5 years) Sep 28, 2:51 PM pratham@yopmail.com Published Expired Full-time Gimolov Gimolov View Candidates 4 Shortlisted 0 37% 0 Questions: 6 Skills: 11 Job Quality: A" [ref=e1881] [cursor=pointer]':
+              - generic [ref=e1882]:
+                - generic [ref=e1883]:
+                  - generic [ref=e1884]:
+                    - heading "java developer(2-5 years)" [level=3] [ref=e1885]:
+                      - text: java developer
+                      - generic [ref=e1886]: (2-5 years)
+                    - generic [ref=e1887]:
+                      - generic [ref=e1888]:
+                        - img [ref=e1889]
+                        - text: Sep 28, 2:51 PM
+                      - generic [ref=e1891]: pratham@yopmail.com
+                    - generic [ref=e1892]:
+                      - generic [ref=e1893]: Published
+                      - generic [ref=e1895]: Expired
+                      - generic [ref=e1896]: Full-time
+                      - generic [ref=e1897]:
+                        - img "Gimolov" [ref=e1899]
+                        - generic [ref=e1900]: Gimolov
+                  - generic [ref=e1901]:
+                    - button "View Candidates" [ref=e1902]
+                    - button [ref=e1903]:
+                      - img
+                - generic [ref=e1904]:
+                  - generic [ref=e1905]:
+                    - generic [ref=e1906]:
+                      - img [ref=e1907]
+                      - generic [ref=e1912]: "4"
+                    - generic [ref=e1913]:
+                      - generic [ref=e1914]: Shortlisted
+                      - generic [ref=e1915]: "0"
+                    - generic [ref=e1916]:
+                      - img [ref=e1917]
+                      - generic [ref=e1920]: 37%
+                    - generic [ref=e1921]:
+                      - img [ref=e1922]
+                      - generic [ref=e1926]: "0"
+                  - generic [ref=e1927]:
+                    - generic [ref=e1928]: "Questions:"
+                    - generic [ref=e1929]: "6"
+                    - generic [ref=e1930]: "Skills:"
+                    - generic [ref=e1931]: "11"
+                    - generic [ref=e1932]: "Job Quality:"
+                    - generic [ref=e1933]: A
+            - 'link "Financial Analyst (Copy)(3-5 years) Sep 26, 3:04 PM pratham@yopmail.com Published Expired Full-time Gimolov Gimolov View Candidates 1 Shortlisted 0 -- 1 Questions: 6 Skills: 10 Job Quality: A" [ref=e1934] [cursor=pointer]':
+              - generic [ref=e1935]:
+                - generic [ref=e1936]:
+                  - generic [ref=e1937]:
+                    - heading "Financial Analyst (Copy)(3-5 years)" [level=3] [ref=e1938]:
+                      - text: Financial Analyst (Copy)
+                      - generic [ref=e1939]: (3-5 years)
+                    - generic [ref=e1940]:
+                      - generic [ref=e1941]:
+                        - img [ref=e1942]
+                        - text: Sep 26, 3:04 PM
+                      - generic [ref=e1944]: pratham@yopmail.com
+                    - generic [ref=e1945]:
+                      - generic [ref=e1946]: Published
+                      - generic [ref=e1948]: Expired
+                      - generic [ref=e1949]: Full-time
+                      - generic [ref=e1950]:
+                        - img "Gimolov" [ref=e1952]
+                        - generic [ref=e1953]: Gimolov
+                  - generic [ref=e1954]:
+                    - button "View Candidates" [ref=e1955]
+                    - button [ref=e1956]:
+                      - img
+                - generic [ref=e1957]:
+                  - generic [ref=e1958]:
+                    - generic [ref=e1959]:
+                      - img [ref=e1960]
+                      - generic [ref=e1965]: "1"
+                    - generic [ref=e1966]:
+                      - generic [ref=e1967]: Shortlisted
+                      - generic [ref=e1968]: "0"
+                    - generic [ref=e1969]:
+                      - img [ref=e1970]
+                      - generic [ref=e1973]: "--"
+                    - generic [ref=e1974]:
+                      - img [ref=e1975]
+                      - generic [ref=e1979]: "1"
+                  - generic [ref=e1980]:
+                    - generic [ref=e1981]: "Questions:"
+                    - generic [ref=e1982]: "6"
+                    - generic [ref=e1983]: "Skills:"
+                    - generic [ref=e1984]: "10"
+                    - generic [ref=e1985]: "Job Quality:"
+                    - generic [ref=e1986]: A
+            - 'link "Financial Analyst(3-5 years) Sep 26, 11:29 AM pratham@yopmail.com Published Expired Full-time Gimolov Gimolov View Candidates 2 Shortlisted 0 18% 2 Questions: 6 Skills: 10 Job Quality: A" [ref=e1987] [cursor=pointer]':
+              - generic [ref=e1988]:
+                - generic [ref=e1989]:
+                  - generic [ref=e1990]:
+                    - heading "Financial Analyst(3-5 years)" [level=3] [ref=e1991]:
+                      - text: Financial Analyst
+                      - generic [ref=e1992]: (3-5 years)
+                    - generic [ref=e1993]:
+                      - generic [ref=e1994]:
+                        - img [ref=e1995]
+                        - text: Sep 26, 11:29 AM
+                      - generic [ref=e1997]: pratham@yopmail.com
+                    - generic [ref=e1998]:
+                      - generic [ref=e1999]: Published
+                      - generic [ref=e2001]: Expired
+                      - generic [ref=e2002]: Full-time
+                      - generic [ref=e2003]:
+                        - img "Gimolov" [ref=e2005]
+                        - generic [ref=e2006]: Gimolov
+                  - generic [ref=e2007]:
+                    - button "View Candidates" [ref=e2008]
+                    - button [ref=e2009]:
+                      - img
+                - generic [ref=e2010]:
+                  - generic [ref=e2011]:
+                    - generic [ref=e2012]:
+                      - img [ref=e2013]
+                      - generic [ref=e2018]: "2"
+                    - generic [ref=e2019]:
+                      - generic [ref=e2020]: Shortlisted
+                      - generic [ref=e2021]: "0"
+                    - generic [ref=e2022]:
+                      - img [ref=e2023]
+                      - generic [ref=e2026]: 18%
+                    - generic [ref=e2027]:
+                      - img [ref=e2028]
+                      - generic [ref=e2032]: "2"
+                  - generic [ref=e2033]:
+                    - generic [ref=e2034]: "Questions:"
+                    - generic [ref=e2035]: "6"
+                    - generic [ref=e2036]: "Skills:"
+                    - generic [ref=e2037]: "10"
+                    - generic [ref=e2038]: "Job Quality:"
+                    - generic [ref=e2039]: A
+            - 'link "Financial Analyst(3-5 years) Sep 25, 11:53 PM pratham@yopmail.com Published Expired Full-time Gimolov Gimolov View Candidates 0 Shortlisted 0 -- 0 Questions: 0 Skills: 12 Job Quality: B" [ref=e2040] [cursor=pointer]':
+              - generic [ref=e2041]:
+                - generic [ref=e2042]:
+                  - generic [ref=e2043]:
+                    - heading "Financial Analyst(3-5 years)" [level=3] [ref=e2044]:
+                      - text: Financial Analyst
+                      - generic [ref=e2045]: (3-5 years)
+                    - generic [ref=e2046]:
+                      - generic [ref=e2047]:
+                        - img [ref=e2048]
+                        - text: Sep 25, 11:53 PM
+                      - generic [ref=e2050]: pratham@yopmail.com
+                    - generic [ref=e2051]:
+                      - generic [ref=e2052]: Published
+                      - generic [ref=e2054]: Expired
+                      - generic [ref=e2055]: Full-time
+                      - generic [ref=e2056]:
+                        - img "Gimolov" [ref=e2058]
+                        - generic [ref=e2059]: Gimolov
+                  - generic [ref=e2060]:
+                    - button "View Candidates" [ref=e2061]
+                    - button [ref=e2062]:
+                      - img
+                - generic [ref=e2063]:
+                  - generic [ref=e2064]:
+                    - generic [ref=e2065]:
+                      - img [ref=e2066]
+                      - generic [ref=e2071]: "0"
+                    - generic [ref=e2072]:
+                      - generic [ref=e2073]: Shortlisted
+                      - generic [ref=e2074]: "0"
+                    - generic [ref=e2075]:
+                      - img [ref=e2076]
+                      - generic [ref=e2079]: "--"
+                    - generic [ref=e2080]:
+                      - img [ref=e2081]
+                      - generic [ref=e2085]: "0"
+                  - generic [ref=e2086]:
+                    - generic [ref=e2087]: "Questions:"
+                    - generic [ref=e2088]: "0"
+                    - generic [ref=e2089]: "Skills:"
+                    - generic [ref=e2090]: "12"
+                    - generic [ref=e2091]: "Job Quality:"
+                    - generic [ref=e2092]: B
+            - 'link "Playwright Automation Testing Intern(0-1 years) Sep 25, 11:26 PM pratham@yopmail.com Draft Internship Gimolov Gimolov 0 Shortlisted 0 -- 0 Questions: 0 Skills: 0 Job Quality: F" [ref=e2093] [cursor=pointer]':
+              - generic [ref=e2094]:
+                - generic [ref=e2095]:
+                  - generic [ref=e2096]:
+                    - heading "Playwright Automation Testing Intern(0-1 years)" [level=3] [ref=e2097]:
+                      - text: Playwright Automation Testing Intern
+                      - generic [ref=e2098]: (0-1 years)
+                    - generic [ref=e2099]:
+                      - generic [ref=e2100]:
+                        - img [ref=e2101]
+                        - text: Sep 25, 11:26 PM
+                      - generic [ref=e2103]: pratham@yopmail.com
+                    - generic [ref=e2104]:
+                      - generic [ref=e2105]: Draft
+                      - generic [ref=e2106]: Internship
+                      - generic [ref=e2107]:
+                        - img "Gimolov" [ref=e2109]
+                        - generic [ref=e2110]: Gimolov
+                  - button [ref=e2112]:
+                    - img
+                - generic [ref=e2113]:
+                  - generic [ref=e2114]:
+                    - generic [ref=e2115]:
+                      - img [ref=e2116]
+                      - generic [ref=e2121]: "0"
+                    - generic [ref=e2122]:
+                      - generic [ref=e2123]: Shortlisted
+                      - generic [ref=e2124]: "0"
+                    - generic [ref=e2125]:
+                      - img [ref=e2126]
+                      - generic [ref=e2129]: "--"
+                    - generic [ref=e2130]:
+                      - img [ref=e2131]
+                      - generic [ref=e2135]: "0"
+                  - generic [ref=e2136]:
+                    - generic [ref=e2137]: "Questions:"
+                    - generic [ref=e2138]: "0"
+                    - generic [ref=e2139]: "Skills:"
+                    - generic [ref=e2140]: "0"
+                    - generic [ref=e2141]: "Job Quality:"
+                    - generic [ref=e2142]: F
+          - generic [ref=e2143]:
+            - generic [ref=e2144]:
+              - generic [ref=e2145]: Showing 1 to 10 of 261 results
+              - combobox [ref=e2146] [cursor=pointer]:
+                - generic: 10 per page
+                - img [ref=e2147]
+            - generic [ref=e2149]:
+              - button "Previous" [disabled]:
+                - img
+                - text: Previous
+              - generic [ref=e2150]:
+                - button "1" [ref=e2151] [cursor=pointer]
+                - button "2" [ref=e2152] [cursor=pointer]
+                - button "3" [ref=e2153] [cursor=pointer]
+                - button "4" [ref=e2154] [cursor=pointer]
+                - button "5" [ref=e2155] [cursor=pointer]
+              - button "Next" [ref=e2156] [cursor=pointer]:
+                - text: Next
+                - img

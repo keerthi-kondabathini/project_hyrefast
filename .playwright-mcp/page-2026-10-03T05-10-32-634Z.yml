@@ -1,0 +1,116 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e603]:
+    - generic [ref=e604]:
+      - generic [ref=e605]:
+        - generic [ref=e606]:
+          - button [ref=e607] [cursor=pointer]:
+            - img
+          - generic [ref=e608]:
+            - paragraph [ref=e609]: Job title
+            - heading "Untitled Job" [level=1] [ref=e610]
+        - generic [ref=e611]: Job
+      - generic [ref=e612]:
+        - generic [ref=e613]:
+          - generic [ref=e614]: Job
+          - button [ref=e615] [cursor=pointer]:
+            - img [ref=e616]
+        - generic [ref=e618]:
+          - generic [ref=e619]: Skills
+          - button [ref=e620] [cursor=pointer]:
+            - img [ref=e621]
+        - generic [ref=e623]:
+          - generic [ref=e624]: Rounds
+          - button [ref=e625] [cursor=pointer]:
+            - img [ref=e626]
+        - generic [ref=e628]:
+          - generic [ref=e629]: Settings
+          - button [ref=e630] [cursor=pointer]:
+            - img [ref=e631]
+    - generic [ref=e634]:
+      - generic [ref=e635]:
+        - generic [ref=e636]:
+          - generic [ref=e637]:
+            - generic [ref=e638] [cursor=pointer]:
+              - img [ref=e640]
+              - heading "Upload Job Description" [level=4] [ref=e643]
+              - paragraph [ref=e644]: PDF, DOC, DOCX, TXT
+            - button "Generate from Role Title instead" [ref=e646] [cursor=pointer]:
+              - img
+              - text: Generate from Role Title instead
+          - generic [ref=e647]:
+            - generic [ref=e648]:
+              - generic [ref=e649]:
+                - generic [ref=e650]: Job Title *
+                - textbox "e.g. Senior React Developer" [ref=e651]
+              - generic [ref=e652]:
+                - generic [ref=e653]: External Job ID (optional)
+                - textbox "e.g. greenhouse-role-987" [ref=e654]
+            - generic [ref=e655]:
+              - generic [ref=e656]: Location (optional)
+              - textbox "e.g. Remote, City, or Country (optional)" [ref=e659]
+            - generic [ref=e660]:
+              - generic [ref=e661]: Company Profile*(Agency)
+              - combobox [ref=e662] [cursor=pointer]:
+                - generic: Gimolov
+                - img [ref=e663]
+        - generic [ref=e666]:
+          - heading "Role Snapshot" [level=3] [ref=e667]
+          - generic [ref=e668]:
+            - generic [ref=e669]:
+              - generic [ref=e670]: Experience (years) *
+              - generic [ref=e671]: Required (slide to set)
+            - generic [ref=e672]:
+              - slider "Minimum" [ref=e675]
+              - slider "Maximum" [ref=e677]
+          - generic [ref=e678]:
+            - generic [ref=e679]:
+              - generic [ref=e680]: Salary Range (LPA)
+              - generic [ref=e681]: Not specified
+            - generic [ref=e682]:
+              - slider "Minimum" [ref=e685]
+              - slider "Maximum" [ref=e687]
+          - generic [ref=e688]:
+            - text: Work Mode
+            - generic [ref=e689]:
+              - button "On-site" [ref=e690] [cursor=pointer]
+              - button "Hybrid" [ref=e691] [cursor=pointer]
+              - button "Remote" [ref=e692] [cursor=pointer]
+          - generic [ref=e693]:
+            - text: Work Type
+            - generic [ref=e694]:
+              - button "Full-time" [ref=e695] [cursor=pointer]
+              - button "Contract" [ref=e696] [cursor=pointer]
+              - button "Part-time" [ref=e697] [cursor=pointer]
+              - button "Internship" [ref=e698] [cursor=pointer]
+          - generic [ref=e699]:
+            - button "Education & Certifications *" [ref=e700] [cursor=pointer]:
+              - generic [ref=e701]:
+                - img [ref=e702]
+                - generic [ref=e705]: Education & Certifications *
+              - img [ref=e706]
+            - generic [ref=e708]:
+              - generic [ref=e709]:
+                - generic [ref=e710]:
+                  - generic [ref=e711]: Education
+                  - button "Add" [ref=e712] [cursor=pointer]:
+                    - img [ref=e713]
+                    - text: Add
+                - paragraph [ref=e714]: No education requirements added
+              - generic [ref=e715]:
+                - generic [ref=e716]:
+                  - generic [ref=e717]:
+                    - img [ref=e718]
+                    - text: Certifications
+                  - button "Add" [ref=e721] [cursor=pointer]:
+                    - img [ref=e722]
+                    - text: Add
+                - paragraph [ref=e723]: No certifications added
+      - generic [ref=e724]:
+        - button "Cancel" [ref=e725] [cursor=pointer]
+        - generic [ref=e726]:
+          - button "Save Draft" [ref=e727] [cursor=pointer]
+          - button "Continue to Skills →" [disabled]

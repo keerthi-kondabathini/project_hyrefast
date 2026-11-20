@@ -1,0 +1,205 @@
+- generic:
+  - generic:
+    - list
+    - list
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - button:
+                - img
+              - generic:
+                - paragraph: Job title
+                - heading [level=1]: QA Automation Engineer 20261003
+            - generic: Rounds
+          - generic:
+            - generic:
+              - generic: Job
+              - button:
+                - img
+            - generic:
+              - generic: Skills
+              - button:
+                - img
+            - generic:
+              - generic: Rounds
+              - button:
+                - img
+            - generic:
+              - generic: Settings
+              - button:
+                - img
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - heading [level=2]: Interview Rounds
+                  - paragraph: Add, remove, or reorder rounds. Screening is optional and can be placed anywhere in the flow.
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic:
+                            - generic: Tech
+                            - generic: Company Template
+                          - paragraph: 6 active stages configured for this job
+                      - generic:
+                        - button [disabled]:
+                          - img
+                          - generic: Save Pipeline
+                    - alert:
+                      - img
+                      - generic: Currently using company default rounds. Customizing rounds or copying a template will save a dedicated pipeline for this job.
+                    - generic:
+                      - generic:
+                        - generic: "Active Template:"
+                        - combobox:
+                          - generic: Tech (Default)
+                          - img
+                      - generic:
+                        - combobox:
+                          - img
+                          - generic: Copy Template Rounds...
+                          - img
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: "1"
+                          - generic:
+                            - img
+                          - button: Resume Screening
+                          - generic:
+                            - generic:
+                              - switch [checked]
+                      - generic:
+                        - generic:
+                          - generic: "2"
+                          - generic:
+                            - img
+                          - button: Hyrefast Bot Screening
+                          - generic:
+                            - generic:
+                              - switch [checked]
+                        - generic:
+                          - generic:
+                            - img
+                            - generic: Setup is optional right now — configure questions now or later before inviting candidates.
+                          - generic:
+                            - button:
+                              - img
+                      - generic:
+                        - generic:
+                          - button:
+                            - img
+                          - generic: "3"
+                          - generic:
+                            - img
+                          - button: Aptitude
+                          - generic:
+                            - button:
+                              - img
+                            - button:
+                              - img
+                      - generic:
+                        - generic:
+                          - button:
+                            - img
+                          - generic: "4"
+                          - generic:
+                            - img
+                          - button: Machine Test
+                          - generic:
+                            - button:
+                              - img
+                            - button:
+                              - img
+                      - generic:
+                        - generic:
+                          - button:
+                            - img
+                          - generic: "5"
+                          - generic:
+                            - img
+                          - button: Technical
+                          - generic:
+                            - button:
+                              - img
+                            - button:
+                              - img
+                      - generic:
+                        - generic:
+                          - button:
+                            - img
+                          - generic: "6"
+                          - generic:
+                            - img
+                          - button: HR
+                          - generic:
+                            - button:
+                              - img
+                            - button:
+                              - img
+                    - status
+                    - button:
+                      - img
+                      - text: Add Round
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: Hiring Process Summary
+                  - generic:
+                    - generic:
+                      - paragraph: Total Rounds
+                      - generic:
+                        - generic: "6"
+                      - paragraph: AI screening is included in your flow
+                    - generic:
+                      - generic:
+                        - img
+                        - paragraph: AI Screening Setup
+                      - generic:
+                        - generic:
+                          - img
+                          - text: Pending Setup
+                      - paragraph: You can customize interview questions now, or complete setup later before inviting candidates.
+                - generic:
+                  - generic:
+                    - img
+                    - heading [level=4]: Why use AI screening?
+                  - paragraph: AI screening evaluates applicants on technical skills and communication before manual rounds, helping your team focus on top candidates.
+                  - generic:
+                    - img
+                    - generic: You can reorder rounds or configure interview criteria anytime before inviting candidates.
+            - generic:
+              - button:
+                - img
+                - text: Back to Skills
+              - generic:
+                - button: Save Draft
+                - button:
+                  - text: Continue to Job Settings
+                  - img
+  - alertdialog "AI Screening Setup Incomplete" [ref=e1442]:
+    - generic [ref=e1443]:
+      - heading "AI Screening Setup Incomplete" [level=2] [ref=e1444]
+      - paragraph [ref=e1445]:
+        - generic [ref=e1446]:
+          - text: You have enabled
+          - strong [ref=e1447]: Hyrefast Bot Screening
+          - text: ", but interview topics & questions have not been set up yet."
+        - generic [ref=e1448]:
+          - generic [ref=e1449]: "Note:"
+          - generic [ref=e1450]: Candidates can receive interview links and start the interview only after the interview questions are configured.
+    - generic [ref=e1451]:
+      - button "Set Up Later & Continue" [active] [ref=e1452] [cursor=pointer]:
+        - text: Set Up Later & Continue
+        - img
+      - button "Configure Questions Now" [ref=e1453] [cursor=pointer]:
+        - img
+        - text: Configure Questions Now

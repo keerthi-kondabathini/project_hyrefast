@@ -19,8 +19,10 @@ class SettingsPage extends BasePage {
 
     // ── Sidebar sections ──────────────────────────────────
     this.teamMembersSection     = page.getByRole('button', { name: 'Team & Workspace Members' });
-    this.personalProfileSection = page.getByRole('button', { name: 'Personal Profile Your account' });
-    this.clientsSection         = page.getByRole('button', { name: 'Clients Client companies,' });
+this.personalProfileSection = page.getByRole('button', {
+  name: /Personal Profile/i,
+}); 
+   this.clientsSection         = page.getByRole('button', { name: 'Clients Client companies' });
 
     // ── Team Members ──────────────────────────────────────
     this.addMemberButton   = page.getByRole('button', { name: 'Add Member' });
@@ -41,20 +43,20 @@ class SettingsPage extends BasePage {
     // ── Personal Profile ──────────────────────────────────
     this.editProfileButton = page.getByRole('button', { name: 'Edit', exact: true });
     this.fullNameInput     = page.getByRole('textbox', { name: 'Full Name *' });
-    this.profileEmailInput = page.getByRole('textbox', { name: 'Email Address *' });
+   this.profileEmailInput = page.locator('input[type="email"]').last();
     this.phoneInput        = page.getByRole('textbox', { name: 'Phone Number *' });
     this.saveChangesButton = page.getByRole('button', { name: 'Save Changes' });
 
     // ── Companies ─────────────────────────────────────────
     this.companiesHeading    = page.getByRole('heading', { name: 'Companies inside this' });
     this.addCompanyButton    = page.getByRole('button', { name: 'Add company' });
-    this.companyNameInput    = page.getByRole('textbox', { name: 'Company name' });
-    this.legalNameInput      = page.getByRole('textbox', { name: 'Legal name' });
-    this.websiteInput        = page.getByRole('textbox', { name: 'Website' });
-    this.companyLocInput     = page.getByRole('textbox', { name: 'Search city, state, country' });
-    this.descriptionInput    = page.getByRole('textbox', { name: 'Short description' });
-    this.createCompanyButton = page.getByRole('button', { name: 'Create company' });
-    this.companySearchInput  = page.getByRole('textbox', { name: 'Search company, legal name,' });
+  this.companyNameInput = page.getByRole('textbox', { name: 'Company Name *' });
+this.legalNameInput = page.getByRole('textbox', { name: 'Legal Name *' });
+this.websiteInput = page.getByRole('textbox', { name: 'Website *' });
+this.locationInput = page.getByRole('textbox', { name: 'Search city...' });
+this.descriptionInput = page.getByRole('textbox', { name: 'Description' });
+this.createCompanyBtn = page.getByRole('button', { name: 'Save' });
+  this.companySearchInput  = page.getByRole('textbox', { name: 'Search company, legal name,' });
     this.uploadLogoInput     = page.locator('input[type="file"]').nth(0);
     this.saveCompanyButton   = page.getByRole('button', { name: 'Save company' });
   }
@@ -157,15 +159,17 @@ class SettingsPage extends BasePage {
 
   // ── Personal Profile ───────────────────────────────────
   async updateProfile({ fullName, email, phone }) {
-    await this.editProfileButton.click();
-    await this.fullNameInput.click();
-    await this.fullNameInput.fill(fullName);
-    await this.profileEmailInput.click();
-    await this.profileEmailInput.fill(email);
-    await this.phoneInput.click();
-    await this.phoneInput.fill(phone);
-    await this.saveChangesButton.click();
-  }
+  await this.editProfileButton.click();
+
+  await expect(this.fullNameInput).toBeVisible();
+  await expect(this.profileEmailInput).toBeVisible();
+  await expect(this.phoneInput).toBeVisible();
+
+  await this.fullNameInput.fill(fullName);
+  await this.profileEmailInput.fill(email);
+  await this.phoneInput.fill(phone);
+  await this.saveChangesButton.click();
+}
 
   // ── Companies ──────────────────────────────────────────
   async addCompany({ companyName, legalName, website, locationQuery, locationOption, description }) {

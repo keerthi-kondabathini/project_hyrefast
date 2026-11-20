@@ -36,6 +36,7 @@ class CandidateExplorerPage extends BasePage {
 
     // ── Table ───────────────────────────────────────────────
     this.tableRows      = page.locator('table tbody tr');
+    this.loadingIndicator = page.getByText('Loading applicants...');
     this.rowsPerPageCombo = page.getByRole('combobox').filter({ hasText: /^\d+$/ }).first();
   }
 
@@ -67,54 +68,74 @@ class CandidateExplorerPage extends BasePage {
    * Parse the visible applicant table rows into a plain array of objects.
    * Falls back to any table row with enough cells.
    */
-  async captureTableData() {
-    await this.page.waitForTimeout(1000);
+  async captureTableData(expectedName) {
+    await this._waitForTableLoaded();
 
-    return this.page.evaluate(() => {
-      const rows = Array.from(document.querySelectorAll('table tbody tr, table tr'));
-      const candidates = [];
-
-      rows.forEach((row) => {
-        const cells = Array.from(row.querySelectorAll('td'));
-        if (cells.length < 7) return;
-
-        const applicantCell = cells[0];
-        const paragraphs = applicantCell.querySelectorAll('p');
-        const name = paragraphs[0]?.textContent?.trim();
-        const email = paragraphs[1]?.textContent?.trim();
-        const phone = paragraphs[2]?.textContent?.trim();
-
-        const addedByCell = cells[1];
-        const addedByParas = addedByCell.querySelectorAll('p');
-        const addedBy = addedByParas[0]?.textContent?.trim();
-        const addedOn = addedByParas[2]?.textContent?.trim();
-
-        const updatedOnCell = cells[2];
-        const updatedAgo = updatedOnCell.querySelectorAll('p')[0]?.textContent?.trim();
-        const updatedDate = updatedOnCell.querySelectorAll('p')[1]?.textContent?.trim();
-
-        const role = cells[3]?.textContent?.trim();
-        const scoresText = cells[4]?.textContent?.trim();
-        const status = cells[5]?.textContent?.trim();
-
-        if (name) {
-          candidates.push({
-            name,
-            email,
-            phone,
-            addedBy,
-            addedOn,
-            updatedAgo,
-            updatedDate,
-            role,
-            scoresText,
-            status,
-          });
+    if (expectedName) {
+      // Wait until the first visible table row contains the expected name
+      // (ensures the table has finished refreshing, not just mixed old+new rows)
+      await expect.poll(async () => {
+        const rows = await this.page.locator('table tbody tr').all();
+        for (const row of rows) {
+          const isVisible = await row.isVisible().catch(() => false);
+          if (!isVisible) continue;
+          const text = await row.textContent() || '';
+          if (text.includes(expectedName)) return true;
         }
-      });
+        return false;
+      }, {
+        timeout: 30_000,
+        message: `Expected first visible table row to contain "${expectedName}"`,
+      }).toBe(true);
+    }
 
-      return candidates;
-    });
+    const rows = await this.page.locator('table tbody tr').all();
+    const candidates = [];
+
+    for (const row of rows) {
+      const isVisible = await row.isVisible().catch(() => false);
+      if (!isVisible) continue;
+
+      const cells = await row.locator('td').all();
+      if (cells.length < 7) continue;
+
+      const applicantCell = cells[0];
+      const paragraphs = await applicantCell.locator('p').allTextContents();
+      const name = paragraphs[0]?.trim();
+      const email = paragraphs[1]?.trim();
+      const phone = paragraphs[2]?.trim();
+
+      const addedByCell = cells[1];
+      const addedByParas = await addedByCell.locator('p').allTextContents();
+      const addedBy = addedByParas[0]?.trim();
+      const addedOn = addedByParas[2]?.trim();
+
+      const updatedOnCell = cells[2];
+      const updatedParas = await updatedOnCell.locator('p').allTextContents();
+      const updatedAgo = updatedParas[0]?.trim();
+      const updatedDate = updatedParas[1]?.trim();
+
+      const role = (await cells[3].textContent() || '').trim();
+      const scoresText = (await cells[4].textContent() || '').trim();
+      const status = (await cells[5].textContent() || '').trim();
+
+      if (name) {
+        candidates.push({
+          name,
+          email,
+          phone,
+          addedBy,
+          addedOn,
+          updatedAgo,
+          updatedDate,
+          role,
+          scoresText,
+          status,
+        });
+      }
+    }
+
+    return candidates;
   }
 
   // ═══════════════════════════════════════════════════════
@@ -128,17 +149,28 @@ class CandidateExplorerPage extends BasePage {
    */
   async searchBy(field, value) {
     // Clear any existing search text first
+    await this.searchInput.click();
     await this.searchInput.fill('');
+    await this.page.waitForTimeout(500);
 
     // Open combo and select the requested field
     await this.searchCombo.click();
     await this.page.getByRole('option', { name: field }).click();
-    await this.page.waitForTimeout(300);
+    await this.page.waitForTimeout(500);
 
     // Fill and submit
+    await this.searchInput.click();
     await this.searchInput.fill(value);
+    await this.page.waitForTimeout(1000);
     await this.searchInput.press('Enter');
-    await this.page.waitForTimeout(2500);
+
+    // Wait for the table to finish loading
+    await this._waitForTableLoaded();
+  }
+
+  async _waitForTableLoaded() {
+    await expect(this.loadingIndicator).toHaveCount(0, { timeout: 30_000 });
+    await this.page.waitForTimeout(1000);
   }
 
   async clearSearch() {
@@ -281,7 +313,7 @@ class CandidateExplorerPage extends BasePage {
   async setRowsPerPage(count) {
     await this.rowsPerPageCombo.click();
     await this.page.getByRole('option', { name: String(count) }).click();
-    await this.page.waitForTimeout(2500);
+    await this._waitForTableLoaded();
   }
 
   // ═══════════════════════════════════════════════════════

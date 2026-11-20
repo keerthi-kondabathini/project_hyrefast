@@ -1,0 +1,134 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e608]:
+    - generic [ref=e609]:
+      - generic [ref=e610]:
+        - generic [ref=e611]:
+          - button [ref=e612] [cursor=pointer]:
+            - img
+          - generic [ref=e613]:
+            - paragraph [ref=e614]: Job title
+            - heading ".NET Developer" [level=1] [ref=e733]
+        - generic [ref=e616]: Job
+      - generic [ref=e617]:
+        - generic [ref=e618]:
+          - generic [ref=e619]: Job
+          - button [ref=e620] [cursor=pointer]:
+            - img [ref=e621]
+        - generic [ref=e623]:
+          - generic [ref=e624]: Skills
+          - button [ref=e625] [cursor=pointer]:
+            - img [ref=e626]
+        - generic [ref=e628]:
+          - generic [ref=e629]: Rounds
+          - button [ref=e630] [cursor=pointer]:
+            - img [ref=e631]
+        - generic [ref=e633]:
+          - generic [ref=e634]: Settings
+          - button [ref=e635] [cursor=pointer]:
+            - img [ref=e636]
+    - generic [ref=e639]:
+      - generic [ref=e640]:
+        - generic [ref=e641]:
+          - generic [ref=e734]:
+            - img [ref=e736]
+            - generic [ref=e739]:
+              - heading "Advanced_DotNet_Resume_7.docx" [level=4] [ref=e740]
+              - paragraph [ref=e741]: Processed
+            - generic [ref=e742]:
+              - button [ref=e743] [cursor=pointer]:
+                - img
+              - button [ref=e744] [cursor=pointer]:
+                - img
+          - generic [ref=e652]:
+            - generic [ref=e653]:
+              - generic [ref=e654]:
+                - generic [ref=e655]: Job Title *
+                - textbox "e.g. Senior React Developer" [ref=e656]: .NET Developer
+              - generic [ref=e657]:
+                - generic [ref=e658]: External Job ID (optional)
+                - textbox "e.g. greenhouse-role-987" [ref=e659]
+            - generic [ref=e660]:
+              - generic [ref=e661]: Location *
+              - generic [ref=e663]:
+                - generic "Hyderabad, India" [ref=e745]:
+                  - img [ref=e746]
+                  - generic [ref=e749]: Hyderabad, India
+                  - button "Remove Hyderabad, India" [ref=e750] [cursor=pointer]:
+                    - img [ref=e751]
+                - textbox "Add location..." [ref=e754]
+            - generic [ref=e665]:
+              - generic [ref=e666]: Company Profile*(Agency)
+              - combobox [ref=e667] [cursor=pointer]:
+                - generic: Gimolov
+                - img [ref=e668]
+        - generic [ref=e671]:
+          - heading "Role Snapshot" [level=3] [ref=e672]
+          - generic [ref=e673]:
+            - generic [ref=e674]:
+              - generic [ref=e675]: Experience (years) *
+              - generic [ref=e676]: 3 - 5 years
+            - generic [ref=e677]:
+              - slider "Minimum" [ref=e680]
+              - slider "Maximum" [ref=e682]
+          - generic [ref=e683]:
+            - generic [ref=e684]:
+              - generic [ref=e685]: Salary Range (LPA)
+              - generic [ref=e686]: INR 0 LPA
+            - generic [ref=e687]:
+              - slider "Minimum" [ref=e690]
+              - slider "Maximum" [ref=e692]
+          - generic [ref=e693]:
+            - text: Work Mode
+            - generic [ref=e694]:
+              - button "On-site" [ref=e695] [cursor=pointer]
+              - button "Hybrid" [ref=e696] [cursor=pointer]
+              - button "Remote" [ref=e697] [cursor=pointer]
+          - generic [ref=e698]:
+            - text: Work Type
+            - generic [ref=e699]:
+              - button "Full-time" [active] [ref=e700] [cursor=pointer]
+              - button "Contract" [ref=e701] [cursor=pointer]
+              - button "Part-time" [ref=e702] [cursor=pointer]
+              - button "Internship" [ref=e703] [cursor=pointer]
+          - generic [ref=e704]:
+            - button "Education & Certifications * 1" [ref=e756] [cursor=pointer]:
+              - generic [ref=e706]:
+                - img [ref=e707]
+                - generic [ref=e710]: Education & Certifications *
+                - generic [ref=e757]: "1"
+              - img [ref=e711]
+            - generic [ref=e713]:
+              - generic [ref=e714]:
+                - generic [ref=e715]:
+                  - generic [ref=e716]: Education
+                  - button "Add" [ref=e717] [cursor=pointer]:
+                    - img [ref=e718]
+                    - text: Add
+                - generic [ref=e758]:
+                  - combobox [ref=e759] [cursor=pointer]:
+                    - generic: Bachelor's
+                    - img [ref=e760]
+                  - textbox "Field of study" [ref=e762]: Computer Science
+                  - generic [ref=e763]:
+                    - button "Req" [ref=e764] [cursor=pointer]
+                    - button "Pref" [ref=e765] [cursor=pointer]
+                  - button [ref=e766] [cursor=pointer]:
+                    - img [ref=e767]
+              - generic [ref=e720]:
+                - generic [ref=e721]:
+                  - generic [ref=e722]:
+                    - img [ref=e723]
+                    - text: Certifications
+                  - button "Add" [ref=e726] [cursor=pointer]:
+                    - img [ref=e727]
+                    - text: Add
+                - paragraph [ref=e728]: No certifications added
+      - generic [ref=e729]:
+        - button "Cancel" [ref=e730] [cursor=pointer]
+        - generic [ref=e731]:
+          - button "Save Draft" [ref=e732] [cursor=pointer]
+          - button "Continue to Skills →" [ref=e770] [cursor=pointer]

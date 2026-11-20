@@ -26,7 +26,8 @@
         "name": "chromium",
         "testDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/tests",
         "testIgnore": [
-          "**/interview/**"
+          "**/interview/**",
+          "**/api/**"
         ],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -46,6 +47,22 @@
         "testIgnore": [],
         "testMatch": [
           "**/interview/**"
+        ],
+        "timeout": 0
+      },
+      {
+        "outputDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "api",
+        "name": "api",
+        "testDir": "C:/Users/konda/Downloads/hyrefast-automation_10/hyrefast-automation/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/api/**/*.spec.js"
         ],
         "timeout": 0
       }
@@ -84,21 +101,21 @@
   },
   "suites": [
     {
-      "title": "reports\\reportsAndTrackers.spec.js",
-      "file": "reports/reportsAndTrackers.spec.js",
+      "title": "marketplace\\partnerDashboard.spec.js",
+      "file": "marketplace/partnerDashboard.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "TC_RPT — Reports & Trackers",
-          "file": "reports/reportsAndTrackers.spec.js",
-          "line": 39,
+          "title": "Marketplace partner dashboard (staging only)",
+          "file": "marketplace/partnerDashboard.spec.js",
+          "line": 44,
           "column": 6,
           "specs": [
             {
-              "title": "TC_RPT_023 — Add custom tracker column and bind candidate data",
-              "ok": true,
+              "title": "assigned jobs open, and search returns an empty state for no matches",
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -111,48 +128,113 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 51828,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Headers after add: [\n  \u001b[32m''\u001b[39m,\n  \u001b[32m'column1'\u001b[39m,\n  \u001b[32m'Source Details'\u001b[39m,\n  \u001b[32m'location'\u001b[39m,\n  \u001b[32m'AutoCol_1788497769319'\u001b[39m,\n  \u001b[32m'AutoCol_1788498021718'\u001b[39m,\n  \u001b[32m'AutoCol_1788498469697'\u001b[39m,\n  \u001b[32m'AutoCol_1788498621928'\u001b[39m,\n  \u001b[32m'AutoCol_1788505867835'\u001b[39m,\n  \u001b[32m'AutoCol_1788506632520'\u001b[39m,\n  \u001b[32m'AutoCol_1788507733204'\u001b[39m,\n  \u001b[32m'AutoCol_1788510662107'\u001b[39m\n]\n"
+                      "status": "failed",
+                      "duration": 57448,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/no open jobs match your search/i)\nExpected: visible\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 50000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/no open jobs match your search/i)\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/no open jobs match your search/i)\nExpected: visible\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 50000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/no open jobs match your search/i)\u001b[22m\n\n    at C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\marketplace\\partnerDashboard.spec.js:66:69",
+                        "location": {
+                          "file": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\marketplace\\partnerDashboard.spec.js",
+                          "column": 69,
+                          "line": 66
                         },
+                        "snippet": "\u001b[0m \u001b[90m 64 |\u001b[39m     \u001b[36mawait\u001b[39m partner\u001b[33m.\u001b[39mopenJobs()\u001b[33m;\u001b[39m\n \u001b[90m 65 |\u001b[39m     \u001b[36mawait\u001b[39m partner\u001b[33m.\u001b[39msearchJobs(\u001b[32m`no-match-${Date.now()}`\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[35m/no open jobs match your search/i\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 67 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m   test(\u001b[32m'candidate form blocks submission when required fields are blank'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
                         {
-                          "text": "Column index: \u001b[33m11\u001b[39m for AutoCol_1788510662107\n"
+                          "location": {
+                            "file": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\marketplace\\partnerDashboard.spec.js",
+                            "column": 69,
+                            "line": 66
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText(/no open jobs match your search/i)\nExpected: visible\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 50000ms\u001b[22m\n\u001b[2m  - waiting for getByText(/no open jobs match your search/i)\u001b[22m\n\n\n\u001b[0m \u001b[90m 64 |\u001b[39m     \u001b[36mawait\u001b[39m partner\u001b[33m.\u001b[39mopenJobs()\u001b[33m;\u001b[39m\n \u001b[90m 65 |\u001b[39m     \u001b[36mawait\u001b[39m partner\u001b[33m.\u001b[39msearchJobs(\u001b[32m`no-match-${Date.now()}`\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 66 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[35m/no open jobs match your search/i\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 67 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m   test(\u001b[32m'candidate form blocks submission when required fields are blank'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\marketplace\\partnerDashboard.spec.js:66:69\u001b[22m"
                         }
                       ],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "steps": [
+                      "startTime": "2026-11-20T06:36:23.472Z",
+                      "annotations": [],
+                      "attachments": [
                         {
-                          "title": "Open add column dialog and create column",
-                          "duration": 10003
-                        },
-                        {
-                          "title": "Verify new column appears in table header",
-                          "duration": 3690
-                        },
-                        {
-                          "title": "Bind existing candidate data to the new column",
-                          "duration": 3614
-                        },
-                        {
-                          "title": "Verify the cell value was bound",
-                          "duration": 1351
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\test-results\\marketplace-partnerDashboa-ed30b--empty-state-for-no-matches-chromium\\error-context.md"
                         }
                       ],
-                      "startTime": "2026-09-04T08:30:30.244Z",
-                      "annotations": [],
-                      "attachments": []
+                      "errorLocation": {
+                        "file": "C:\\Users\\konda\\Downloads\\hyrefast-automation_10\\hyrefast-automation\\tests\\marketplace\\partnerDashboard.spec.js",
+                        "column": 69,
+                        "line": 66
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
-              "id": "263de72c89a01f64d836-5599353442aded657427",
-              "file": "reports/reportsAndTrackers.spec.js",
-              "line": 436,
+              "id": "32db9ef7b79425fe5cca-3e8130f0bbce5d8734a9",
+              "file": "marketplace/partnerDashboard.spec.js",
+              "line": 53,
+              "column": 3
+            },
+            {
+              "title": "candidate form blocks submission when required fields are blank",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 0,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "32db9ef7b79425fe5cca-e68470fca321efddc094",
+              "file": "marketplace/partnerDashboard.spec.js",
+              "line": 69,
+              "column": 3
+            },
+            {
+              "title": "partner profile update persists and can be restored",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 0,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "32db9ef7b79425fe5cca-a34fd6d6b652b1bab3b6",
+              "file": "marketplace/partnerDashboard.spec.js",
+              "line": 80,
+              "column": 3
+            },
+            {
+              "title": "synthetic submission is visible to the company, status syncs, and cleanup deletes it",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 0,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "32db9ef7b79425fe5cca-f884b0b58858745a680b",
+              "file": "marketplace/partnerDashboard.spec.js",
+              "line": 104,
               "column": 3
             }
           ]
@@ -160,13 +242,17 @@
       ]
     }
   ],
-  "errors": [],
+  "errors": [
+    {
+      "message": "\u001b[31mTesting stopped early after 1 maximum allowed failures.\u001b[39m"
+    }
+  ],
   "stats": {
-    "startTime": "2026-09-04T08:30:28.679Z",
-    "duration": 54609.665,
-    "expected": 1,
-    "skipped": 0,
-    "unexpected": 0,
+    "startTime": "2026-11-20T06:36:19.559Z",
+    "duration": 63769.169,
+    "expected": 0,
+    "skipped": 3,
+    "unexpected": 1,
     "flaky": 0
   }
 }

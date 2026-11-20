@@ -1,0 +1,35 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "HyreFast Logo Welcome to HyreFast Streamline your hiring process with our powerful recruitment platform." [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "HyreFast Logo" [ref=e9]
+        - generic [ref=e10]:
+          - heading "Welcome to HyreFast" [level=1] [ref=e11]
+          - paragraph [ref=e12]: Streamline your hiring process with our powerful recruitment platform.
+      - generic [ref=e13]:
+        - generic [ref=e16]: Fast candidate screening
+        - generic [ref=e19]: Intelligent matching algorithms
+        - generic [ref=e22]: Collaborative hiring tools
+    - generic [ref=e59]:
+      - generic [ref=e60]:
+        - heading "Reset Password" [level=3] [ref=e61]
+        - paragraph [ref=e62]: We'll send you a reset link
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - text: Email Address
+          - generic [ref=e65]:
+            - img [ref=e66]
+            - textbox "Email Address" [ref=e69]:
+              - /placeholder: your.email@company.com
+        - generic [ref=e70]:
+          - button "Send Reset Link" [disabled]:
+            - img
+            - text: Send Reset Link
+          - button "Back to Sign In" [ref=e71] [cursor=pointer]:
+            - img
+            - text: Back to Sign In

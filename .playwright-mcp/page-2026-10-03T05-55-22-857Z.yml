@@ -1,0 +1,165 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list
+  - generic [ref=e1470]:
+    - generic [ref=e1471]:
+      - generic [ref=e1472]:
+        - generic [ref=e1473]:
+          - button [ref=e1474] [cursor=pointer]:
+            - img
+          - generic [ref=e1475]:
+            - paragraph [ref=e1476]: Job title
+            - heading "JD Upload QA 20261003" [level=1] [ref=e1477]
+        - generic [ref=e1478]: Rounds
+      - generic [ref=e1479]:
+        - generic [ref=e1480] [cursor=pointer]:
+          - generic [ref=e1481]: Job
+          - button [ref=e1482]:
+            - img [ref=e1483]
+        - generic [ref=e1485] [cursor=pointer]:
+          - generic [ref=e1486]: Skills
+          - button [ref=e1487]:
+            - img [ref=e1488]
+        - generic [ref=e1490]:
+          - generic [ref=e1491]: Rounds
+          - button [ref=e1492] [cursor=pointer]:
+            - img [ref=e1493]
+        - generic [ref=e1495]:
+          - generic [ref=e1496]: Settings
+          - button [ref=e1497] [cursor=pointer]:
+            - img [ref=e1498]
+    - generic [ref=e1583]:
+      - generic [ref=e1584]:
+        - generic [ref=e1585]:
+          - generic [ref=e1586]:
+            - heading "Interview Rounds" [level=2] [ref=e1587]
+            - paragraph [ref=e1588]: Add, remove, or reorder rounds. Screening is optional and can be placed anywhere in the flow.
+          - generic [ref=e1589]:
+            - generic [ref=e1590]:
+              - generic [ref=e1591]:
+                - generic [ref=e1592]:
+                  - img [ref=e1594]
+                  - generic [ref=e1596]:
+                    - generic [ref=e1597]:
+                      - generic [ref=e1598]: Tech
+                      - generic [ref=e1599]: Company Template
+                    - paragraph [ref=e1600]: 6 active stages configured for this job
+                - generic [ref=e1601]:
+                  - button "Save Pipeline" [disabled]:
+                    - img
+                    - generic: Save Pipeline
+              - alert [ref=e1602]:
+                - img [ref=e1603]
+                - generic [ref=e1605]: Currently using company default rounds. Customizing rounds or copying a template will save a dedicated pipeline for this job.
+              - generic [ref=e1606]:
+                - generic [ref=e1607]:
+                  - generic [ref=e1608]: "Active Template:"
+                  - combobox [ref=e1609] [cursor=pointer]:
+                    - generic: Tech (Default)
+                    - img [ref=e1610]
+                - combobox [ref=e1613] [cursor=pointer]:
+                  - img [ref=e1614]
+                  - generic [ref=e1617]: Copy Template Rounds...
+                  - img [ref=e1618]
+            - generic [ref=e1620]:
+              - generic [ref=e1621]:
+                - generic [ref=e1623]:
+                  - generic [ref=e1624]: "1"
+                  - img [ref=e1626]
+                  - button "Resume Screening" [ref=e1629] [cursor=pointer]
+                  - switch [checked] [ref=e1632] [cursor=pointer]
+                - generic [ref=e1633]:
+                  - generic [ref=e1634]:
+                    - generic [ref=e1635]: "2"
+                    - img [ref=e1637]
+                    - button "Hyrefast Bot Screening" [ref=e1640] [cursor=pointer]
+                    - switch [checked] [ref=e1643] [cursor=pointer]
+                  - generic [ref=e1644]:
+                    - generic [ref=e1645]:
+                      - img [ref=e1646]
+                      - generic [ref=e1649]: Setup is optional right now — configure questions now or later before inviting candidates.
+                    - button "Configure AI Interview" [ref=e1651] [cursor=pointer]:
+                      - img
+                - generic [ref=e1653]:
+                  - button [ref=e1654]:
+                    - img [ref=e1655]
+                  - generic [ref=e1662]: "3"
+                  - img [ref=e1664]
+                  - button "Aptitude" [ref=e1667] [cursor=pointer]
+                  - generic [ref=e1668]:
+                    - button "Expand round" [ref=e1669] [cursor=pointer]:
+                      - img
+                    - button "Delete round" [ref=e1670] [cursor=pointer]:
+                      - img
+                - generic [ref=e1672]:
+                  - button [ref=e1673]:
+                    - img [ref=e1674]
+                  - generic [ref=e1681]: "4"
+                  - img [ref=e1683]
+                  - button "Machine Test" [ref=e1686] [cursor=pointer]
+                  - generic [ref=e1687]:
+                    - button "Expand round" [ref=e1688] [cursor=pointer]:
+                      - img
+                    - button "Delete round" [ref=e1689] [cursor=pointer]:
+                      - img
+                - generic [ref=e1691]:
+                  - button [ref=e1692]:
+                    - img [ref=e1693]
+                  - generic [ref=e1700]: "5"
+                  - img [ref=e1702]
+                  - button "Technical" [ref=e1705] [cursor=pointer]
+                  - generic [ref=e1706]:
+                    - button "Expand round" [ref=e1707] [cursor=pointer]:
+                      - img
+                    - button "Delete round" [ref=e1708] [cursor=pointer]:
+                      - img
+                - generic [ref=e1710]:
+                  - button [ref=e1711]:
+                    - img [ref=e1712]
+                  - generic [ref=e1719]: "6"
+                  - img [ref=e1721]
+                  - button "HR" [ref=e1724] [cursor=pointer]
+                  - generic [ref=e1725]:
+                    - button "Expand round" [ref=e1726] [cursor=pointer]:
+                      - img
+                    - button "Delete round" [ref=e1727] [cursor=pointer]:
+                      - img
+              - status [ref=e1728]
+              - button "Add Round" [ref=e1729] [cursor=pointer]:
+                - img
+                - text: Add Round
+        - generic [ref=e1730]:
+          - generic [ref=e1731]:
+            - heading "Hiring Process Summary" [level=3] [ref=e1733]
+            - generic [ref=e1734]:
+              - generic [ref=e1735]:
+                - paragraph [ref=e1736]: Total Rounds
+                - generic [ref=e1738]: "6"
+                - paragraph [ref=e1739]: AI screening is included in your flow
+              - generic [ref=e1740]:
+                - generic [ref=e1741]:
+                  - img [ref=e1742]
+                  - paragraph [ref=e1745]: AI Screening Setup
+                - generic [ref=e1747]:
+                  - img [ref=e1748]
+                  - text: Pending Setup
+                - paragraph [ref=e1751]: You can customize interview questions now, or complete setup later before inviting candidates.
+          - generic [ref=e1752]:
+            - generic [ref=e1753]:
+              - img [ref=e1754]
+              - heading "Why use AI screening?" [level=4] [ref=e1756]
+            - paragraph [ref=e1757]: AI screening evaluates applicants on technical skills and communication before manual rounds, helping your team focus on top candidates.
+            - generic [ref=e1758]:
+              - img [ref=e1759]
+              - generic [ref=e1761]: You can reorder rounds or configure interview criteria anytime before inviting candidates.
+      - generic [ref=e1762]:
+        - button "Back to Skills" [ref=e1763] [cursor=pointer]:
+          - img
+          - text: Back to Skills
+        - generic [ref=e1764]:
+          - button "Save Draft" [ref=e1765] [cursor=pointer]
+          - button "Continue to Job Settings" [ref=e1766] [cursor=pointer]:
+            - text: Continue to Job Settings
+            - img

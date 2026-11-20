@@ -144,6 +144,21 @@ class YopMailPage extends BasePage {
     ).toBeVisible({ timeout: 60000 });
   }
 
+  async openResetPasswordEmail() {
+    if (this.provider === 'mailtm') {
+      await this.assertResetPasswordEmailVisible();
+      return;
+    }
+
+    const frame = this.mailFrame();
+    const subject = frame.getByText('Reset Your HyreFast Password').first();
+    await expect(subject).toBeVisible({ timeout: 60000 });
+    await subject.click();
+    await expect(
+      frame.getByRole('link', { name: 'Reset My Password' })
+    ).toBeVisible({ timeout: 15000 });
+  }
+
   async assertPasswordResetSuccessfulEmailVisible() {
     if (this.provider === 'mailtm') {
       this.mailTmMessage = await this.mailTmClient.waitForMessage({

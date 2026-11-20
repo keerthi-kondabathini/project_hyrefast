@@ -39,6 +39,7 @@ class LoginPage extends BasePage {
   async login(email, password) {
     await this.fillInput(this.emailInput, email);
     await this.fillInput(this.passwordInput, password);
+    await this.waitMs(2_000);
     await this.signInButton.click();
     await this.page.waitForLoadState('networkidle');
   }
